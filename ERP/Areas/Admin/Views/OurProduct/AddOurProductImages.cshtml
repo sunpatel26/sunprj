@@ -1,0 +1,106 @@
+﻿@using ERP.Helpers
+@model Business.Entities.OurProduct.OurProduct;
+<form class="form-horizontal" role="form" id="formAddOurProduct">
+    <div class="row mt-3">
+        <div class="col-md-12">            
+            <div class="row mb-3">
+                <input type="hidden" asp-for="ItemID" />
+                <label class="col-sm-3 col-form-label">Item<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" required="" class="form-control" id="ItemText"
+                           name="ItemText" asp-for="ItemText" placeholder="">
+                    <span asp-validation-for="ItemText" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">UOM<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <select asp-for="UOMID" asp-items="ViewBag.UOMID" class="form-control">
+                        <option value="">Select Units</option>
+                    </select>
+                    <span asp-validation-for="UOMID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Quantity<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="Quantity" name="Quantity" asp-for="Quantity" required="">
+                    <span asp-validation-for="Quantity" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Description<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="Descrription" name="Descrription" asp-for="Descrription" required="">
+                    <span asp-validation-for="Descrription" class="text-danger "></span>
+                </div>
+            </div>
+
+
+            <div class="modal-footer-sticky text-center">
+                <button id="btnSave" type="button" onclick="fnSubmit()" class="btn btn-primary btn-info px-5 ladda-button">Add</button>
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-primary btn-info px-5 my-2">Back</button>
+            </div>
+        </div>
+    </div>
+</form>
+@await Html.PartialAsync("_ValidationScriptsPartial")
+
+<script type="text/javascript">
+    var urlsave = '@Url.Action("AddOurProduct", "OurProduct")';
+    function fnSubmit() {
+        if ($("#formAddOurProduct").valid()) {
+            var l = laddaStart('btnSave');
+            console.log(l);
+            modeldata = $("#formAddOurProduct").serialize();
+            $.ajax({
+                type: 'POST',
+                url: urlsave,
+                data: modeldata,
+                dataType: 'json',
+                beforeSend: function() { },
+                success: function(data) {
+                    window.location.reload().delay(3000);
+                    if (data.status) {
+                        //notification
+                        $("#formAddOurProduct").hide();//('hide');
+                        Lobibox.notify('success', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                    else {
+                        Lobibox.notify('error', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                },
+                error: function(error) {
+                    laddaStop(l);
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            }).always(function() {
+                hideLoader();
+            });
+        }
+    };
+</script>

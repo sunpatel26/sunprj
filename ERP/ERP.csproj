@@ -1,0 +1,146 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>aspnet-ERP-AE2969B3-75AD-4EA0-A236-44AF57519291</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Views\MasterEntity\**" />
+    <Compile Remove="Areas\Admin\Views\RequestTypeControlScreen\**" />
+    <Compile Remove="Areas\Admin\Views\RequestTypeControl\**" />
+    <Compile Remove="Areas\Admin\Views\RequestTypeModule\**" />
+    <Compile Remove="Areas\Admin\Views\RequestType\**" />
+    <Compile Remove="Areas\Identity\Pages\**" />
+    <Compile Remove="wwwroot\admin\assets\vendors\autocomplete\**" />
+    <Compile Remove="wwwroot\assets\images\gallery\**" />
+    <Compile Remove="wwwroot\assets\images\icons\**" />
+    <Compile Remove="wwwroot\assets\images\products\**" />
+    <Content Remove="Areas\Admin\Views\MasterEntity\**" />
+    <Content Remove="Areas\Admin\Views\RequestTypeControlScreen\**" />
+    <Content Remove="Areas\Admin\Views\RequestTypeControl\**" />
+    <Content Remove="Areas\Admin\Views\RequestTypeModule\**" />
+    <Content Remove="Areas\Admin\Views\RequestType\**" />
+    <Content Remove="Areas\Identity\Pages\**" />
+    <Content Remove="wwwroot\admin\assets\vendors\autocomplete\**" />
+    <Content Remove="wwwroot\assets\images\gallery\**" />
+    <Content Remove="wwwroot\assets\images\icons\**" />
+    <Content Remove="wwwroot\assets\images\products\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\MasterEntity\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\RequestTypeControlScreen\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\RequestTypeControl\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\RequestTypeModule\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\RequestType\**" />
+    <EmbeddedResource Remove="Areas\Identity\Pages\**" />
+    <EmbeddedResource Remove="wwwroot\admin\assets\vendors\autocomplete\**" />
+    <EmbeddedResource Remove="wwwroot\assets\images\gallery\**" />
+    <EmbeddedResource Remove="wwwroot\assets\images\icons\**" />
+    <EmbeddedResource Remove="wwwroot\assets\images\products\**" />
+    <None Remove="Areas\Admin\Views\MasterEntity\**" />
+    <None Remove="Areas\Admin\Views\RequestTypeControlScreen\**" />
+    <None Remove="Areas\Admin\Views\RequestTypeControl\**" />
+    <None Remove="Areas\Admin\Views\RequestTypeModule\**" />
+    <None Remove="Areas\Admin\Views\RequestType\**" />
+    <None Remove="Areas\Identity\Pages\**" />
+    <None Remove="wwwroot\admin\assets\vendors\autocomplete\**" />
+    <None Remove="wwwroot\assets\images\gallery\**" />
+    <None Remove="wwwroot\assets\images\icons\**" />
+    <None Remove="wwwroot\assets\images\products\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Controllers\RequestTypeControlController.cs" />
+    <Compile Remove="Areas\Admin\Controllers\RequestTypeController.cs" />
+    <Compile Remove="Areas\Admin\Controllers\RequestTypeControlScreenController.cs" />
+    <Compile Remove="Areas\Admin\Controllers\RequestTypeModuleController.cs" />
+    <Compile Remove="Data\ContextSeed.cs" />
+    <Compile Remove="Extensions\MvcControllerDiscovery.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Marketing\Views\Shared\_LayoutMaster.cshtml" />
+    <Content Remove="Areas\Marketing\Views\Shared\_sidebar.cshtml" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <Content Remove="Areas\Marketing\Views\Shared\_LayoutMaster.cshtml" />
+    <Content Remove="Areas\Marketing\Views\Shared\_sidebar.cshtml" />
+  </ItemGroup>-->
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="NLog" Version="5.0.4" />
+
+	  <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+	  <PackageReference Include="ClosedXML" Version="0.95.4" />
+	  <PackageReference Include="Razor.Templating.Core" Version="1.4.0" />
+	  <PackageReference Include="Select.HtmlToPdf.NetCore" Version="22.1.0" />
+	  <PackageReference Include="Syncfusion.HtmlToPdfConverter.QtWebKit.Net.Core" Version="20.1.0.47" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\HR\Controllers\" />
+    <Folder Include="Areas\HR\Data\" />
+    <Folder Include="Areas\HR\Models\" />
+    <Folder Include="Areas\HR\Views\" />
+    <Folder Include="Areas\Marketing\Data\" />
+    <Folder Include="Areas\Marketing\Models\" />
+    <Folder Include="Areas\SuperAdmin\Data\" />
+    <Folder Include="Areas\Sales\Controllers\" />
+    <Folder Include="Areas\Sales\Data\" />
+    <Folder Include="Areas\Sales\Models\" />
+    <Folder Include="Areas\Sales\Views\" />
+    <Folder Include="Filters\" />
+    <Folder Include="wwwroot\assets\images\uploadProductImages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Admin\Views\Shared\_LayoutMaster.cshtml" />
+    <None Include="Areas\Marketing\Views\Shared\_LayoutMaster.cshtml" />
+    <None Include="Areas\Marketing\Views\Shared\_sidebar.cshtml" />
+    <None Include="Areas\SuperAdmin\Views\PartyType\CreateOrUpdatePartyType.cshtml" />
+    <None Include="Areas\SuperAdmin\Views\PartyType\Index.cshtml" />
+    <None Include="Views\Visitor2\Create.cshtml" />
+    <None Include="Views\WebCam\CaptureImage.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Business\Business.Entities\Business.Entities\Business.Entities.csproj" />
+    <ProjectReference Include="..\Business\Business.Implementation\Businessa.Service\Business.Service\Business.Service.csproj" />
+    <ProjectReference Include="..\Infrastructure\GridBlazor\GridBlazor.csproj" />
+    <ProjectReference Include="..\Infrastructure\GridMvc\GridMvc.csproj" />
+    <ProjectReference Include="..\Infrastructure\GridShared\GridShared.csproj" />
+    <ProjectReference Include="..\Infrastructure\JsonStore\Kinfo.JsonStore\Kinfo.JsonStore.csproj" />
+    <ProjectReference Include="..\Infrastructure\Util\Utils\Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\assets\images\wireImages\Products\BuildingWire\building-wire.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\assets\images\wireImages\Products\BuildingWire\building-wire2.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\assets\images\wireImages\Products\Solar Cable\SOLAR CABLE.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

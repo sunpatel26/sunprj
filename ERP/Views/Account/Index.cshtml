@@ -1,0 +1,219 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 0px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            vertical-align: top;
+        }
+
+        .button-7 {
+            background-color: #0095ff;
+            border: 1px solid transparent;
+            border-radius: 3px;
+            box-shadow: rgb(255 255 255 / 40%) 0 1px 0 0 inset;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.15385;
+            margin: 0;
+            outline: none;
+            padding: 8px 0.8em;
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: baseline;
+            white-space: nowrap;
+        }
+
+
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button2 {
+            background-color: #008CBA;
+        }
+        /* Blue */
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <h2>HTML Table</h2>
+
+    <table>
+
+        <tr>
+            <td>
+                <table>
+
+                    <tr>
+                        <td><b>DCR Score</b></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="dcrscore" id="dcrscore">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td><b>Life Style Conditions</b></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="hasdiabities" name="hasdiabities">
+                                        <label for="scales">hasdiabities</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="isSedentary" name="isSedentary">
+                                        <label for="horns">isSedentary</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="hasRedMeatDiet" name="hasRedMeatDiet">
+                                        <label for="horns">hasRedMeatDiet</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="hasPoorleep" name="hasPoorleep">
+                                        <label for="horns">hasPoorsleep</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+            <td>
+                <table>
+
+                    <tr>
+                        <td><b>Blood Pressure Level</b></td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="bloodPressure" id="bloodPressure">
+                                <option value="highnormalbloodpressure">high normal blood pressure</option>
+
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input id="btnsubmit" type="submit" value="Submit" class="button button2"  />
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            $("#btnsubmit").click(function () {
+                let endpoint =  "https://5642qhr52m.execute-api.us-east-1.amazonaws.com/stage"
+                let apiKey = '5b578yg9yvi8sogirbvegoiufg9v9g579gviuiub8'
+
+                var myObj = {
+                    "dcr_score": "1",
+                    "has_diabetes": "hasDiabetes",
+                    "has_blood_pressure": "highNormalBloodPressure"
+                };
+
+                    $.ajax({
+                        url: endpoint,
+                        contentType: "application/json",
+                        dataType: 'json',
+                        data: myObj,
+                        success: function (result) {
+                            console.log(result);
+                        }
+                    })
+                
+            });
+        });
+        function send() {
+            var urlvariable;
+
+            urlvariable = "text";
+
+            var ItemJSON;
+            var dcrScore = document.getElementById("dcrscore").value;
+            var bloodPressure = document.getElementById("bloodPressure").value;
+            //var dcrScore = document.getElementById("dcrscore").value;
+            console.log(dcrScore);
+            var myObj = {
+                "dcr_score": "1",
+                "has_diabetes": "hasDiabetes",
+                "has_blood_pressure": "highNormalBloodPressure"
+            };
+
+
+            URL = "https://5642qhr52m.execute-api.us-east-1.amazonaws.com/stage"
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = callbackFunction(xmlhttp);
+            xmlhttp.open("POST", URL, false);
+            xmlhttp.setRequestHeader("Content-Type", "application/json");
+            //.xmlhttp.setRequestHeader('Authorization', 'Basic ' + window.btoa('apiusername:apiuserpassword')); //in prod, you should encrypt user name and password and provide encrypted keys here instead
+            xmlhttp.onreadystatechange = callbackFunction(xmlhttp);
+            xmlhttp.send(JSON.stringify(myObj));
+            alert(xmlhttp.responseText);
+            document.getElementById("div").innerHTML = xmlhttp.statusText + ":" + xmlhttp.status + "<BR><textarea rows='100' cols='100'>" + xmlhttp.responseText + "</textarea>";
+        }
+
+        function callbackFunction(xmlhttp) {
+            //alert(xmlhttp.responseXML);
+        }
+    </script>
+</body>
+</html>
+

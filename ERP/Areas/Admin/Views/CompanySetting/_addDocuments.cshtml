@@ -1,0 +1,130 @@
+﻿@model CompanyDocumentMetadata
+<form method="post" id="frmdoc" asp-action="SaveDocument" asp-controller="CompanySetting" asp-area="Admin" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+
+    <div class="row mt-3">
+        <input type="hidden" asp-for="CompanyID" />
+        <input type="hidden" asp-for="CompanyDocumentsID" />
+        <div class="col-md-12">
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Document Type<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="DocumentTypeID" asp-items="@SuperCompanyDropdownBinder.DocumentType()">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="DocumentTypeID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Document Name<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" required="" class="form-control" asp-for="DocumentName" placeholder="" maxlength="100">
+                    <span asp-validation-for="DocumentName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Discription</label>
+                <div class="col-sm-8">
+                    <textarea type="text" rows="6" class="form-control" asp-for="DocumentDesc" placeholder="" maxlength="1000"></textarea>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Upload Document</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="File" />
+                    <span asp-validation-for="File" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Is Active</label>
+                <div class="col-sm-8">
+                    <input type="checkbox" class="form-check-input" asp-for="IsActive">
+                </div>
+            </div>
+
+            <div class="modal-footer-sticky">
+                <button id="btnSave" type="button" onclick="fnSubmit()" class="btn btn-primary btn-info px-5 ladda-button">Save</button>
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-primary btn-info px-5">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+<link href="~/admin/assets/vendors/typehead/jquery.typeahead.min.css" rel="stylesheet" />
+<script src="~/admin/assets/vendors/typehead/jquery.typeahead.min.js"></script>
+@await Html.PartialAsync("_ValidationScriptsPartial")
+<script type="text/javascript">
+    var urlSave = '@Url.Action("SaveDocument", "CompanySetting")';
+    function fnSubmit() {
+        // alert($("#frmaddcompnayaddress").valid());
+        if ($("#frmdoc").valid()) {
+            var ls = laddaStart('btnSave');
+            modeldata = $("#frmdoc").serialize();
+           
+            var formData = new FormData();
+            formData.append("CompanyDocumentsID", $("#CompanyDocumentsID").val());
+            formData.append("DocumentTypeID", $("#DocumentTypeID").val());
+            formData.append("DocumentName", $("#DocumentName").val());
+            formData.append("DocumentDesc", $("#DocumentDesc").val());
+            formData.append("IsActive", $("#IsActive").val());
+            //formData.append("File", $("#fuDocument")[0].files[0]);
+
+            
+            var input = document.getElementById("File");
+            var files = input.files;
+            
+
+            for (var i = 0; i !== files.length; i++) {
+                formData.append("files", files[i]);
+            }
+
+
+            $.ajax({
+                type: 'POST',
+                url: urlSave,
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function () { },
+                success: function (data) {
+                    if (data.status) {
+                        //notification
+                        $("#canvas_document").hide();//('hide');
+                        Lobibox.notify('success', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                    else {
+                        laddaStop(ls);
+                        Lobibox.notify('error', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: '@MessageHelper.Error'
+                        });
+                    }
+                },
+                error: function (error) {
+                    laddaStop(ls);
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: '@MessageHelper.Error'
+                    });
+                }
+            }).always(function () {
+                hideloader();
+            });
+        }
+    };
+
+</script>

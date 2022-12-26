@@ -1,0 +1,194 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 0px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            vertical-align: top;
+        }
+
+        .button-7 {
+            background-color: #0095ff;
+            border: 1px solid transparent;
+            border-radius: 3px;
+            box-shadow: rgb(255 255 255 / 40%) 0 1px 0 0 inset;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.15385;
+            margin: 0;
+            outline: none;
+            padding: 8px 0.8em;
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: baseline;
+            white-space: nowrap;
+        }
+
+
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button2 {
+            background-color: #008CBA;
+        }
+        /* Blue */
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <h2>Rules Engine Proof of Concept App</h2>
+
+    <table>
+
+        <tr>
+            <td>
+                <table>
+
+                    <tr>
+                        <td><b>DCR Score</b></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="dcrscore" id="dcrscore">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td><b>Life Style Conditions</b></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="hasdiabities" value="hasdiabities" name="hasdiabities">
+                                        <label for="hasdiabities">hasdiabities</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="isSedentary" value="isSedentary" name="isSedentary">
+                                        <label for="isSedentary">isSedentary</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="hasRedMeatDiet" value="hasRedMeatDiet" name="hasRedMeatDiet">
+                                        <label for="hasRedMeatDiet">hasRedMeatDiet</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="hasPoorleep" value="hasPoorleep" name="hasPoorleep">
+                                        <label for="hasPoorleep">hasPoorsleep</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td><b>Blood Pressure Level</b></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="bloodPressure" id="bloodPressure">
+                                <option value="highnormalbloodpressure">high normal blood pressure</option>
+
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input id="btnsubmit" type="submit" value="Submit" class="button button2" />
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            $("#btnsubmit").click(function () {
+                let endpoint = "https://5642qhr52m.execute-api.us-east-1.amazonaws.com/stage"
+
+                var dcrScore = document.getElementById("dcrscore").value;
+                var bloodPressure = document.getElementById("bloodPressure").value;
+                var hasdiabities = $("input[name='hasdiabities']:checked").val();
+                var isSedentary = $("input[name='isSedentary']:checked").val();
+                var hasRedMeatDiet = $("input[name='hasRedMeatDiet']:checked").val();
+                var hasPoorleep = $("input[name='hasPoorleep']:checked").val();
+
+            
+                var myObj = {
+                    "dcr_score": dcrScore,
+                    "has_diabetes": hasdiabities == undefined ? "" : hasdiabities,
+                    "isSedentary": isSedentary == undefined ? "" : isSedentary,
+                    "hasRedMeatDiet": hasRedMeatDiet == undefined ? "" : hasRedMeatDiet,
+                    "hasPoorleep": hasPoorleep == undefined ? "" : hasPoorleep,
+                    "has_blood_pressure": bloodPressure
+                };
+                //console.log(JSON.stringify(myObj));
+
+                $.ajax({
+                    type: "POST",
+                    url: endpoint,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    data: JSON.stringify(myObj),
+                    success: function (result) {
+                        console.log(result);
+                    }
+                })
+
+            });
+        });        
+    </script>
+</body>
+</html>
+

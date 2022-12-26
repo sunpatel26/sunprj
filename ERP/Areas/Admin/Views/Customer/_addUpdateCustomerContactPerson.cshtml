@@ -1,0 +1,195 @@
+﻿@model Business.Entities.Customer.CustomerContactTxn
+<form method="post" id="formAddUpdateCustomerContactPerson" class="row g-3 needs-validation" asp-area="Admin" asp-controller="Customer" asp-action="AddUpdateCustomerContactPerson">
+    <input type="hidden" asp-for="CustomerID" />
+    <input type="hidden" asp-for="CustomerContactID" />
+
+    <div class=" col-sm-12 col-md-6 col-lg-6">
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">Department:<span class="required">*</span></label>
+            <div class="col-sm-9">
+                <select asp-for="DepartmentID" asp-items="@CustomerExtension.GetAllDepartments()" class="form-control">
+                    <option value="">Select Department</option>
+                </select>
+                <span asp-validation-for="DepartmentID" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">Prefix:</label>
+            <div class="col-sm-9">
+                <select asp-for="Prefix" name="prefixName" id="PrefixName" class="form-control">
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Miss.">Miss.</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">Contact Person Name:<span class="required">*</span></label>
+            <div class="col-sm-9">
+                <input type="text" required="" class="form-control" asp-for="ContactPersonName" id="ContactPersonName" name="ContactPersonName" placeholder="">
+                <span asp-validation-for="ContactPersonName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">Personal Mobile No.:<span class="required">*</span></label>
+            <div class="col-sm-9">
+                <input type="text" required="" class="form-control" asp-for="PersonalMobile" id="PersonalMobile" name="PersonalMobile" placeholder="">
+                <span asp-validation-for="PersonalMobile" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">Office Mobile No.:<span class="required">*</span></label>
+            <div class="col-sm-9">
+                <input type="text" required="" class="form-control" asp-for="OfficeMobile" id="OfficeMobile" name="OfficeMobile" placeholder="">
+                <span asp-validation-for="OfficeMobile" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">Alternate Mobile No.:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" asp-for="AlternativeMobile" id="AlternativeMobile" name="AlternativeMobile" placeholder="">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">IsActive:</label>
+            <div class="col-sm-9">
+                <input type="checkbox" class="form-check-input" asp-for="IsActive">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-6">
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">Designation:<span class="required">*</span></label>
+            <div class="col-sm-9">
+                <select asp-for="DesignationID" asp-items="@CustomerExtension.GetAllDesignations()" class="form-control">
+                    <option value="">Select Designation</option>
+                </select>
+                <span asp-validation-for="DesignationID" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">Email Group Name:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" asp-for="EmailGroupName" id="EmailGroupName" name="EmailGroupName" placeholder="">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">Personal Email:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" asp-for="PersonalEmailID" id="PersonalEmailID" name="PersonalEmailID" placeholder="">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">Office Email:<span class="required">*</span></label>
+            <div class="col-sm-9">
+                <input type="text" required="" class="form-control" asp-for="OfficeEmailID" id="OfficeEmailID" name="OfficeEmailID" placeholder="">
+                <span asp-validation-for="OfficeEmailID" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">BirthDate:</label>
+            <div class="col-sm-9">
+                <input type="date" required="" class="form-control" asp-for="BirthDate" id="BirthDate" name="BirthDate" placeholder="">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">Religion:</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" asp-for="Religion" id="Religion" name="Religion" placeholder="">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="" class="col-sm-3 col-form-label ">IsResigned:</label>
+            <div class="col-sm-9">
+                <input type="checkbox" class="form-check-input" asp-for="IsResigned">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row m-3">
+        <label for="" class="col-sm-1 col-form-label">Notes:</label>
+        <div class="col-sm-11 col-md-11 col-lg-11">
+            <textarea class="form-control" rows="4" cols="50" id="Notes" name="Notes" asp-for="Notes" placeholder=""></textarea>
+        </div>
+    </div>
+
+    <div class="modal-footer-sticky">
+        <button type="submit" onclick="fnSaveCustomerContactPerson()" class="btn btn-primary btn-info px-5 ladda-button" id="btnSaveCustomerContactPerson">Save</button>
+        <button type="button" class="btn btn-primary btn-info px-5 ladda-button" data-bs-dismiss="offcanvas" aria-l abel="Close">Cancel</button>
+    </div>
+</form>
+
+<link href="~/admin/assets/vendors/typehead/jquery.typeahead.min.css" rel="stylesheet" />
+<script src="~/admin/assets/vendors/typehead/jquery.typeahead.min.js"></script>
+@await Html.PartialAsync("_ValidationScriptsPartial")
+<script type="text/javascript">
+    function fnSaveCustomerContactPerson() {
+        var ls = laddaStart('btnSaveCustomerContactPerson');
+        modeldata = $("#formAddUpdateCustomerContactPerson").serialize();
+        $.ajax({
+            type: 'POST',
+            url: '/Admin/Customer/AddUpdateCustomerContactPerson/',
+            data: modeldata,
+            dataType: 'json',
+            beforeSend: function () { },
+            success: function (data) {
+                console.log(data.status);
+                if (data.status) {
+                    //notification
+                    $("#canvasCustomerContactDetail").hide();//('hide');
+                    var test = Lobibox.notify('success', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: data.message,
+                    });
+                    $("#tblCustomerContactPersonTable").load(window.location.href + " #tblCustomerContactPersonTable");
+                }
+                else {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: '@MessageHelper.Error'
+                    });
+                }
+            },
+            error: function (error) {
+                laddaStop(ls);
+                Lobibox.notify('error', {
+                    pauseDelayOnHover: true,
+                    size: 'mini',
+                    icon: 'bx bx-check-circle',
+                    continueDelayOnInactiveTab: false,
+                    position: 'bottom right',
+                    msg: '@MessageHelper.Error'
+                });
+            }
+        }).always(function () {
+            hideloader();
+        });
+
+    };
+</script>

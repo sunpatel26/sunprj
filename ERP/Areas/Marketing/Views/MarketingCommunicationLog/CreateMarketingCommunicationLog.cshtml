@@ -1,0 +1,198 @@
+﻿@using ERP.Helpers
+@model Business.Entities.Marketing.CommunicationLog.CommunicationLog;
+<form class="form-horizontal" role="form" id="formMarketingCommunicationLog">
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="row mb-3">
+                <input type="hidden" asp-for="MarketingCommunicationLogID" />
+                <label class="col-sm-3 col-form-label">Contact By Person<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" required="" class="form-control" id="ContactByPerson" name="ContactByPerson" asp-for="ContactByPerson">
+                    <span asp-validation-for="ContactByPerson" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Contact To<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" required="" class="form-control" id="ContactTo" name="ContactTo" asp-for="ContactTo">
+                    <span asp-validation-for="ContactTo" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Contact Channel<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <select asp-for="ContactChannelTypeID" asp-items="ViewBag.ContactChannelText" class="form-control" required="">
+                        <option value="">Select Contact Channel...</option>
+                    </select>
+                    <span asp-validation-for="ContactChannelTypeID" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Email<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" required="" class="form-control" id="Email" name="Email" asp-for="Email">
+                    <span asp-validation-for="Email" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Mobile No.<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="MobileNo" name="MobileNo" asp-for="MobileNo" required="">
+                    <span asp-validation-for="MobileNo" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Venue Type<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <select asp-for="VanueTypeID" asp-items="ViewBag.VenueTypeText" class="form-control" required="">
+                        <option value="">Select Venue Type...</option>
+                    </select>
+                    <span asp-validation-for="VanueTypeID" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Party Type<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <select asp-for="PartyTypeID" asp-items="ViewBag.PartyTypeText" class="form-control" required="">
+                        <option value="">Select Party Type...</option>
+                    </select>
+                    <span asp-validation-for="PartyTypeID" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Date<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="datetime-local" required="" class="form-control" id="CommunicationLogDate" name="CommunicationLogDate" asp-for="CommunicationLogDate">
+                    <span asp-validation-for="CommunicationLogDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Place Of Meeting<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" required="" class="form-control" id="PlaceOfMeeting" name="PlaceOfMeeting" asp-for="PlaceOfMeeting">
+                    <span asp-validation-for="PlaceOfMeeting" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-6 col-md-6 col-lg-6 col-lx-6 mb-3">
+                    <label for="" class="col-form-label">Sent Document</label>
+                    @*<div class="col-sm-9">*@
+                        <input type="checkbox" class="form-check-input" asp-for="IsSentDocument" data-on-text="Yes" data-off-text="No">
+                    @*</div>*@
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-6 col-lx-6 mb-3">
+                    <label for="" class="col-form-label">Sent Marketing Document</label>
+                    @*<div class="col-sm-9">*@
+                        <input type="checkbox" class="form-check-input" asp-for="IsSentMarketingDocument" data-on-text="Yes" data-off-text="No">
+                    @*</div>*@
+                </div>
+
+            </div>
+
+
+            <div class="row mb-3">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-lx-12">
+                <label for="" class="col-form-label">They provided any other reference for better business</label>                
+                    <input type="checkbox" class="form-check-input" asp-for="ReferenceBetterBusiness" data-on-text="Yes" data-off-text="No">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">If provided reference, Mobile No / Email Id<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="ReferenceMobileOrEmail" name="ReferenceMobileOrEmail" asp-for="ReferenceMobileOrEmail" required="">
+                    <span asp-validation-for="ReferenceMobileOrEmail" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Notes</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" rows="4" id="Note" name="Note" asp-for="Note"></textarea>
+                    <span asp-validation-for="Note" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3 pb-3">
+                <label class="col-sm-3 col-form-label">Feedback</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" rows="4" id="Feedback" name="Feedback" asp-for="Feedback"></textarea>
+                    <span asp-validation-for="Feedback" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="modal-footer-sticky text-center">
+                <button id="btnSave" type="button" onclick="fnSubmit()" class="btn btn-primary btn-info px-5 ladda-button">Save</button>
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-primary btn-info px-5 my-2">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
+@await Html.PartialAsync("_ValidationScriptsPartial")
+
+<script type="text/javascript">
+    var urlsave = '@Url.Action("InsertOrUpdateMarketingCommunicationLog", "MarketingCommunicationLog")';
+    function fnSubmit() {
+        if ($("#formMarketingCommunicationLog").valid()) {
+            var l = laddaStart('btnSave');
+            console.log(l);
+            modeldata = $("#formMarketingCommunicationLog").serialize();
+            $.ajax({
+                type: 'POST',
+                url: urlsave,
+                data: modeldata,
+                dataType: 'json',
+                beforeSend: function() { },
+                success: function(data) {
+                    window.location.reload().delay(3000);
+                    if (data.status) {
+                        //notification
+                        $("#canvas_CommunicatioLog").hide();//('hide');
+                        Lobibox.notify('success', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                    else {
+                        Lobibox.notify('error', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                },
+                error: function(error) {
+                    laddaStop(l);
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            }).always(function() {
+                hideLoader();
+            });
+        }
+    };
+</script>

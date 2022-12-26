@@ -1,0 +1,291 @@
+﻿@model Business.Entities.VisitorMetaData
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="container margin-top-2">
+    <div class="card-body">
+        <div class="col-sm-9 col-md-7 col-lg-10 mx-auto">
+            <div class="card border-1 shadow rounded-7 my-5">
+                <div class="card-body p-4 p-sm-5">
+                    <h5 class="card-title text-center mb-5 fw-light fs-5 rounded-1"><b>Request for Meeting</b></h5>
+                    <div class="row center">
+                        <div class="col-md-12">
+                            <form method="post" enctype="multipart/form-data" asp-controller="Visitor" asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="ZipCodeID" class="form-control" />
+                                <input type="hidden" asp-for="CreatedBy" class="form-control" />
+                                <input type="hidden" asp-for="VisitorTypeID" class="form-control" value="2" />
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="FirstName" class="col-sm-3 col-form-label text-start">First name<span style="color: rgba(220,53,69,1);">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" asp-for="FirstName" class="form-control mx-2" />
+                                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="LastName" class="col-sm-3 col-form-label text-start">Last name<span style="color: rgba(220,53,69,1);">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" asp-for="LastName" class="form-control mx-2" />
+                                                <span asp-validation-for="LastName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="MobileNo" class="col-sm-3 col-form-label text-start">Mobile no<span style="color: rgba(220,53,69,1);">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" asp-for="MobileNo" class="form-control mx-2" />
+                                                <span asp-validation-for="MobileNo" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="Email" class="col-sm-3 col-form-label text-start">Email<span style="color: rgba(220,53,69,1);">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" asp-for="Email" class="form-control mx-2" />
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="Address1" class="col-sm-3 col-form-label text-start">Address1<span style="color: rgba(220,53,69,1);">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" asp-for="Address1" class="form-control mx-2" />
+                                                <span asp-validation-for="Address1" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="Address2" class="col-sm-3 col-form-label text-start">Address2</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" asp-for="Address2" class="form-control mx-2" />
+                                                <span asp-validation-for="Address2" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="Address3" class="col-sm-3 col-form-label text-start">Address3</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" asp-for="Address3" class="form-control mx-2" />
+                                                <span asp-validation-for="Address3" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="Area" class="col-sm-3 col-form-label text-start">Area</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" asp-for="Area" class="form-control mx-2" />
+                                                <span asp-validation-for="Area" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="ZipCode" class="col-sm-3 col-form-label text-start">Pin Code<span style="color: rgba(220,53,69,1);">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" asp-for="ZipCode" class="form-control mx-2" maxlength="6" data-val="true" data-val-length="1-6 character" data-val-length-max="6" data-val-length-min="1" />
+                                                <span asp-validation-for="ZipCode" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="MeetingRequestDateTime" class="col-sm-3 col-form-label text-start">Meeting request date and time</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" asp-for="MeetingRequestDateTime" class="form-control mx-2" txtdate />
+                                                <span asp-validation-for="MeetingRequestDateTime" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="IdentityProofTypeID" class="col-sm-3 col-form-label text-start">Identity proof type<span style="color: rgba(220,53,69,1);">*</span></label>
+                                            <div class="col-sm-9">
+                                                <select asp-for="IdentityProofTypeID" asp-items="ViewBag.IdentityProofType" class="form-control">
+                                                    <option value="">Select Identity Proof Type</option>
+                                                </select>
+                                                <span asp-validation-for="IdentityProofTypeID" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="IdentityProofFilePath" class="col-sm-3 col-form-label text-start">Identity proof file</label>
+                                            <div class="col-sm-9">
+                                                <input type="file" asp-for="IdentityProofFilePath" name="files" class="form-control mx-2" />
+                                                <span asp-validation-for="IdentityProofFilePath" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="VehicleTypeID" class="col-sm-3 col-form-label text-start">Arrival by type</label>
+                                            <div class="col-sm-9">
+                                                <select asp-for="VehicleTypeID" asp-items="ViewBag.VehicleTypeID" class="form-control">
+                                                    <option value="">Select Vehicle Type</option>
+                                                </select>
+                                                <span asp-validation-for="VehicleTypeID" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="VehicleNo" class="col-sm-3 col-form-label text-start">Vehicle number</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" asp-for="VehicleNo" class="form-control mx-2" />
+                                                <span asp-validation-for="VehicleNo" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="MeetingRequestTitle" class="col-sm-3 col-form-label text-start">Meeting request title<span style="color: rgba(220,53,69,1);">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input type="text" asp-for="MeetingRequestTitle" class="form-control mx-2" />
+                                                <span asp-validation-for="MeetingRequestTitle" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="MeetToWhomPersonName" class="col-sm-3 col-form-label text-start">Meet to whom person name<span style="color: rgba(220,53,69,1);">*</span></label>
+                                            <div class="col-sm-9">
+                                                <select asp-for="MeetToWhomPersonName" asp-items="ViewBag.MeetToWhomPersonName" class="form-control" id="PersonName">
+                                                    <option value="">Select Meet To Whom Person Name</option>
+                                                </select>
+                                                <span asp-validation-for="MeetToWhomPersonName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="MeetToWhomPersonEmail" class="col-sm-3 col-form-label text-center">Meet to whom person email<span style="color: rgba(220,53,69,1);">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input asp-for="MeetToWhomPersonEmail" class="form-control" maxlength="150" id="personEmailToMeet" disabled />
+                                                <span asp-validation-for="MeetToWhomPersonEmail" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <div class="row mb-3">
+                                            <label for="MeetToWhomPersonMobile" class="col-sm-3 col-form-label text-center">Meet to whom person mobile</label>
+                                            <div class="col-sm-9">
+                                                <input asp-for="MeetToWhomPersonMobile" class="form-control" maxlength="10" id="personMobileToMeet" disabled />
+                                                <span asp-validation-for="MeetToWhomPersonMobile" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                        <div class="row mb-3">
+                                            <label for="PurposeofMeeting" class="col-sm-3 col-form-label text-start">Purpose of meeting<span style="color: rgba(220,53,69,1);">*</span></label>
+                                            <div class="col-sm-9">
+                                                <textarea asp-for="PurposeofMeeting" class="form-control" cols="40" rows="3" maxlength="1000"></textarea>
+                                                <span asp-validation-for="PurposeofMeeting" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 text-start">
+                                    <div class="form-flating">
+                                        <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
+                                            Create
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css"
+      rel="Stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(function () {
+            $("#ZipCode").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/Visitor/AutoComplete/',
+                        data: { "prefix": request.term },
+                        type: "POST",
+                        success: function (data) {
+                            console.table(data);
+                            if (data != false) {
+                                response($.map(data, function (item) {
+                                    return item;
+                                }))
+                            }
+                        },
+                        error: function (response) {
+                            console.log("Error: " + response.responseText);
+                        },
+                        failure: function (response) {
+                            console.log("Error: " + response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("#ZipCodeID").val(i.item.val);
+                },
+                minLength: 1
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#PersonName").change(function () {
+                var dID = $(this).val();
+                $.getJSON("../Visitor/EmployeeDetails/", { id: dID },
+                    function (data) {
+                        document.getElementById('personMobileToMeet').value = data.officeMobileNo;
+                        document.getElementById('personEmailToMeet').value = data.officeEmail;
+                    });
+            });
+        });
+    </script>
+    }

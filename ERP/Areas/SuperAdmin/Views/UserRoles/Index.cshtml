@@ -1,0 +1,55 @@
+﻿@*@using ERP.Models
+    @model List<ERP.Models.UserRolesViewModel>*@
+@using GridCore
+@addTagHelper *, GridMvc
+
+@model ISGrid
+@{ 
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";     
+}
+
+<div class="page-breadcrumb d-none d-sm-flex align-items-center pb-2 border-bottom">
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Manage Users</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <grid model="@Model" />
+    </div>
+</div>
+
+@*<h1>User Roles</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+<tr>
+    <td>@user.FirstName</td>
+    <td>@user.LastName</td>
+    <td>@user.Email</td>
+    <td>@string.Join(" , ", user.Roles.ToList())</td>
+    <td>
+        <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">Manage Roles</a>
+    </td>
+</tr>
+}
+    </tbody>
+</table>*@

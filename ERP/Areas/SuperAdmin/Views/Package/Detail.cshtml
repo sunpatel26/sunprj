@@ -1,0 +1,161 @@
+﻿@*@model List<Business.Entities.Master.Package.PackageMaster>*@
+@using Microsoft.AspNetCore.Identity
+@using Business.SQL
+@using GridCore
+@addTagHelper *, GridMvc
+@model ISGrid
+@{
+    ViewData["Title"] = "Package List..";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+<div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
+    <div class="card border-1 shadow rounded-7 p-1">
+        <div class="row border-bottom">
+
+            @*<div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="page-breadcrumb align-items-center">
+            <div class="p-2">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+            <li class="breadcrumb-item">
+            <a asp-area="SuperAdmin" asp-controller="Package" asp-action="Index"><i class="bx bx-home-alt"></i></a>
+            </li>
+            <li class="breadcrumb-item">
+            <a asp-area="SuperAdmin" asp-controller="Package" asp-action="Index">Package </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Detail</li>
+            </ol>
+            </nav>
+            </div>
+            </div>
+            </div>*@
+
+            @*<div class="col-sm-12 col-md-6 col-lg-6 text-end">
+            <a class="btn btn-primary px-5" onclick="fnPackage(this)"
+            href="javascript:void(0)"
+            data-key="0"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#canvas_Package"
+            aria-controls="canvas_Package">
+            Add Sales Target
+            </a>
+            </div>*@
+
+        </div>
+        <form class="form-horizontal" role="form" id="AssignFormPackageMaster">
+
+            <div class="row">
+
+                <div class="col-md-12 mt-3">
+                    <h3>
+                        <h1>Package :@ViewBag.PackageName </h1>
+                    </h3>
+                </div>
+                <div class="col-md-12">
+                    @*<input type="hidden" asp-for="PackageID"/>*@
+                    <grid model="@Model" />
+                </div>
+                <div class="col-md-12 text-center mb-3">
+                    <button type ="button" class="btn btn-primary btn-info px-5 ladda-button" id="CheckedAllForm" value="Select All">Select All</button>
+                    <button type="submit" class="btn btn-primary btn-info px-5 ladda-button" asp-area="SuperAdmin" asp-controller="Package" asp-action="AssingFormToPackage">Submit</button>
+                    <button type="reset" class="btn btn-primary btn-info px-5 ladda-button">Reset</button>
+                    <a class="btn btn-primary btn-info px-5 ladda-button" asp-area="SuperAdmin" asp-controller="Package" asp-action="Index">Back</a>
+                </div>
+            </div>
+        </form>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="canvas_Package">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="canvasHeader"></h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-l abel="Close"></button>
+            </div>
+            <div class="offcanvas-body pt-3 pb-5">
+                <div id="dvInfo">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script type="text/javascript">
+    var urladd = '@Url.Action("Get", "Package")';
+    function fnPackage(obj) {
+        var _key = $(obj).data('key');
+        var _id = $(obj).data('id');
+        if (_id > 0)
+            document.getElementById("canvasHeader").innerHTML = "Update Package";
+        else
+            document.getElementById("canvasHeader").innerHTML = "Add Package";
+        var _parameters = { id: _id, key: _key };
+        $.ajax({
+            url: urladd,
+            type: "POST",
+            data: _parameters,
+            success: function(data, textStatus, jqXHR) {
+                $('#dvInfo').html(data);
+                $("#canvas_Package").show();//('hide');
+            }
+        });
+    }
+
+    var urlisActiveInActive = '@Url.Action("ActiveInActivePackageForm","Package")';
+    function fnPackageFormActiveInactive(PackageID, FormID) {
+        var _packageID = PackageID;//$(this).data('id');
+        var _formID = FormID; //$("#EmployeeID").val();
+        var _checkBox = $("#packageFormActiveInactive").is(':checked');
+        var _docParameters = { packageID: _packageID, formID: _formID, isActive: _checkBox };
+        $.ajax({
+            url: urlisActiveInActive,
+            type: 'POST',
+            data: _docParameters,
+            success: function(data) {
+                if (data.status) {
+                    var test = Lobibox.notify('success', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: data.message,
+                    });
+                }
+                else {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: '@MessageHelper.Error'
+                    });
+                }
+                $("#packageFormActiveInactive").load(window.location.href + " #packageFormActiveInactive");
+            },
+            error: function(error) {
+                laddaStop(ls);
+                Lobibox.notify('error', {
+                    pauseDelayOnHover: true,
+                    size: 'mini',
+                    icon: 'bx bx-check-circle',
+                    continueDelayOnInactiveTab: false,
+                    position: 'bottom right',
+                    msg: '@MessageHelper.Error'
+                });
+            }
+        }).always(function() {
+            hideloader();
+        });
+    }
+    //$('#CheckedAllForm').click(function(){ $('.packageFormActiveInactive').prop('checked', true); }};
+
+    $(document).ready(function() {
+        $("#CheckedAllForm").click(function() {
+            $('.packageFormActiveInactive').prop('checked', true);
+            //$("#packageFormActiveInactive").val($("#packageFormActiveInactive").val() === "Select All" ? "Diselect All" : "Select All");
+
+        });
+    });
+
+</script>
+<script src="~/js/gridmvc.js" type="text/javascript"></script>

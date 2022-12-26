@@ -1,0 +1,286 @@
+﻿@model VisitorMetaData
+@{
+    ViewData["Title"] = "Visitor Requests Details";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+    }
+<style>
+.ui-autocomplete-input{
+    z-index: 10000!important;
+}
+</style>
+<div class="container margin-top-2">
+    <div class="card-body">
+        <div class="col-sm-9 col-md-7 col-lg-12 mx-auto">
+            <div class="card border-1 shadow rounded-7 my-5">
+                <div class="card-body p-4 p-sm-5">
+                    <div class="parent-icon card-title text-left mb-5 fw-light fs-5 border-1 shadow" style="padding: 1px 1px 1px 10px;">
+                            <i class='bx bx-add-to-queue'></i>
+                          <h5 style="padding-left: 10px;">Direct Visitor - Meeting Request Entry!</h5></div>
+                    <div class="row center">
+                        <div class="col-md-12">
+                            <form method="post" enctype="multipart/form-data" asp-controller="VisitorRequests" asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="ZipCodeID" class="form-control" />
+                                <input type="hidden" asp-for="CreatedBy" class="form-control" />
+                                <input type="hidden" asp-for="VisitorTypeID" class="form-control" value="1" />
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="FirstName" class="control-label">First name</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <input asp-for="FirstName" class="form-control" maxlength="50" />
+                                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                                        </div>
+                                         <div class="form-group">
+                                            <label asp-for="LastName" class="control-label">Last name</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <input asp-for="LastName" class="form-control" maxlength="50" />
+                                            <span asp-validation-for="LastName" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="MobileNo" class="control-label">Mobile no</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <input asp-for="MobileNo" class="form-control" maxlength="10" />
+                                            <span asp-validation-for="MobileNo" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Email" class="control-label">Email</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <input asp-for="Email" class="form-control" maxlength="255" />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                         <div class="form-group">
+                                            <label asp-for="Address1" class="control-label">Address1</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <input asp-for="Address1" class="form-control" maxlength="50" />
+                                            <span asp-validation-for="Address1" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Address2" class="control-label">Address2</label>
+                                            <input asp-for="Address2" class="form-control" maxlength="50" />
+                                            <span asp-validation-for="Address2" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Address3" class="control-label">Address3</label>
+                                            <input asp-for="Address3" class="form-control" maxlength="50" />
+                                            <span asp-validation-for="Address3" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Area" class="control-label">Area</label>
+                                            <input asp-for="Area" class="form-control" maxlength="50" />
+                                            <span asp-validation-for="Area" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            @*<div id="LiveCamera" style="margin-bottom:50px;"></div>*@
+                                            <div id="results"><img src="~/images/UserDefault.png" id="defImg" height="250" width="300" />
+                                                </div>
+                                            <br/>
+                                            <img id="prevImg" style="display:none;" height="250" width="300"/>
+                                            <input type="button" class="btn btn-primary" value="Show Preview" onClick="LoadCam()">
+                                            <input type="button" class="btn btn-primary" value="Capture Snapshot" onClick="CaptureSnapshot()">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="ZipCode" class="control-label">Pin code</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <input asp-for="ZipCode" class="form-control" maxlength="6" data-val="true" data-val-length="1-6 character" data-val-length-max="6" data-val-length-min="1" />
+                                            <span asp-validation-for="ZipCode" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="MeetingRequestDateTime" class="control-label">Meeting request date and time</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <input asp-for="MeetingRequestDateTime" class="form-control txtdate" />
+                                            <span asp-validation-for="MeetingRequestDateTime" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="IdentityProofTypeID" class="control-label">Identity proof type</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <select asp-for="IdentityProofTypeID" asp-items="ViewBag.IdentityProofType" class="form-control">
+                                                <option value="">Select Identity Proof Type</option>
+                                            </select>
+                                            <span asp-validation-for="IdentityProofTypeID" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="IdentityProofFilePath" class="control-label">Identity proof file</label>
+                                            <input type="file" asp-for="IdentityProofFilePath" name="files" class="form-control" maxlength="50" />
+                                            <span asp-validation-for="IdentityProofFilePath" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="VehicleTypeID" class="control-label">Arrival by type</label>
+                                            <select asp-for="VehicleTypeID" asp-items="ViewBag.VehicleTypeID" class="form-control">
+                                                <option value="">Select Vehicle Type</option>
+                                            </select>
+                                            <span asp-validation-for="VehicleTypeID" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="VehicleNo" class="control-label">Vehicle number</label>
+                                            <input asp-for="VehicleNo" class="form-control" />
+                                            <span asp-validation-for="VehicleNo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="MeetingRequestTitle" class="control-label">Meeting request title</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <input asp-for="MeetingRequestTitle" class="form-control" maxlength="100" />
+                                            <span asp-validation-for="MeetingRequestTitle" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="MeetToWhomPersonName" class="control-label">Meet to whom person name</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <input asp-for="MeetToWhomPersonName" class="form-control" maxlength="50" />
+                                            <span asp-validation-for="MeetToWhomPersonName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="MeetToWhomPersonEmail" class="control-label">Meet to whom person email</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <input asp-for="MeetToWhomPersonEmail" class="form-control" maxlength="150" />
+                                            <span asp-validation-for="MeetToWhomPersonEmail" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="MeetToWhomPersonMobile" class="control-label">Meet to whom person mobile</label>
+                                            <input asp-for="MeetToWhomPersonMobile" class="form-control" maxlength="10" />
+                                            <span asp-validation-for="MeetToWhomPersonMobile" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="SecurityOfficerName" class="control-label">Security Officer name</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <input asp-for="SecurityOfficerName" class="form-control" maxlength="150" />
+                                            <span asp-validation-for="SecurityOfficerName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="SecurityOfficerMobile" class="control-label">Security officer mobile</label>
+                                            <input asp-for="SecurityOfficerMobile" class="form-control" maxlength="10" />
+                                            <span asp-validation-for="SecurityOfficerMobile" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <label asp-for="PurposeofMeeting" class="control-label">Purpose of meeting</label><span style="color: rgba(220,53,69,1);">*</span>
+                                            <textarea asp-for="PurposeofMeeting" class="form-control" cols="40" rows="3" maxlength="1000"></textarea>
+                                            <span asp-validation-for="PurposeofMeeting" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-flating">
+                                    <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
+                                        Create
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css"
+          rel="Stylesheet" type="text/css" />
+<script type="text/javascript">
+    $(function () {
+
+        $("#ZipCode").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Admin/VisitorRequests/AutoComplete/',
+                    data: { "prefix": request.term },
+                    type: "POST",
+                    success: function (data) {
+                        console.table(data);
+                        if(data != false){
+                        response($.map(data, function (item) {
+                            return item;
+                        }))
+                        }
+                    },
+                    error: function (response) {
+                        console.log("Error: " + response.responseText);
+                    },
+                    failure: function (response) {
+                        console.log("Error" + response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#ZipCodeID").val(i.item.val);
+            },
+            minLength: 1
+        });
+    });
+</script>
+<!-- Include the Webcam.js JavaScript Library -->
+<script src="~/webcamjs/webcam.min.js"></script>
+
+
+<!-- Javascript code to capture the snapshot and displaying it in the screen -->
+<script language="JavaScript">
+
+      function LoadCam(){
+          $("#defImg").hide();
+        $("#results").show();
+                     $("#prevImg").hide();
+          //<!-- Configure web cam settings -->
+         Webcam.set({
+        width: 300,
+        height: 250,
+        image_format: 'png',
+        jpeg_quality: 90
+    });
+      Webcam.attach('#results');
+      }
+    function CaptureSnapshot() {
+
+
+        Webcam.snap(function (data) {
+            // display results in page
+            //document.getElementById('results').innerHTML = '<img src="' + data + '"/>';
+            
+
+            // Send image data to the controller to store locally or in database
+            Webcam.upload(data,
+                '/WebCam/CaptureImage',
+                function (code, text) {
+                    $("#results").hide();
+                     $("#prevImg").show();
+                     $("#prevImg").attr("src", data);
+                     Webcam.reset();
+                });
+        });
+    }
+</script>
+}

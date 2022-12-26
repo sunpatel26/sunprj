@@ -1,0 +1,74 @@
+﻿@model Business.Entities.Designation.DesignationGroupMaster
+@using Microsoft.AspNetCore.Identity
+@using Business.SQL
+@using GridCore
+@addTagHelper *, GridMvc
+
+@{
+    ViewData["Title"] = "Add Designation Group..";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
+    <div class="card border-1 shadow rounded-7 p-1">
+        <div class="row border-bottom">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="page-breadcrumb align-items-center">
+                    <div class="p-2">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item">
+                                    <a asp-controller="Designation" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-home-alt"></i></a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a asp-controller="Designation" asp-action="Index" asp-area="SuperAdmin">Designation</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Add Designation Group</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <form method="post" asp-action="DesignationGroupRegister" asp-controller="Designation" asp-area="SuperAdmin" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+                <div class="row">
+
+                    <div class="row mb-3">
+                        <input type="hidden" asp-for="DesignationGroupID" />
+                        <label for="" class="col-sm-3 col-form-label">Designation Group Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" required="" class="form-control" id="DesignationGroupText" name="DesignationGroupText" asp-for="DesignationGroupText" placeholder="">
+                            <span asp-validation-for="DesignationGroupText" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="" class="col-sm-3 col-form-label">Department Group Remark</label>
+                        <div class="col-sm-9">
+                            <textarea required="" class="form-control" rows="4" id="Remark" name="Remark" asp-for="Remark" placeholder=""></textarea>
+                            <span asp-validation-for="Remark" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="" class="col-sm-3 col-form-label">Is Active</label>
+                        <div class="col-sm-9">
+                            @Html.CheckBoxFor(s => s.IsActive)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary btn-info px-5">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

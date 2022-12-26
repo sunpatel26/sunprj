@@ -1,0 +1,127 @@
+﻿@using Business.SQL
+@model PagedDataTable<CompanyBankingMetadata>
+<link href="~/admin/assets/vendors/simple-datatables/style.css" rel="stylesheet" />
+<div id="CompanyTable">
+    <div class="row">
+        <div class="col-lg-6">
+            <h6 class="cards-title">
+                Banks
+            </h6>
+        </div>
+        <div class="col-lg-6 text-align-right">
+            <a onclick="fnAddBank(0)"
+               class="btn btn-primary px-5"
+               href="javascript:void(0)"
+               data-id="0"
+               data-bs-toggle="offcanvas"
+               data-bs-target="#canvas_bank"
+               aria-controls="canvas_bank">
+                Add Bank
+            </a>
+        </div>
+    </div>
+    <div class="row">
+
+        <table class="table table-striped" id="tblbank">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Bank Name</th>
+                            <th>Branch Code</th>
+                            <th>Account No.</th>
+                            <th>Account Name</th>
+                            <th>IFCI Code</th>
+                            <th>Country</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.SrNo</td>
+                                    <td>@item.BankName</td>
+                                    <td>@item.BankCode</td>
+                                    <td>@item.AccountNo</td>
+                                    <td>@item.AccountName</td>
+                                    <td>@item.IFCICode</td>
+                                    <td>@item.CountryName</td>
+                                    <td>@item.IsActive.ToYesOrNo()</td>
+                                    <td>
+                                        <a class='btn editbank' onclick="fnAddBank(@item.CompanyBankingID)"
+                           href="javascript:void(0)"
+                           data-bs-toggle="offcanvas"
+                           data-bs-target="#canvas_bank"
+                           aria-controls="canvas_bank"
+                           data-id="@item.CompanyBankingID"
+                           compnayid="@item.CompanyID"><i class='bx bx-edit'></i></a>
+
+                                      @*  <a class='btn deletebank hide' href="#!" data-id="@item.CompanyBankingID" compnayid="@item.CompanyID"><i class='icon dripicons-trash'></i></a>
+                             *@       
+                         </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+           
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="canvas_bank">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Bank</h5>
+        <button type="button" class="btn-close te  xt-reset" data-bs-dismiss="offcanvas" aria-l abel="Close"></button>
+    </div>
+    <div class="offcanvas-body pt-3 pb-5">
+        <div id="dvbankInfo">
+        </div>
+    </div>
+</div>
+
+<script src="~/admin/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    var urlDeleteCompanyFromUser = '@Url.Action("DeleteBank", "CompanySetting")';
+    var urlAddBank = '@Url.Action("AddBank", "CompanySetting")';
+    var urlDeleteBank = '@Url.Action("DeleteBank", "CompanySetting")';
+    $(document).ready(function () {
+        let table1 = document.querySelector('#tblbank');
+        let dataTable = new simpleDatatables.DataTable(table1);
+
+    });
+    function fnDeleteBank()
+    {
+        var _id = $(this).data('id');
+        var _parameters = { id: _id };
+        $.ajax({
+            url: urlDeleteBank,
+            type: "POST",
+            data: _parameters,
+            success: function (data, textStatus, jqXHR) {
+                $('#dvbankInfo').html(data);
+            }
+            , error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+    function fnAddBank(id) {
+        var _id = id;//$(this).data('id');
+        //var _cid = $("#CompanyID").val();
+        var _parameters = { id: _id };
+        $.ajax({
+            url: urlAddBank,
+            type: "POST",
+            data: _parameters,
+            success: function (data, textStatus, jqXHR) {
+                console.log(data);
+                $("#canvas_bank").show();//('hide');
+                $('#dvbankInfo').html(data);
+            }
+            ,error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>

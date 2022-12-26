@@ -1,0 +1,238 @@
+﻿@*Admin SideBar Start*@
+@using ERP.Controllers
+@{
+    string path = SettingsController.LOGOPATH;
+    bool isLogo = false;
+    if (path.IsNotStringNullOrEmpty())
+    {
+        isLogo = true;
+    }
+}
+<div class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+        @if (isLogo)
+        {
+            <div>
+                <img src="@SettingsController.LOGOPATH" class="logo-icon" alt="logo icon">
+            </div>
+        }
+        else
+        {
+            <div>
+                <h4 class="logo-text">@SettingsController.COMPANYNAME</h4>
+            </div>
+        }
+        <div class="toggle-icon ms-auto">
+            <i class='bx bx-first-page'></i>
+        </div>
+    </div>
+    <!--navigation-->
+    <ul class="metismenu" id="menu">
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bx-cog'></i> 
+                </div>
+                <div class="menu-title">Settings</div>
+            </a>
+            <ul>
+                <!--Rahul Changes-->
+                <li>
+                    <a asp-area="Admin" asp-controller="Employee" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Employee List</a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="SecurityOfficer" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Security officer list</a>
+                </li>
+                <!--Rahul Changes-->
+                <li>
+                    <a asp-area="Admin" asp-controller="CompanySetting" asp-action="Edit"><i class="bx bx-right-arrow-alt"></i>Company</a>
+                </li>
+                @*<li>
+                    <a asp-area="Admin" asp-controller="MasterEntity" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Master List</a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="RequestType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Request Type</a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="RequestTypeModule" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Request Type Section</a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="RequestTypeControlScreen" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Request Type Section Control - Screen Mapping</a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="RequestTypeControl" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>All Controls</a>
+                </li>*@
+                <li>
+                    <a asp-area="Admin" asp-controller="RequestType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Case Type</a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="RequestTypeModule" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Case Type Section</a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="RequestTypeControlScreen" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Case Type Section Control - Screen Mapping</a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="RequestTypeControl" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>All Controls</a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="UploadProductImages" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Upload Product Images</a>
+                </li>
+            </ul>
+        </li>
+
+        @*<li>
+            <a asp-area="Admin" asp-controller="Request" asp-action="GetAll">
+                <div class="parent-icon">
+                    <i class='bx bx-task'></i>
+                </div>
+                <div class="menu-title">Request</div>
+            </a>
+         </li>*@
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bx-user'></i>
+                </div>
+                <div class="menu-title">Manage Users</div>
+            </a>
+            <ul>
+                <li>
+                    <secure-content asp-area="Admin" asp-controller="RoleManage" asp-action="Index">
+                        <a asp-area="Admin" asp-controller="RoleManage" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Role Permissions</a>
+                    </secure-content>
+                </li>
+                <li>
+                    <secure-content asp-area="Admin" asp-controller="Users" asp-action="Index">
+                        <a asp-area="Admin" asp-controller="Users" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Users</a>
+                    </secure-content>
+                </li>
+                <li>
+                    <secure-content asp-area="Admin" asp-controller="Users" asp-action="Create">
+                        <a asp-area="Admin" asp-controller="Users" asp-action="Create"><i class="bx bx-right-arrow-alt"></i>Add User</a>
+                    </secure-content>
+                </li>
+                <li>
+                    <secure-content asp-area="Admin" asp-controller="MarketingCompanyFinancialYearMaster" asp-action="Index">
+                        <a asp-area="Admin" asp-controller="MarketingCompanyFinancialYearMaster" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Financial Year</a>
+                    </secure-content>
+                </li>
+            </ul>
+        </li>
+
+        <!--Marketing Tab Start-->
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bx-line-chart'></i>
+                </div>
+                <div class="menu-title">Marketing</div>
+            </a>
+            <ul>
+
+                <!--Feedback Start-->
+                <li>
+                    <secure-content asp-area="Marketing" asp-controller="Feedback" asp-action="Index">
+                        <a asp-area="Marketing" asp-controller="Feedback" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Feedback</a>                        
+                       @* @Html.ActionLink("Feedback", "Index", "Feedback",new {area = "Marketing"});*@
+                    </secure-content>
+                </li>
+                <!--Feedback End--> 
+
+                <!--Communication Start-->
+                <li>
+                    <secure-content asp-area="Marketing" asp-controller="Communication" asp-action="Index">
+                        <a asp-area="Marketing" asp-controller="MarketingCommunicationLog" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Communication</a>
+                    </secure-content>
+                </li>
+                <!--Communication End-->
+
+                <!--Visiting Detail Start-->
+                <li>
+                    <secure-content asp-area="Marketing" asp-controller="VisitingDetail" asp-action="Index">
+                        <a asp-area="Marketing" asp-controller="MarketingVisitingDetail" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Visit Detail</a>
+                    </secure-content>
+                </li>
+                <!--Visiting Detail End-->               
+
+                 <!--Meeting Create Start-->
+                <li>
+                    <secure-content asp-area="Marketing" asp-controller="MarketingMeeting" asp-action="Index">
+                        <a asp-area="Marketing" asp-controller="MarketingMeeting" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Meeting</a>
+                    </secure-content>
+                </li>
+                <!--Meeting Create End-->  
+
+                <!--Company Target Start-->
+                <li>
+                    <secure-content asp-area="Marketing" asp-controller="MarketingCompanyTarget" asp-action="Index">
+                        <a asp-area="Marketing" asp-controller="MarketingCompanyTarget" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Company Target </a>
+                    </secure-content>
+                </li>
+                <!--Company Target  End-->  
+
+                <!--Sales Target Start-->
+                <li>
+                    <secure-content asp-area="Marketing" asp-controller="MarketingSalesTarget" asp-action="Index">
+                        <a asp-area="Marketing" asp-controller="MarketingSalesTarget" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Sales Target </a>
+                    </secure-content>
+                </li>
+                <!--Sales Target  End--> 
+
+                <!--Employee Sales Target Start-->
+                <li>
+                    <secure-content asp-area="Marketing" asp-controller="MarketingEmployeeSalesTargetSummary" asp-action="Index">
+                        <a asp-area="Marketing" asp-controller="MarketingEmployeeSalesTargetSummary" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Employee Sales Target </a>
+                    </secure-content>
+                </li>
+                <!--Employee Sales Target  End--> 
+
+                
+
+            </ul>
+        </li>
+        <!--Marketing Tab End-->
+
+    </ul>
+    <!--end navigation-->
+</div>
+
+<script>
+
+    showLoader();
+
+    function laddaStart(id) {
+        var l = Ladda.create(document.getElementById(id));
+        l.start();
+        return l;
+    }
+
+    function laddaStop(l) {
+        l.stop();
+    }
+
+    function showLoader() {
+        $("body").LoadingOverlay("show", {
+            background: "rgba(136,251,155 0.3)",
+            imageColor: '#8833ff'
+        });
+    }
+
+    function hideloader() {
+        $("body").LoadingOverlay("hide", true);
+    }
+
+    $(function () {
+        hideloader();
+    });
+    $(function () {
+        //hideLoader();
+        ////Handle tooltip behaviour (It will init in all controls)
+        //var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        //var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        //    return new bootstrap.Tooltip(tooltipTriggerEl)
+        //});
+    });
+
+</script>
+@*Admin SideBar End*@

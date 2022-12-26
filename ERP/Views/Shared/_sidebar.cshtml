@@ -1,0 +1,643 @@
+﻿<!--Main Sidebar Start-->
+@*Admin SideBar Start*@
+@using ERP.Controllers
+@{
+    string path = SettingsController.LOGOPATH;
+    bool isLogo = false;
+    if (path.IsNotStringNullOrEmpty())
+    {
+        isLogo = true;
+    }
+}
+<div class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+        @if (isLogo)
+        {
+            <div>
+                <img src="@SettingsController.LOGOPATH" class="logo-icon" alt="logo icon">
+            </div>
+        }
+        else
+        {
+            <div>
+                <h4 class="logo-text">@SettingsController.COMPANYNAME</h4>
+            </div>
+        }
+        <div class="toggle-icon ms-auto">
+            <i class='bx bx-first-page'></i>
+        </div>
+    </div>
+    <!--navigation-->
+    <ul class="metismenu" id="menu">
+        @*SuperAdmin SideBar Start*@
+        @*<li>
+        <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon">
+        <i class='bx bxs-book-add'></i>
+        </div>
+        <div class="menu-title">Master</div>
+        </a>
+        <ul>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="Package" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Package Master</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="FormMaster" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Form Master</a>
+        </li>
+        </ul>
+        </li>*@
+
+        @*<li>
+        <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon">
+        <i class='bx bxs-business'></i>
+        </div>
+        <div class="menu-title">Company</div>
+        </a>
+        <ul>
+        <li>
+
+        <a asp-controller="Company" asp-action="Register" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Register Company</a>
+        </li>
+        <li>
+        <a asp-controller="Company" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Company</a>
+        </li>
+        <li>
+        <a asp-controller="PartyType" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Party Type</a>
+        </li>
+        <li>
+        <a asp-controller="Department" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Department</a>
+        </li>
+        <li>
+        <a asp-controller="Designation" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Designation</a>
+        </li>
+        <li>
+        <a asp-controller="Package" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Package</a>
+        </li>
+        </ul>
+        </li>*@
+
+        @*<li>
+        <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon">
+        <i class='bx bx-cog'></i>
+        </div>
+        <div class="menu-title">Forms</div>
+        </a>
+        <ul>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="MasterEntity" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Master List</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="RequestType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Request Type</a>
+        </li>*@
+
+        @*<li>
+        <a asp-area="SuperAdmin" asp-controller="RequestTypeModule" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Request Type Section</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="RequestTypeControlScreen" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Request Type Section Control - Screen Mapping</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="RequestTypeControl" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>All Controls</a>
+        </li>*@
+
+        @*  </ul>
+        </li>*@
+
+        @*<li>
+        <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon">
+        <i class='bx bx-user'></i>
+        </div>
+        <div class="menu-title">Roles</div>
+        </a>
+        <ul>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="Role" asp-action="Create"><i class="bx bx-right-arrow-alt"></i>Add Role</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="Role" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Roles</a>
+        </li>
+        <li>
+        <a class="nav-link " asp-controller="UserRoles" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Manage Users</a>
+        </li>
+        </ul>
+        </li>*@
+
+        @*<li>
+        <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon">
+        <i class='bx bx-cog'></i>
+        </div>
+        <div class="menu-title">Settings</div>
+        </a>
+        <ul>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="AddressType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Address Type</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="BusinessType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Business Type</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="DocumentType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Document Type</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="IndustryType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Industry Type</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="Country" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Countries</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="State" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>State</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="City" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>City</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="District" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>District</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="Taluka" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Taluka</a>
+        </li>
+        <li>
+        <a asp-area="SuperAdmin" asp-controller="Zipcode" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Zipcode</a>
+        </li>
+        </ul>
+        </li>*@
+
+        @*SuperAdmin SideBar End*@
+
+        @*<li>
+        <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon">
+        <i class='bx bx-cog'></i>
+        </div>
+        <div class="menu-title">Settings</div>
+        </a>
+        <ul>*@
+        <!--Rahul Changes-->
+        @* <li>
+        <a asp-area="Admin" asp-controller="Employee" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Employee List</a>
+        </li>
+        <li>
+        <a asp-area="Admin" asp-controller="SecurityOfficer" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Security officer list</a>
+        </li>*@
+        <!--Rahul Changes-->
+        @*<li>
+        <a asp-area="Admin" asp-controller="CompanySetting" asp-action="Edit"><i class="bx bx-right-arrow-alt"></i>Company</a>
+        </li>
+        <li>
+        <a asp-area="Admin" asp-controller="MasterEntity" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Master List</a>
+        </li>
+        <li>
+        <a asp-area="Admin" asp-controller="RequestType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Request Type</a>
+        </li>
+        <li>
+        <a asp-area="Admin" asp-controller="RequestTypeModule" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Request Type Section</a>
+        </li>
+        <li>
+        <a asp-area="Admin" asp-controller="RequestTypeControlScreen" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Request Type Section Control - Screen Mapping</a>
+        </li>
+        <li>
+        <a asp-area="Admin" asp-controller="RequestTypeControl" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>All Controls</a>
+        </li>*@
+
+
+        @*<li>
+        <a asp-area="Admin" asp-controller="RequestType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Case Type</a>
+        </li>
+        <li>
+        <a asp-area="Admin" asp-controller="RequestTypeModule" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Case Type Section</a>
+        </li>
+        <li>
+        <a asp-area="Admin" asp-controller="RequestTypeControlScreen" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Case Type Section Control - Screen Mapping</a>
+        </li>
+        <li>
+        <a asp-area="Admin" asp-controller="RequestTypeControl" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>All Controls</a>
+        </li>*@
+
+
+        @*<li>
+        <a asp-area="Admin" asp-controller="UploadProductImages" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Upload Product Images</a>
+        </li>*@
+
+        @* </ul>
+        </li>*@
+
+        @*<li>
+        <a asp-area="Admin" asp-controller="Request" asp-action="GetAll">
+        <div class="parent-icon">
+        <i class='bx bx-task'></i>
+        </div>
+        <div class="menu-title">Request</div>
+        </a>
+        </li>*@
+
+        @*<li>
+        <a href="javascript:;" class="has-arrow">
+        <div class="parent-icon">
+        <i class='bx bx-user'></i>
+        </div>
+        <div class="menu-title">Manage Users</div>
+        </a>
+        <ul>
+        <li>
+        <secure-content asp-area="Admin" asp-controller="RoleManage" asp-action="Index">
+        <a asp-area="Admin" asp-controller="RoleManage" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Role Permissions</a>
+        </secure-content>
+        </li>
+        <li>
+        <secure-content asp-area="Admin" asp-controller="Users" asp-action="Index">
+        <a asp-area="Admin" asp-controller="Users" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Users</a>
+        </secure-content>
+        </li>
+        <li>
+        <secure-content asp-area="Admin" asp-controller="Users" asp-action="Create">
+        <a asp-area="Admin" asp-controller="Users" asp-action="Create"><i class="bx bx-right-arrow-alt"></i>Add User</a>
+        </secure-content>
+        </li>
+        <li>
+        <a asp-area="Admin" asp-controller="MarketingCompanyFinancialYearMaster" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Financial Year</a>
+        </li>
+        </ul>
+        </li>*@
+
+        <!--Marketing Tab Start-->
+        <li>
+            @*<a href="javascript:;" class="has-arrow">
+            <div class="parent-icon">
+            <i class='bx bx-line-chart'></i>
+            </div>
+            <div class="menu-title">Marketing</div>
+            </a>*@
+            <ul>
+
+                <!--Feedback Start-->
+                <li>
+                    @*<secure-content asp-area="Marketing" asp-controller="Feedback" asp-action="Index">*@
+                    @* <a asp-area="Marketing" asp-controller="Feedback" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Feedback</a>*@
+                    @* @Html.ActionLink("Feedback", "Index", "Feedback",new {area = "Marketing"});*@
+                    @* </secure-content>*@
+                </li>
+                <!--Feedback End-->
+                <!--Communication Start-->
+                <li>
+                    @*<secure-content asp-area="Marketing" asp-controller="Communication" asp-action="Index">*@
+                    @*<a asp-area="Marketing" asp-controller="MarketingCommunicationLog" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Communication</a>*@
+                    @*</secure-content>*@
+                </li>
+                <!--Communication End-->
+                <!--Visiting Detail Start-->
+                <li>
+                    @*<secure-content asp-area="Marketing" asp-controller="VisitingDetail" asp-action="Index">*@
+                    @*<a asp-area="Marketing" asp-controller="MarketingVisitingDetail" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Visit Detail</a>*@
+                    @*</secure-content>*@
+                </li>
+                <!--Visiting Detail End-->
+                <!--Meeting Create Start-->
+                <li>
+                    @*<secure-content asp-area="Marketing" asp-controller="MarketingMeeting" asp-action="Index">*@
+                    @*<a asp-area="Marketing" asp-controller="MarketingMeeting" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Meeting</a>*@
+                    @*</secure-content>*@
+                </li>
+                <!--Meeting Create End-->
+                <!--Company Target Start-->
+                <li>
+                    @*<secure-content asp-area="Marketing" asp-controller="MarketingCompanyTarget" asp-action="Index">*@
+                    @*<a asp-area="Marketing" asp-controller="MarketingCompanyTarget" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Company Target </a>*@
+                    @*</secure-content>*@
+                </li>
+                <!--Company Target  End-->
+                <!--Sales Target Start-->
+                <li>
+                    @*<secure-content asp-area="Marketing" asp-controller="MarketingSalesTarget" asp-action="Index">*@
+                    @* <a asp-area="Marketing" asp-controller="MarketingSalesTarget" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Sales Target </a>*@
+                    @*</secure-content>*@
+                </li>
+                <!--Sales Target  End-->
+                <!--Employee Sales Target Start-->
+                <li>
+                    @*<secure-content asp-area="Marketing" asp-controller="MarketingEmployeeSalesTargetSummary" asp-action="Index">*@
+                    @* <a asp-area="Marketing" asp-controller="MarketingEmployeeSalesTargetSummary" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Employee Sales Target </a>*@
+                    @*</secure-content>*@
+                </li>
+                <!--Employee Sales Target  End-->
+
+            </ul>
+        </li>
+        <!--Marketing Tab End-->
+
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bx-user'></i>
+                </div>
+                <div class="menu-title">Admin</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon">
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </div>
+                        <div class="menu-title">Company</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a asp-area="Admin" asp-controller="CompanySetting" asp-action="Edit"><i class="bx bx-right-arrow-alt"></i>Company</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Company" asp-action="Register" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Register Company</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Company" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Company</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon">
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </div>
+                        <div class="menu-title">User</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a asp-area="SuperAdmin" asp-controller="Role" asp-action="Create"><i class="bx bx-right-arrow-alt"></i>Add Role</a>
+                        </li>
+                        <li>
+                            <a asp-area="SuperAdmin" asp-controller="Role" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Roles</a>
+                        </li>
+                        <li>
+                            <a class="nav-link " asp-controller="UserRoles" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Manage Users</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon">
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </div>
+                        <div class="menu-title">Configuration</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Email Config</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>SMS Config</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Notification Config</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Cloud Notification Config</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon">
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </div>
+                        <div class="menu-title">Accesibility</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a asp-area="SuperAdmin" asp-controller="Package" asp-action="Detail"><i class="bx bx-right-arrow-alt"></i>Form Assign To Package</a>
+                        </li>
+                        <li>
+                            <a asp-area="SuperAdmin" asp-controller="Package" asp-action="Detail"><i class="bx bx-right-arrow-alt"></i>Package Assign to User</a>
+                        </li>
+                        <li>
+                            <a asp-area="SuperAdmin" asp-controller="Package" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Package Master</a>
+                        </li>
+                        <li>
+                            <a asp-area="SuperAdmin" asp-controller="FormMaster" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Form Master</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bxs-book-add'></i>
+                </div>
+                <div class="menu-title">Master</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon">
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </div>
+                        <div class="menu-title">HR</div>
+                    </a>
+                    <ul>
+
+                        <li>
+                            <a asp-area="Admin" asp-controller="Employee" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Employee Master</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="RequestTypeModule" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Salary Formula</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="RequestTypeControlScreen" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Leave Master</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="SecurityOfficer" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Security Officer</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Department" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Department</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Designation" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Designation</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="MarketingCompanyFinancialYearMaster" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Financial Year</a>
+                        </li>
+
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon">
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </div>
+                        <div class="menu-title">CRM</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Customer" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Customer List</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="RequestType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Client</a>
+                        </li>
+                        <li>
+                            <a asp-controller="PartyType" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Party Type</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="MarketingCompanyFinancialYearMaster" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Venu Type</a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="UploadProductImages" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Product List</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="AddressType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Address Type</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="BusinessType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Business Type</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="DocumentType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Document Type</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="IndustryType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Industry Type</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="Country" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Countries</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="State" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>State</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="City" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>City</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="District" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>District</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="Taluka" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Taluka</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="Zipcode" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Zipcode</a>
+                </li>
+
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    @*<i class='bx bx-line-chart'></i>*@
+                    <iconify-icon icon="material-symbols:compare-arrows"></iconify-icon>
+                </div>
+                <div class="menu-title">Transaction</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon">
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </div>
+                        <div class="menu-title">HR</div>
+                    </a>
+                    <ul>
+
+                        <li>
+                            <a asp-area="Admin" asp-controller="RequestType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Employee Present</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon">
+                            <i class="bx bx-right-arrow-alt"></i>
+                        </div>
+                        <div class="menu-title">CRM</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a asp-area="Marketing" asp-controller="Feedback" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Client Feedback</a>
+                        </li>
+                        <li>
+                            <a asp-area="Marketing" asp-controller="MarketingMeeting" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Meeting Schedule</a>
+                        </li>
+                        <li>
+                            <a asp-area="Marketing" asp-controller="MarketingVisitingDetail" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Visit Detail</a>
+                        </li>
+                        <!--Company Target Start-->
+                        <li>
+                            <a asp-area="Marketing" asp-controller="MarketingCompanyTarget" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Company Target </a>
+                        </li>
+                        <!--Company Target  End-->
+                        <!--Sales Target Start-->
+                        <li>
+                            <a asp-area="Marketing" asp-controller="MarketingSalesTarget" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Sales Target </a>
+                        </li>
+                        <!--Sales Target  End-->
+                        <!--Employee Sales Target Start-->
+                        <li>
+                            <a asp-area="Marketing" asp-controller="MarketingEmployeeSalesTargetSummary" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Employee Sales Target </a>
+                        </li>
+                        <!--Employee Sales Target End-->
+                        <!--Our Product Start-->
+                        <li>
+                            <a asp-area="Admin" asp-controller="OurProduct" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Our Product</a>
+                        </li>
+                        <!--Our Product End-->
+                    </ul>
+                </li>
+
+            </ul>
+        </li>
+
+
+    </ul>
+    <!--end navigation-->
+</div>
+
+<script>
+
+    showLoader();
+
+    function laddaStart(id) {
+        var l = Ladda.create(document.getElementById(id));
+        l.start();
+        return l;
+    }
+
+    function laddaStop(l) {
+        l.stop();
+    }
+
+    function showLoader() {
+        $("body").LoadingOverlay("show", {
+            background: "rgba(136,251,155 0.3)",
+            imageColor: '#8833ff'
+        });
+    }
+
+    function hideloader() {
+        $("body").LoadingOverlay("hide", true);
+    }
+
+    $(function() {
+        hideloader();
+    });
+    $(function() {
+        //hideLoader();
+        ////Handle tooltip behaviour (It will init in all controls)
+        //var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        //var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        //    return new bootstrap.Tooltip(tooltipTriggerEl)
+        //});
+    });
+
+</script>
+@*Admin SideBar End*@
+<!--Main Sidebar End-->

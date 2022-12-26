@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Marketing\VisitingDetails\**" />
+    <EmbeddedResource Remove="Marketing\VisitingDetails\**" />
+    <None Remove="Marketing\VisitingDetails\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Infrastructure\Util\Utils\Utils.csproj" />
+    <ProjectReference Include="..\..\Business.SQL\Business.SQL\Business.SQL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Customer\" />
+  </ItemGroup>
+
+</Project>

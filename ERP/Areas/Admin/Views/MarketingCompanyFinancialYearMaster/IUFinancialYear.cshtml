@@ -1,0 +1,143 @@
+﻿@using ERP.Helpers
+@model Business.Entities.Master.MarketingCompanyFinancialYearMaster.FinancialYearMaster;
+<form class="form-horizontal" role="form" id="formAddFinancialYear">
+    <div class="row mt-3">
+        <div class="col-md-12">
+            @*<div class="row mb-3">
+                <input type="hidden" asp-for="FinancialYearID" />
+                <label class="col-sm-3 col-form-label">Running Year<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" required="" value="@DateTime.Today.Year.ToString()" class="form-control" id="CurrentYear" name="CurrentYear" asp-for="CurrentYear" >
+                    <span asp-validation-for="CurrentYear" class="text-danger"></span>
+                </div>
+            </div>*@
+            <div class="row mb-3">
+                <input type="hidden" asp-for="FinancialYearID" />
+                <label class="col-sm-3 col-form-label">Financial Year<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" required="" class="form-control" id="FinancialYear" 
+                        name="FinancialYear" asp-for="FinancialYear" placeholder="Example -> 2022-2023 ">
+                    <span asp-validation-for="FinancialYear" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Start Month<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    @*<input type="text" required="" class="form-control" id="StartMonth" name="StartMonth" asp-for="StartMonth">*@
+                    <select asp-for="StartMonth" class="form-control" required="">
+                        <option value="">Select Starting Month...</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                    <span asp-validation-for="StartMonth" class="text-danger"></span>
+                </div>
+            </div>            
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">EndMonth<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    @*<input type="text" required="" class="form-control" id="Email" name="Email" asp-for="EndMonth">*@
+                    <select asp-for="EndMonth" class="form-control" required="">
+                        <option value="">Select Ending Month...</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                    <span asp-validation-for="EndMonth" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Description<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="FinYearDesc" name="FinYearDesc" asp-for="FinYearDesc" required="">
+                    <span asp-validation-for="FinYearDesc" class="text-danger "></span>
+                </div>
+            </div>
+
+            
+
+            <div class="modal-footer-sticky text-center">
+                <button id="btnSave" type="button" onclick="fnSubmit()" class="btn btn-primary btn-info px-5 ladda-button">Save</button>
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-primary btn-info px-5 my-2">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
+@await Html.PartialAsync("_ValidationScriptsPartial")
+
+<script type="text/javascript">
+    var urlsave = '@Url.Action("IOrUFinancialYear", "MarketingCompanyFinancialYearMaster")';
+    function fnSubmit() {
+        if ($("#formAddFinancialYear").valid()) {
+            var l = laddaStart('btnSave');
+            console.log(l);
+            modeldata = $("#formAddFinancialYear").serialize();
+            $.ajax({
+                type: 'POST',
+                url: urlsave,
+                data: modeldata,
+                dataType: 'json',
+                beforeSend: function() { },
+                success: function(data) {
+                    window.location.reload().delay(3000);
+                    if (data.status) {
+                        //notification
+                        $("#formAddFinancialYear").hide();//('hide');
+                        Lobibox.notify('success', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                    else {
+                        Lobibox.notify('error', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                },
+                error: function(error) {
+                    laddaStop(l);
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            }).always(function() {
+                hideLoader();
+            });
+        }
+    };
+</script>

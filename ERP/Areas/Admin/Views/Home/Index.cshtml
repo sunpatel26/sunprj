@@ -1,0 +1,97 @@
+﻿@using Business.Entities
+@model DashbaordCount
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="container pt-1">
+            <div class="col-sm-9 col-md-7 col-lg-12 mx-auto">
+                @*    <div class="card border-1 shadow rounded-7 my-5">
+                <div class="card-body p-3 p-sm-3">*@
+
+
+
+                <div class="row pt-5 px-3">
+                    <div class="page-breadcrumb d-none d-sm-flex align-items-center pb-2 border-bottom">
+                        <ol class="breadcrumb mb-0 p-0">
+                            <li class="breadcrumb-item">
+                                <i class="bx bx-home-alt"></i>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                        </ol>
+                    </div>
+                    @*<grid model="@Model" />*@
+                    <div class="row py-2">
+                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <div class="card p-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Visitor Count</h5>
+                                    <h1 class="card-text">@Model.TotalVisitor</h1>
+                                    @*<a asp-controller="VistorDashboardController" asp-action="VisitorDashboardCount" asp-area="Admin"><i class="bx bx-link">Click here</i></a>
+                                    <a href="#" class="card-link"</a>*@
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <div class="card p-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Today Upcoming Visitor</h5>
+                                    <h1 class="card-text">@Model.TodayUpcommingVisitor</h1>
+                                    @*<a href="#" class="card-link"><i class="bx bx-link">Click here</i></a>*@
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <div class="card p-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Today Visit Completed</h5>
+                                    @*<h1 class="card-text">5</h1>*@
+                                    <h1 class="card-text">@Model.TodayVisitCompleted</h1>
+                                    @*<a href="#" class="card-link"><i class="bx bx-link">Click here</i></a>*@
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <div class="card p-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Upcomming Visitor</h5>
+                                    @*<h1 class="card-text">25</h1>*@
+                                    <h1 class="card-text">@Model.UpcommingVisitor</h1>
+                                    @*<a href="#" class="card-link"><i class="bx bx-link">Click here</i></a>*@
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                            <div class="card p-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Rejected Visitor</h5>
+                                    @*<h1 class="card-text">50</h1>*@
+                                    <h1 class="card-text">@Model.TotalRejected</h1>
+                                    @*<a href="#" class="card-link"><i class="bx bx-link">Click here</i></a>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h1>Bar Chart Display</h1>
+                </div>
+                @*  </div>
+
+                </div>*@
+
+            </div>
+        </div>
+    </div>
+</div>

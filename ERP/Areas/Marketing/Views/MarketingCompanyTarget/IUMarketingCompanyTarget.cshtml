@@ -1,0 +1,148 @@
+﻿@using ERP.Helpers
+@model Business.Entities.Marketing.CompanySale.CompanyTarget;
+<form class="form-horizontal" role="form" id="formAddMarketingCompanyTarget">
+    <div class="row mt-3">
+        <div class="col-md-12">
+
+            <div class="row mb-3">
+                <input type="hidden" asp-for="CompanyTargetID" />
+                <label class="col-sm-3 col-form-label">Company<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <select asp-for="CompanyID" asp-items="ViewBag.CompanyName" class="form-control" required="">
+                        <option value="">Select Company...</option>
+                    </select>
+                    <span asp-validation-for="CompanyID" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            @if (@Model.CompanyTargetID != null && @Model.CompanyTargetID > 0)
+            {
+                @*@Model.StartDate<br>
+                @Model.StartDate.ToString("d")*@
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Start Date<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" id="StartDate" name="StartDate" asp-for="StartDate" required>
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">End Date<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" id="EndDate" name="EndDate" asp-for="EndDate" required="">
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Start Date<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="date" value="" class="form-control" id="StartDate" name="StartDate" asp-for="StartDate" required>
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">End Date<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="date" value="" class="form-control" id="EndDate" name="EndDate" asp-for="EndDate" required="">
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+            }
+
+
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Target Value<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" required="" class="form-control" id="TargetValue" name="TargetValue" asp-for="TargetValue">
+                    <span asp-validation-for="TargetValue" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Financial Year<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <select asp-for="FinancialYearID" asp-items="ViewBag.FinancialYear" class="form-control" required="">
+                        <option value="">Select Financial Year...</option>
+                    </select>
+                    <span asp-validation-for="FinancialYearID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="modal-footer-sticky text-center">
+                <button id="btnSave" type="button" onclick="fnSubmit()" class="btn btn-primary btn-info px-5 ladda-button">Save</button>
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-primary btn-info px-5 my-2">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
+@await Html.PartialAsync("_ValidationScriptsPartial")
+
+<script type="text/javascript">
+    var urlsave = '@Url.Action("IOrUMarketingCompanyTarget", "MarketingCompanyTarget")';
+    function fnSubmit() {
+        if ($("#formAddMarketingCompanyTarget").valid()) {
+            var l = laddaStart('btnSave');
+            console.log(l);
+            modeldata = $("#formAddMarketingCompanyTarget").serialize();
+            $.ajax({
+                type: 'POST',
+                url: urlsave,
+                data: modeldata,
+                dataType: 'json',
+                beforeSend: function() { },
+                success: function(data) {
+                    window.location.reload().delay(3000);
+                    if (data.status) {
+                        //notification
+                        $("#formAddMarketingCompanyTarget").hide();//('hide');
+                        Lobibox.notify('success', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                    else {
+                        Lobibox.notify('error', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                },
+                error: function(error) {
+                    laddaStop(l);
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            }).always(function() {
+                hideLoader();
+            });
+        }
+    };
+
+            //var date = new Date();
+            //var day = ("0" + date.getDate()).slice(-2);
+            //var month = ("0" + (date.getMonth() + 1)).slice(-2);
+            //var today = date.getFullYear() + "-" + (month) + "-" + (day);
+            //$('#StartDate').val(today);
+            //$('#EndDate').val(today);
+</script>

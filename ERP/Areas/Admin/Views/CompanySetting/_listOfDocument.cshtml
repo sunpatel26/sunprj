@@ -1,0 +1,97 @@
+﻿@using Business.SQL
+@model PagedDataTable<CompanyDocumentMetadata>
+<link href="~/admin/assets/vendors/simple-datatables/style.css" rel="stylesheet" />
+<div id="CompanyTable">
+    <div class="row">
+        <div class="col-lg-6">
+            <h6 class="cards-title">
+                Documents
+            </h6>
+        </div>
+        <div class="col-lg-6 text-align-right">
+            <a onclick="fnAddDocument(0)"
+               class="btn btn-primary px-5"
+               href="javascript:void(0)"
+               data-id="0"
+               data-bs-toggle="offcanvas"
+               data-bs-target="#canvas_document"
+               aria-controls="canvas_document">
+                Add Document
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-striped" id="tblDocument">
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Document Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.SrNo</td>
+                            <td>@item.DocumentName</td>
+                            <td>@item.DocumentDesc</td>
+
+                            <td>
+                                <a class='btn editdocument' onclick="fnAddDocument(@item.CompanyDocumentsID)"
+                           href="javascript:void(0)"
+                           data-bs-toggle="offcanvas"
+                           data-bs-target="#canvas_document"
+                           aria-controls="canvas_document"
+                           data-id="@item.CompanyDocumentsID"
+                           compnayid="@item.CompanyID"><i class='bx bx-edit'></i></a>
+                                <a class='btn downdocument'
+                                  asp-route-id="@item.CompanyDocumentsID"  asp-controller="CompanySetting" asp-action="DocumentDownload"><i class='bx bx-download'></i></a>
+                                <a class='btn deletedocument' href="#!" data-id="@item.CompanyDocumentsID" compnayid="@item.CompanyID"><i class='icon dripicons-trash'></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="canvas_document">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Document</h5>
+        <button type="button" class="btn-close te  xt-reset" data-bs-dismiss="offcanvas" aria-l abel="Close"></button>
+    </div>
+    <div class="offcanvas-body pt-3 pb-5">
+        <div id="dvInfoDoc">
+        </div>
+    </div>
+</div>
+
+<script src="~/admin/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    var urlDeleteCompanyFromUser = '@Url.Action("DeleteDocument", "CompanySetting")';
+    var urlAddDocument = '@Url.Action("AddDocument", "CompanySetting")';
+    $(document).ready(function () {
+        let table1 = document.querySelector('#tblDocument');
+        let dataTable = new simpleDatatables.DataTable(table1);
+
+
+    });
+    function fnAddDocument(id) {
+        var _id = id;//$(this).data('id');
+        var _cid = $("#CompanyID").val();
+        var _parameters = { id: _id, compnayid: _cid };
+        $.ajax({
+            url: urlAddDocument,
+            type: "POST",
+            data: _parameters,
+            success: function (data, textStatus, jqXHR) {
+                $("#canvas_document").show();//('hide');
+                console.log(data);
+                $('#dvInfoDoc').html(data);
+            }
+        });
+    }
+</script>

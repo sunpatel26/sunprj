@@ -1,0 +1,317 @@
+﻿@model ModelCaseSubmit
+@if (Model != null)
+{
+    <div>
+
+
+        @foreach (var headeritem in Model.Sections)
+        {
+            int colCount = 0;
+            bool isDivOpen = false;
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="row pt-3">
+
+                        <div class="card-title d-flex align-items-center">
+                            <h5 class="mb-0 text-info ">@Html.Raw(headeritem.Name)</h5>
+                        </div>
+                        <hr />
+
+                    </div>
+                    <div class="row pt-3">
+
+                        <div class="form-body">
+                            @{
+                                foreach (var item in headeritem.Controls)
+                                {
+                                    var csMapping = Model.ControlScreenMapping.FirstOrDefault(p => p.RequestTypeControlID == item.RequestTypeControlID);
+                                    var isEdit = (csMapping == null || csMapping.RenderType.Equals(ConstVariable.RENDER_TYPE_EDIT));
+                                    var isView = (csMapping != null && csMapping.RenderType.Equals(ConstVariable.RENDER_TYPE_READONLY));
+
+                                    if (item.Type.Equals(ConstVariable.TYPE_DIVIDER))
+                                    {
+                                        colCount = 0;
+                                        if (isDivOpen)
+                                        {
+                                            isDivOpen = false;
+                                            @Html.Raw("</div>")
+                                        }
+                                        <div class="row control-row">
+                                            <div class="col-md-12">
+                                                <hr />
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        if (isEdit || isView)
+                                        {
+                                            if (colCount == 0 || colCount % 2 == 0 || !isDivOpen)
+                                            {
+                                                isDivOpen = true;
+                                                @Html.Raw("<div class='row control-row'>")
+                                            }
+
+                                            if (!item.Type.Equals(ConstVariable.TYPE_TEXT_MULTILINE))
+                                            {
+
+
+                                                <div class="col-md-6">
+                                                    <div class="row mb-3">
+                                                        <label class="col-sm-3 col-form-label text-end" data-toggle="tooltip" title="@item.Tooltip">
+                                                            @item.Label
+                                                            @if (item.IsRequired)
+                                                            {
+                                                                <span class="required" aria-required="true">* </span>
+                                                            }
+                                                        </label>
+                                                        <input type="hidden" id="requiredmessage" value="Please enter value for @item.Label" />
+                                                        <div class="col-sm-9 @(item.Type.Equals(ConstVariable.TYPE_RADIOLIST) || item.Type.Equals(ConstVariable.TYPE_BOOLEAN)?"pt-2":"")">
+                                                            @{
+                                                                var elementId = "key_" + item.RequestTypeControlID;
+                                                                if (item.Type.Equals(ConstVariable.TYPE_TEXT))
+                                                                {
+                                                                    if (isEdit)
+                                                                    {
+                                                                        <input type="text" id="@elementId" name="@elementId" @(item.IsRequired ? "required" : "")
+                                               class="form-control input-control contorl-to-save  @(item.ValidationRuleName.Replace("+", "").Replace(" ", "").ToLower())
+                                                                                @(string.IsNullOrWhiteSpace(item.ValidationRuleFormula) ? "" : "validation-rule")"
+                                               value="@item.DefaultValue" data-control-key="@item.RequestTypeControlID"
+                                               data-control-type="@item.Type" data-toggle="tooltip" title="@item.Tooltip"
+                                               data-validation-rule="@item.ValidationRuleFormula" data-min-length="@item.MinLength" data-max-length="@item.MaxLength" autocomplete="off" />
+                                                                        if (item.IsRequired)
+                                                                        {
+                                                                            <span class="text-danger" data-valmsg-for="@elementId" data-valmsg-replace="true"></span>
+
+                                                                        }
+                                                                        //<span class="help-block input-error">Please enter value.</span>
+                                                                        //<span class="help-block input-error-min">Minimum @item.MinLength characters are allowed.</span>
+                                                                        //<span class="help-block input-error-max">Maximum @item.MaxLength characters are allowed.</span>
+                                                                        //<span class="help-block validation-error">@item.ValidationRuleErrorMessage</span>
+                                                                    }
+                                                                    else if (isView)
+                                                                    {
+                                                                        <span class="form-control-static">@item.DefaultValue</span>
+                                                                    }
+                                                                }
+
+                                                                else if (item.Type.Equals(ConstVariable.TYPE_DATETIME))
+                                                                {
+                                                                    if (isEdit)
+                                                                    {
+                                                                        <input type="date" id="@elementId" name="@elementId" class="form-control input-control contorl-to-save date-picker " @(item.IsRequired ? "required" : "") value="@item.DefaultValue" data-control-key="@item.RequestTypeControlID" data-control-type="@item.Type" data-toggle="tooltip" title="@item.Tooltip" autocomplete="off" />
+                                                                        if (item.IsRequired)
+                                                                        {
+                                                                            <span class="text-danger" data-valmsg-for="@elementId" data-valmsg-replace="true"></span>
+                                                                        }
+                                                                    }
+                                                                    else if (isView)
+                                                                    {
+                                                                        <span class="form-control-static">@item.DefaultValue</span>
+                                                                    }
+                                                                }
+                                                                else if (item.Type.Equals(ConstVariable.TYPE_TIME))
+                                                                {
+                                                                    if (isEdit)
+                                                                    {
+                                                                        <input type="text" id="@elementId" name="@elementId" class="form-control input-control contorl-to-save timepicker-no-seconds" @(item.IsRequired ? "required" : "") value="@item.DefaultValue" data-control-key="@item.RequestTypeControlID" data-control-type="@item.Type" data-toggle="tooltip" title="@item.Tooltip" autocomplete="off" />
+                                                                        if (item.IsRequired)
+                                                                        {
+                                                                            <span class="text-danger" data-valmsg-for="@elementId" data-valmsg-replace="true"></span>
+                                                                        }
+
+                                                                    }
+                                                                    else if (isView)
+                                                                    {
+                                                                        <span class="form-control-static">@item.DefaultValue</span>
+                                                                    }
+                                                                }
+                                                                else if (item.Type.Equals(ConstVariable.TYPE_BOOLEAN))
+                                                                {
+                                                                    if (isEdit)
+                                                                    {
+                                                                        <input type="checkbox" id="@elementId" name="@elementId" class="make-switch input-control contorl-to-save control-checkbox" @(item.IsRequired ? "required" : "") @(Convert.ToBoolean(string.IsNullOrEmpty(item.DefaultValue) ? "false" : item.DefaultValue) ? "checked" : "") data-control-key="@item.RequestTypeControlID" data-control-type="@item.Type" data-toggle="tooltip" title="@item.Tooltip" data-on-text="Yes" data-off-text="No" />
+
+                                                                        if (item.IsRequired)
+                                                                        {
+                                                                            <span class="text-danger" data-valmsg-for="@elementId" data-valmsg-replace="true"></span>
+                                                                        }
+                                                                    }
+                                                                    else if (isView)
+                                                                    {
+                                                                        <span class="form-control-static">@(Convert.ToBoolean(string.IsNullOrEmpty(item.DefaultValue) ? "false" : item.DefaultValue) ? "Yes" : "No")</span>
+                                                                    }
+
+                                                                }
+                                                                else if (item.Type.Equals(ConstVariable.TYPE_DROPDOWN) || item.Type.Equals(ConstVariable.TYPE_DROPDOWN_MULTISELECT))
+                                                                {
+                                                                    <select id="@elementId" name="@elementId" @(item.IsRequired ? "required" : "") class="form-control input-control contorl-to-save @(item.Type.Equals(ConstVariable.TYPE_DROPDOWN_MULTISELECT) ? "mt-multiselect dropdown-toggle" : "")" @(item.Type.Equals(ConstVariable.TYPE_DROPDOWN_MULTISELECT) ? "multiple" : "") @(item.Type.Equals(ConstVariable.TYPE_DROPDOWN_MULTISELECT) ? "data-role=multiselect" : "") data-control-key="@item.RequestTypeControlID" data-control-type="@item.Type" data-toggle="tooltip" title="@item.Tooltip">
+                                                                        @{
+                                                                            if (item.Type.Equals(ConstVariable.TYPE_DROPDOWN))
+                                                                            {
+                                                                                <option value="">--Select--</option>
+                                                                            }
+                                                                            if (headeritem.DropdownValueList != null)
+                                                                            {
+                                                                                var defaultValuesList = (string.IsNullOrEmpty(item.DefaultValue) ? "" : item.DefaultValue).Split(',');
+                                                                                foreach (var dropdownItem in headeritem.DropdownValueList.Where(p => p.Name.Equals(item.DataKey)))
+                                                                                {
+                                                                                    if (defaultValuesList.Contains(dropdownItem.MasterListID.ToString()))
+                                                                                    {
+                                                                                        <option selected value="@dropdownItem.MasterListID">@dropdownItem.Value</option>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <option value="@dropdownItem.MasterListID">@dropdownItem.Value</option>
+                                                                                    }
+
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </select>
+                                                                    if (item.IsRequired)
+                                                                    {
+                                                                        <span class="text-danger" data-valmsg-for="@elementId" data-valmsg-replace="true"></span>
+                                                                    }
+
+                                                                }
+                                                                else if (item.Type.Equals(ConstVariable.TYPE_FILEUPLOAD))
+                                                                {
+                                                                    List<ModelCaseDataFile> files = null;
+                                                                    if (!string.IsNullOrEmpty(item.DefaultValue))
+                                                                    {
+                                                                        files = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ModelCaseDataFile>>(item.DefaultValue);
+                                                                    }
+                                                                    <input type="file" id="@elementId" name="@elementId" class="form-control input-control contorl-to-save  fileupload" @(item.IsRequired && (files == null || files.Count == 0) ? "required" : "") data-control-key="@item.RequestTypeControlID" data-control-type="@item.Type" data-toggle="tooltip" title="@item.Tooltip" multiple style="width:90%" />
+                                                                    if (item.IsRequired)
+                                                                    {
+                                                                        <span class="text-danger" data-valmsg-for="@elementId" data-valmsg-replace="true"></span>
+                                                                    }
+                                                                    //<span class="help-block input-error">Please select file.</span>
+                                                                    //<span class="help-block input-error-0-size">Invalid size.</span>
+                                                                    //<span class="help-block input-error-greate-size">Invalid size.File greater than 10 MB is not allowed</span>
+                                                                    //<span class="help-block input-error-filetype">Invalid File Type.</span>
+                                                                    if (files != null)
+                                                                    {
+                                                                        int fileCount = 1;
+                                                                        foreach (var file in files)
+                                                                        {
+                                                                            <div class="row">
+                                                                                <div class="col-md-12" style="padding-top: 5px">
+                                                                                    @Html.ActionLink(fileCount + ". " + file.FileName, "DownloadFile", "Request", new { id = file.RequestDetailFileID }, null)
+                                                                                </div>
+                                                                            </div>
+                                                                            fileCount = fileCount + 1;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else if (item.Type.Equals(ConstVariable.TYPE_RADIOLIST))
+                                                                {
+                                                                    if (headeritem.DropdownValueList != null)
+                                                                    {
+                                                                        var defaultValuesList = (string.IsNullOrEmpty(item.DefaultValue) ? "" : item.DefaultValue).Split(',');
+                                                                        var dropdownList = headeritem.DropdownValueList.Where(p => p.Name.Equals(item.DataKey)).ToList();
+                                                                        <div class="radio-list">
+                                                                            @{
+                                                                                foreach (var dropdownItem in dropdownList)
+                                                                                {
+                                                                                    var isFirstElement = dropdownList.IndexOf(dropdownItem) == 0;
+                                                                                    <label class="radio-inline">
+                                                                                        <input type="radio" id="@elementId" name="@elementId"
+                                                           value="@dropdownItem.MasterListID"
+                                                           class="input-control @(isFirstElement ? "contorl-to-save" : "")"
+                                                           data-control-key="@item.RequestTypeControlID"
+                                                           data-control-type="@item.Type"
+                                                           data-toggle="tooltip"
+                                                           title="@item.Tooltip"
+                                                           @(defaultValuesList.Contains(dropdownItem.MasterListID.ToString()) ? isFirstElement && item.IsRequired ? "required checked" : "checked" :isFirstElement && item.IsRequired?"required":"")>
+                                                                                        @dropdownItem.Value
+                                                                                    </label>
+                                                                                    if (isFirstElement)
+                                                                                    {
+                                                                                        @*<br />*@
+                                                                                    }
+                                                                                    else if (dropdownList.IndexOf(dropdownItem) < dropdownList.Count - 1)
+                                                                                    {
+                                                                                        @*<br />*@
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        </div>
+                                                                    }
+                                                                    if (item.IsRequired)
+                                                                    {
+                                                                        <span class="text-danger" data-valmsg-for="@elementId" data-valmsg-replace="true"></span>
+                                                                    }
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            }
+                                            else
+                                            {
+                                                <div style="clear:both;margin-bottom:10px;" class="col-md-12">
+
+                                                    @if (item.Type.Equals(ConstVariable.TYPE_TEXT_MULTILINE))
+                                                    {
+                                                        <div class="col-md-12">
+                                                            <label class="col-sm-3 col-form-label text-start" data-toggle="tooltip" title="@item.Tooltip">
+                                                                @item.Label
+                                                                @if (item.IsRequired)
+                                                                {
+                                                                    <span class="required" aria-required="true">* </span>
+                                                                }
+                                                            </label>
+                                                            <input type="hidden" id="requiredmessage" value="Please enter value for @item.Label" />
+                                                            <div class="col-md-12">
+                                                                @{
+                                                                    var elementIdd = "key_" + item.RequestTypeControlID;
+                                                                    if (isEdit)
+                                                                    {
+                                                                        <textarea id="@elementIdd" name="@elementIdd" rows="8" class="form-control input-control contorl-to-save" @(item.IsRequired ? "required" : "") data-control-key="@item.RequestTypeControlID" data-control-type="@item.Type" data-toggle="tooltip" title="@item.Tooltip" data-min-length="@item.MinLength" data-max-length="@item.MaxLength">@item.DefaultValue</textarea>
+                                                                        if (item.IsRequired)
+                                                                        {
+                                                                            <span class="text-danger" data-valmsg-for="@elementIdd" data-valmsg-replace="true"></span>
+                                                                        }
+                                                                        //<span class="help-block input-error">Please enter value</span>
+                                                                        //<span class="help-block input-error-min">Minimum @item.MinLength characters are allowed</span>
+                                                                        //<span class="help-block input-error-max">Maximum @item.MaxLength characters are allowed</span>
+                                                                    }
+                                                                    else if (isView)
+                                                                    {
+                                                                        <span class="form-control-static">@item.DefaultValue</span>
+                                                                    }
+                                                                }
+                                                            </div>
+
+                                                        </div>
+                                                    }
+                                                </div>
+                                            }
+                                            colCount = colCount + 1;
+                                            if (colCount % 2 == 0 && isDivOpen)
+                                            {
+                                                @Html.Raw("</div>")
+
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (isDivOpen)
+                                {
+                                    isDivOpen = false;
+                                    @Html.Raw("</div>")
+                                }
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+}

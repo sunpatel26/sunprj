@@ -1,0 +1,269 @@
+﻿@model ZipcodeMasterMetadata
+<form method="post" id="frmzipcode" asp-area="SuperAdmin" class="row g-3 needs-validation" novalidate>
+    <div class="row mt-3">
+        <div class="col-md-12">
+
+            <input type="hidden" asp-for="ZIPCodeID" />
+
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Country<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="CountryID" asp-items="@SuperCompanyDropdownBinder.Countries()">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="CountryID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">State<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="StateID" asp-items="@SuperCompanyDropdownBinder.State(Model.CountryID)">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="StateID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">District<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="DistrictID" asp-items="@SuperCompanyDropdownBinder.District(Model.StateID)">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="DistrictID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Taluka<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="TalukaID" asp-items="@SuperCompanyDropdownBinder.City(Model.DistrictID)">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="TalukaID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">City<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="CityID" asp-items="@SuperCompanyDropdownBinder.City(Model.StateID)">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="CityID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="roleName" class="col-sm-4 col-form-label text-end">Area Name<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" required="" class="form-control" asp-for="AreaOfficeName" maxlength="150">
+                    <span asp-validation-for="AreaOfficeName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="roleName" class="col-sm-4 col-form-label text-end">Zipcode<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" required="" class="form-control" asp-for="ZIPCode" maxlength="10">
+                    <span asp-validation-for="ZIPCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="modal-footer-sticky">
+                <button class="btn btn-primary btn-info px-5 ladda-button" id="btnSave" type="button" onclick="fnSubmit()">
+                    Save
+                </button>
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-primary btn-info px-5">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<script type="text/javascript">
+    function fnSubmit() {
+        if ($("#frmzipcode").valid()) {
+            var l = laddaStart('btnSave');
+            modeldata = $("#frmzipcode").serialize();
+            $.ajax({
+                type: 'POST',
+                url: '../SuperAdmin/Zipcode/Save',
+                data: modeldata,
+                dataType: 'json',
+                beforeSend: function () { },
+                success: function (data) {
+                    console.log(data.status);
+                    if (data.status) {
+                        //notification
+                        $("#canvas_zip").hide();//('hide');
+                        Lobibox.notify('success', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                    else {
+                        Lobibox.notify('error', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                },
+                error: function (error) {
+                    laddaStop(l);
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            }).always(function () {
+                hideLoader();
+            });
+        }
+    };
+    var urlstate = '@Url.Action("GetState", "Base")';
+    var urldistrict = '@Url.Action("GetDistrict", "Base")';
+    var urltaluka = '@Url.Action("GetTaluka", "Base")';
+    var urlcity = '@Url.Action("GetCity", "Base")';
+    $(document).ready(function () {
+        $("#CountryID").change(function () {
+            $("#StateID").empty();
+            $("#DistrictID").empty();
+            $.ajax({
+                type: 'POST',
+                url: urlstate,
+                dataType: 'json',
+                data: { countryId: $("#CountryID").val() },
+                success: function (response) {
+                    $("#StateID").append('<option value>--Select--</option>');
+                    $("#DistrictID").append('<option value>--Select--</option>');
+                    if (response.status) {
+                        console.log(response.data);
+                        $.each(response.data, function (i, state) {
+                            $("#StateID").append('<option value="'
+                                + state.value + '">'
+                                + state.text + '</option>');
+                        });
+                    }
+
+                },
+                error: function (ex) {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            });
+            return false;
+        })
+        $("#StateID").change(function () {
+            $("#DistrictID").empty();
+            $.ajax({
+                type: 'POST',
+                url: urldistrict,
+                dataType: 'json',
+                data: { stateId: $("#StateID").val() },
+                success: function (response) {
+                    $("#DistrictID").append('<option value>--Select--</option>');
+                    if (response.status) {
+                        console.log(response.data);
+                        $.each(response.data, function (i, district) {
+                            $("#DistrictID").append('<option value="'
+                                + district.value + '">'
+                                + district.text + '</option>');
+                        });
+                    }
+                    
+                },
+                error: function (ex) {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            });
+
+            $("#CityID").empty();
+            $.ajax({
+                type: 'POST',
+                url: urlcity,
+                dataType: 'json',
+                data: { stateId: $("#StateID").val() },
+                success: function (response) {
+                    $("#CityID").append('<option value>--Select--</option>');
+                    if (response.status) {
+                        console.log(response.data);
+                        $.each(response.data, function (i, city) {
+                            $("#CityID").append('<option value="'
+                                + city.value + '">'
+                                + city.text + '</option>');
+                        });
+                    }
+                },
+                error: function (ex) {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            });
+            return false;
+        })
+       
+        $("#DistrictID").change(function () {
+            $("#TalukaID").empty();
+            $.ajax({
+                type: 'POST',
+                url: urltaluka,
+                dataType: 'json',
+                data: { districtID: $("#DistrictID").val() },
+                success: function (response) {
+                    $("#TalukaID").append('<option value>--Select--</option>');
+                    
+                    if (response.status) {
+                        console.log(response.data);
+                        $.each(response.data, function (i, taluka) {
+                            $("#TalukaID").append('<option value="'
+                                + taluka.value + '">'
+                                + taluka.text + '</option>');
+                        });
+                    }
+
+                },
+                error: function (ex) {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            });
+            return false;
+        })
+    });
+    
+</script>
+
+@await Html.PartialAsync("_ValidationScriptsPartial")

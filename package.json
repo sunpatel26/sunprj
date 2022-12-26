@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "fullcalendar": "^5.11.3",
+    "jquery-typeahead": "^2.11.1",
+    "ladda": "^2.0.3"
+  }
+}

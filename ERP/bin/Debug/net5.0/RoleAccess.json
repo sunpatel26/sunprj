@@ -1,0 +1,560 @@
+{
+  "roleAccess": [
+    {
+      "id": 0,
+      "roleId": null,
+      "userID": "8",
+      "compnayID": "1",
+      "userClaims": [
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Home-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Permission-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Permission-Update",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-RoleManage-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Users-Create",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Users-Edit",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Users-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Users-ManageRole",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Users-UpdateRole",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-BusinessType-Create",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-BusinessType-Edit",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-BusinessType-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-BusinessType-Save",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Company-AddContact",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Company-Edit",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Company-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Company-Register",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Company-SaveContact",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Company-ShowLogo",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Home-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-IndustryType-Create",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-IndustryType-Edit",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-IndustryType-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-IndustryType-Save",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Role-Create",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Role-Delete",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Role-Edit",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Role-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-UserRoles-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 8,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-UserRoles-Manage",
+          "roleID": 0,
+          "roleName": null
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "roleId": null,
+      "userID": "1",
+      "compnayID": "1",
+      "userClaims": [
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Home-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Permission-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Permission-Update",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-RoleManage-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Users-Create",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Users-Edit",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Users-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Users-ManageRole",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "Admin-Users-UpdateRole",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-BusinessType-Create",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-BusinessType-Edit",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-BusinessType-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-BusinessType-Save",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Company-AddContact",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Company-Edit",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Company-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Company-Register",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Company-SaveContact",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Company-ShowLogo",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Home-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-IndustryType-Create",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-IndustryType-Edit",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-IndustryType-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-IndustryType-Save",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Role-Create",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Role-Delete",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Role-Edit",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-Role-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-UserRoles-Index",
+          "roleID": 0,
+          "roleName": null
+        },
+        {
+          "id": 0,
+          "userID": 1,
+          "companyID": 0,
+          "claimType": null,
+          "claimValue": "SuperAdmin-UserRoles-Manage",
+          "roleID": 0,
+          "roleName": null
+        }
+      ]
+    }
+  ]
+}

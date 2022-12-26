@@ -1,0 +1,173 @@
+﻿@using ERP.Helpers
+@model Business.Entities.Marketing.SalesTarget.SalesTarget;
+<form class="form-horizontal" role="form" id="formAddMarketingSalesTarget">
+    <div class="row mt-3">
+        <div class="col-md-12">
+
+            <input type="hidden" asp-for="SalesTargetID" />
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Company<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <select asp-for="CompanyID" asp-items="ViewBag.CompanyName" class="form-control" required="">
+                        <option value="">Select Company...</option>
+                    </select>
+                    <span asp-validation-for="CompanyID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Employee(Mkt Person)<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <select asp-for="MarketingEmployeeID" asp-items="ViewBag.EmployeeIdName" class="form-control" required="">
+                        <option value="">Select Market Employee...</option>
+                    </select>
+                    <span asp-validation-for="MarketingEmployeeID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Customer</label>
+                <div class="col-sm-9">
+                    <select asp-for="CustomerID" asp-items="ViewBag.CustomerName" class="form-control" required="">
+                        <option value="">Select Customer...</option>
+                    </select>
+                    <span asp-validation-for="CustomerID" class="text-danger"></span>
+                </div>
+            </div>
+
+            @if (@Model.SalesTargetID != null && @Model.SalesTargetID > 0)
+            {
+                
+                @*<h1>ID @Model.SalesTargetID ;</h1>
+                @Model.StartDate*@
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Start Date<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" id="StartDate" name="StartDate" asp-for="StartDate" required>
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                </div>
+                @*@Model.EndDate*@
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">End Date<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="date"  class="form-control" id="EndDate" name="EndDate" asp-for="EndDate" required="">
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                
+                @*<h1>ID @Model.SalesTargetID ;</h1>*@
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Start Date<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="date" value="" class="form-control" id="StartDate" name="StartDate" asp-for="StartDate" required>
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">End Date<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="date" value="" class="form-control" id="EndDate" name="EndDate" asp-for="EndDate" required="">
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+            }
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Target Value</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="TargetValue" name="TargetValue" asp-for="TargetValue">
+                    <span asp-validation-for="TargetValue" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Financial Year</label>
+                <div class="col-sm-9">
+                    <select asp-for="FinancialYearID" asp-items="ViewBag.FinancialYear" class="form-control">
+                        <option value="">Select Financial Year...</option>
+                    </select>
+                    @*<span asp-validation-for="FinancialYearID" class="text-danger"></span>*@
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <label class="col-sm-3 col-form-label">Reporting To Head<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <select asp-for="ReportingHeadID" asp-items="ViewBag.ReportingHeadName" class="form-control">
+                        <option value="">Select Reporting Head...</option>
+                    </select>
+                    <span asp-validation-for="ReportingHeadID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="modal-footer-sticky text-center pt-3">
+                <button id="btnSave" type="button" onclick="fnSubmit()" class="btn btn-primary btn-info px-5 ladda-button">Save</button>
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-primary btn-info px-5 my-2">Cancel</button>
+            </div>
+
+
+        </div>
+    </div>
+</form>
+@await Html.PartialAsync("_ValidationScriptsPartial")
+
+<script type="text/javascript">
+    var urlsave = '@Url.Action("IOrUMarketingSalesTarget", "MarketingSalesTarget")';
+    function fnSubmit() {
+        if ($("#formAddMarketingSalesTarget").valid()) {
+            var l = laddaStart('btnSave');
+            modeldata = $("#formAddMarketingSalesTarget").serialize();
+            $.ajax({
+                type: 'POST',
+                url: urlsave,
+                data: modeldata,
+                dataType: 'json',
+                beforeSend: function() { },
+                success: function(data) {
+                    window.location.reload().delay(3000);
+                    if (data.status) {
+                        //notification
+                        $("#formAddMarketingSalesTarget").hide();//('hide');
+                        Lobibox.notify('success', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                    else {
+                        Lobibox.notify('error', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                },
+                error: function(error) {
+                    laddaStop(l);
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            }).always(function() {
+                hideLoader();
+            });
+        }
+    };
+</script>

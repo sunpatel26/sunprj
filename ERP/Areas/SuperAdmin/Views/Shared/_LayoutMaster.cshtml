@@ -1,0 +1,148 @@
+﻿
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="~/css/gridmvc.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/admin/assets/css/bootstrap.css">
+    <link href="~/admin/assets/vendors/fontawesome/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/admin/assets/vendors/iconly/bold.css">
+    <link rel="stylesheet" href="~/admin/assets/vendors/dripicons/webfont.css">
+    <link rel="stylesheet" href="~/admin/assets/css/pages/dripicons.css">
+    <link rel="stylesheet" href="~/admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/admin/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/admin/assets/css/app.css">
+    <link rel="shortcut icon" href="~/newico.ico" type="image/x-icon">
+    <script src="~/admin/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/jquery.js"></script>   
+    @* <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/bootstrap-extended.css" rel="stylesheet" />
+    <link rel="icon" href="~/assets/images/favicon-32x32.png" type="image/png" />
+    <link href="~/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+    <link href="~/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="~/assets/plugins/highcharts/css/highcharts.css" rel="stylesheet" />
+    <link href="~/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    <link href="~/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/vendor/dripicons/webfont.css">   
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="~/assets/css/app.css" rel="stylesheet">
+    <link href="~/assets/css/icons.css" rel="stylesheet">    
+    <link rel="stylesheet" href="~/assets/css/dark-theme.css" />
+    <link rel="stylesheet" href="~/assets/css/semi-dark.css" />
+    <link rel="stylesheet" href="~/assets/css/header-colors.css" />*@
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <title>ERP</title>
+</head>
+
+<body>
+    <!--wrapper-->
+    <div class="wrapper">
+        <!--sidebar wrapper -->
+        @await Html.PartialAsync("_sidebar")
+        <!--end sidebar wrapper -->
+        <!--start header -->
+        <header>
+            <div class="topbar d-flex align-items-center">
+                <nav class="navbar navbar-expand">
+                    <div class="mobile-toggle-menu">
+                        <i class='bx bx-menu'></i>
+                    </div>
+                    <div class="top-menu-left d-none d-lg-block">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="app-emailbox.html"><i class='bx bx-envelope'></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="app-chat-box.html"><i class='bx bx-message'></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="app-fullcalender.html"><i class='bx bx-calendar'></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="app-to-do.html"><i class='bx bx-check-square'></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="search-bar flex-grow-1">
+                        <div class="position-relative search-bar-box">
+                            <input type="text" class="form-control search-control" placeholder="Type to search..."> <span class="position-absolute top-50 search-show translate-middle-y"><i class='bx bx-search'></i></span>
+                            <span class="position-absolute top-50 search-close translate-middle-y"><i class='bx bx-x'></i></span>
+                        </div>
+                    </div>
+                    <div class="top-menu ms-auto">
+                        <ul class="navbar-nav align-items-center">
+                            <li class="nav-item mobile-search-icon">
+                                <a class="nav-link" href="javascript:;">
+                                    <i class='bx bx-search'></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item dropdown dropdown-large">
+
+                                @await Html.PartialAsync("_notification")
+                            </li>
+                            <li class="nav-item dropdown dropdown-large">
+
+                                @await Html.PartialAsync("_message")
+                            </li>
+                        </ul>
+                    </div>
+                    @await Html.PartialAsync("_LoginPartial")
+                </nav>
+            </div>
+        </header>
+        <!--end header -->
+        <!--start page wrapper -->
+        <div class="page-wrapper">
+            <div class="page-content">
+
+                @RenderBody()
+
+            </div>
+        </div>
+        <!--end page wrapper -->
+        <!--start overlay-->
+        <div class="overlay toggle-icon"></div>
+        <!--end overlay-->
+        <!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+        <!--End Back To Top Button-->
+        <footer class="page-footer">
+            <p class="mb-0">Copyright © 2021. All right reserved aa.</p>
+        </footer>
+    </div>
+    <!--end wrapper-->
+    <!-- Bootstrap JS -->
+    <script src="~/assets/js/jquery.min.js"></script>
+
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/gridmvc.js" type="text/javascript"></script>
+
+    <script src="~/js/gridmvc.customwidgets.js" type="text/javascript"></script>
+    <!-- referencing datepicker control -->
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+    <script src="~/js/site.js"></script>
+    <script src="~/assets/plugins/simplebar/js/simplebar.min.js"></script>
+    <script src="~/assets/plugins/metismenu/js/metisMenu.min.js"></script>
+    <script src="~/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+    <script src="~/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="~/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+    <!--app JS-->
+    <script src="~/assets/js/app.js"></script>
+    <script src="~/js/site.js"></script>
+</body>
+
+</html>

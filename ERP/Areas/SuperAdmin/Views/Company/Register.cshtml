@@ -1,0 +1,142 @@
+﻿@using ERP.Extensions
+@model CompanyMasterMetadata
+@{
+    ViewData["Title"] = "Company";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="page-breadcrumb d-none d-sm-flex align-items-center pb-2 border-bottom">
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"><a asp-controller="Company" asp-action="Index" asp-area="SuperAdmin">Companies</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Register</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <form method="post" asp-action="Register" asp-controller="Company" asp-area="SuperAdmin" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+        <div class="row">
+            <div class="card-title d-flex align-items-center">
+
+                <h5 class="mb-0 text-info ">Register Company</h5>
+            </div>
+            <hr />
+            <div class="col-md-7">
+                
+                <div class="row mb-3">
+                    <input type="hidden" asp-for="CompanyID" />
+                    <input type="hidden" asdp-for="CompanyLogoID" />
+                    <label for="" class="col-sm-3 col-form-label text-end">Company Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" required="" class="form-control" id="CompanyName" name="CompanyName" asp-for="CompanyName" placeholder="" maxlength="100">
+                        <div id="CompanyNameFeedback" class="invalid-feedback">Please enter company name.</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="" class="col-sm-3 col-form-label text-end">Company Group Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" required="" class="form-control" asp-for="CompanyGroupName" placeholder="" maxlength="50">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="" class="col-sm-3 col-form-label text-end">Unit No / Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" required="" class="form-control" asp-for="UnitName" placeholder="" maxlength="50">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="" class="col-sm-3 col-form-label text-end">Business Type</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" id="BusinessTypeID" name="BusinessTypeID" asp-for="BusinessTypeID" asp-items="@SuperCompanyDropdownBinder.BusinessType()">
+                            <option value="">--Select--</option>
+                        </select>
+                        <span asp-validation-for="BusinessTypeID" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="" class="col-sm-3 col-form-label text-end">Industry Type</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" asp-for="IndustryTypeID" asp-items="@SuperCompanyDropdownBinder.IndustryType()">
+                            <option value="">--Select--</option>
+                        </select>
+                        <span asp-validation-for="IndustryTypeID" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="" class="col-sm-3 col-form-label text-end">Email</label>
+                    <div class="col-sm-9">
+                        <input type="text" required="" class="form-control" id="Email" name="Email" asp-for="Email" placeholder="">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="" class="col-sm-3 col-form-label text-end">First Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" required="" class="form-control" id="FirstName" name="FirstName" asp-for="FirstName" placeholder="">
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="" class="col-sm-3 col-form-label text-end">Last Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" required="" class="form-control" id="LastName" name="LastName" asp-for="LastName" placeholder="">
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="" class="col-sm-3 col-form-label text-end">Contact Number</label>
+                    <div class="col-sm-9">
+                        <input type="text" required="" class="form-control" id="Mobile" name="Mobile" asp-for="Mobile" placeholder="">
+                        <span asp-validation-for="Mobile" class="invalid-feedback"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="" class="col-sm-3 col-form-label text-end">Password</label>
+                    <div class="col-sm-9">
+                        <input type="password" required="" class="form-control" id="Password" name="Password" asp-for="Password" placeholder="">
+                        <span asp-validation-for="Password" class="invalid-feedback"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="" class="col-sm-3 col-form-label text-end">Confirm Password</label>
+                    <div class="col-sm-9">
+                        <input type="password" required="" class="form-control" asp-for="ConfirmPassword" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="" class="col-sm-3 col-form-label text-end">Is Active</label>
+                    <div class="col-sm-9">
+
+                        @Html.CheckBoxFor(s => s.IsActive)
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary btn-info px-5">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+
+                <div class="row mb-3">
+                    <label for="" class="col-sm-3 col-form-label text-end">Company Logo</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" asp-for="ImageFile" accept="image/*" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </form>
+
+</div>
+

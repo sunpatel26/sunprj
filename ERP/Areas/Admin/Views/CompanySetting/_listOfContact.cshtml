@@ -1,0 +1,111 @@
+﻿@using Business.SQL
+@model PagedDataTable<CompanyContactTxnMetadata>
+<link href="~/admin/assets/vendors/simple-datatables/style.css" rel="stylesheet" />
+<div id="CompanyTable">
+    <div class="row">
+        <div class="col-lg-6">
+            <h6 class="cards-title">
+                Contacts
+            </h6>
+        </div>
+        <div class="col-lg-6 text-align-right">
+            <a onclick="fnAddContact()"
+               class="btn btn-primary px-5"
+               href="javascript:void(0)"
+               offcanvas-title="Add Contact"
+               data-id="0"
+               data-bs-toggle="offcanvas"
+               data-bs-target="#canvas_contact"
+               aria-controls="canvas_contact">
+                Add Contact
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-striped" id="tblContact">
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Designation</th>
+                    <th>Contact Person</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Department</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if(Model!=null)
+                {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.SrNo</td>
+                        <td>@item.DesignationText</td>
+                        <td>@item.PersonName</td>
+                        <td>@item.PersonEmail</td>
+                        <td>@item.PersonalMobileNo</td>
+                        <td>@item.DepartmentName</td>
+                        <td>
+                            <a class='btn deletecontact' href="#!" id="@item.CompanyContactPersonsID" compnayid="@item.CompanyID"><i class='icon dripicons-trash'></i></a>
+                        </td>
+                    </tr>
+                }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="canvas_contact" aria-labelledby="offcanvascontactLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvascontactLabel">Contact</h5>
+        <button type="button" class="btn-close te  xt-reset" data-bs-dismiss="offcanvas" aria-l abel="Close"></button>
+    </div>
+    <div class="offcanvas-body pt-3 pb-5">
+        <div id="dvContactInfo">
+        </div>
+    </div>
+</div>
+
+<script src="~/admin/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    var urlDeleteCompanyFromUser = '@Url.Action("DeleteContact", "CompanySetting")';
+    var urlAddContact = '@Url.Action("AddContact", "CompanySetting")';
+    $(document).ready(function () {
+        let table1 = document.querySelector('#tblContact');
+        let dataTable = new simpleDatatables.DataTable(table1);
+
+        ////Unbind the original image 'href' set by the controller...
+        // $('.deletecontact').attr('href', 'javascript://');
+        // $('#tblstore').on('click', 'a.deleteStore', function () {
+        //    var _id = $(this).attr('id');
+        //     var _compnayid = $(this).attr('compnayid');
+
+        //     var _parameters = { id: _id, companyid: _compnayid };
+        //    $.ajax({
+        //        url: urlDeleteCompanyFromUser,
+        //        type: "GET",
+        //        data: _parameters,
+        //        success: function (data, textStatus, jqXHR) {
+        //            $('#CompanyTable').html(data);
+        //        }
+        //    });
+        //});
+
+
+    });
+    function fnAddContact() {
+        var _id = $(this).data('id');
+        var _cid=$("#CompanyID").val();
+        var _parameters = { id: _id, compnayid: _cid };
+        $.ajax({
+            url: urlAddContact,
+            type: "POST",
+            data: _parameters,
+            success: function (data, textStatus, jqXHR) {
+                $('#dvContactInfo').html(data);
+                $("#canvas_contact").show();//('hide');
+            }
+        });
+    }
+</script>

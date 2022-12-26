@@ -1,0 +1,134 @@
+﻿@using ERP.Helpers
+@model Business.Entities.FormMasterEntitie.FormMaster;
+<form class="form-horizontal" role="form" id="formFormMaster">
+    <div class="row mt-3">
+        <div class="col-md-12">
+
+            <input type="hidden" asp-for="FormID" />
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Form Name<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="FormName" name="FormName" asp-for="FormName" required="">
+                    <span asp-validation-for="FormName" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Area Name<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="Area" name="Area" asp-for="Area" required="">
+                    <span asp-validation-for="Area" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Controller Name<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="Controller" name="Controller" asp-for="Controller" required="">
+                    <span asp-validation-for="Controller" class="text-danger "></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Action Name<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="Action" name="Action" asp-for="Action" required="">
+                    <span asp-validation-for="Action" class="text-danger "></span>
+                </div>
+            </div>            
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Form Type<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <select asp-for="FormTypeID" asp-items="ViewBag.FormTypeText" class="form-control" required="">
+                        <option value="">Select Form...</option>
+                    </select>
+                    <span asp-validation-for="FormTypeID" class="text-danger"></span>
+                </div>
+            </div>
+@*
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Package<span class="required">*</span></label>
+                <div class="col-sm-9">
+                    <select asp-for="PackageID" asp-items="ViewBag.PackageName" class="form-control" required="">
+                        <option value="">Select Package...</option>
+                    </select>
+                    <span asp-validation-for="PackageID" class="text-danger"></span>
+                </div>
+            </div*@
+
+            <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">Status</label>
+                <div class="col-sm-9">
+                    <input type="checkbox" class="form-check-input" asp-for="IsActive" data-on-text="Yes" data-off-text="No">
+                </div>
+            </div>
+
+
+
+            <div class="modal-footer-sticky text-center pt-3">
+                <button id="btnSave" type="button" onclick="fnSubmit()" class="btn btn-primary btn-info px-5 ladda-button">Save</button>
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-primary btn-info px-5 my-2">Cancel</button>
+            </div>
+
+
+        </div>
+    </div>
+</form>
+@await Html.PartialAsync("_ValidationScriptsPartial")
+
+<script type="text/javascript">
+    var urlsave = '@Url.Action("IOrUFormMaster", "FormMaster")';
+    function fnSubmit() {
+        if ($("#formFormMaster").valid()) {
+            var l = laddaStart('btnSave');
+            modeldata = $("#formFormMaster").serialize();
+            $.ajax({
+                type: 'POST',
+                url: urlsave,
+                data: modeldata,
+                dataType: 'json',
+                beforeSend: function() { },
+                success: function(data) {
+                    window.location.reload().delay(3000);
+                    if (data.status) {
+                        //notification
+                        $("#formFormMaster").hide();//('hide');
+                        Lobibox.notify('success', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                    else {
+                        Lobibox.notify('error', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                },
+                error: function(error) {
+                    laddaStop(l);
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            }).always(function() {
+                hideLoader();
+            });
+        }
+    };
+</script>

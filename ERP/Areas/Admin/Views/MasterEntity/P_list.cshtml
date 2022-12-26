@@ -1,0 +1,73 @@
+﻿<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-list-alt"></i>
+            <span class="caption-subject bold uppercase"> Master Key List @(!string.IsNullOrEmpty(ViewBag.Name) ? " - " + ViewBag.Name : "")</span>
+        </div>
+        <div class="actions">
+            <a href="javascript:showValueForm();defaultValueSet();" class="btn btn-default btn-sm">
+                <i class="fa fa-plus-circle"></i> Add Master Entry
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <div class="form-horizontal" role="form">
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered table-hover" id="ListValueTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">ID</th>
+                                    <th class="text-left">Value</th>
+                                    <th class="text-center">Active</th>
+                                    <th class="text-center">Default Selected</th>
+                                    <th class="text-center">Entry Type</th>
+                                    <th class="text-center">Display Order</th>
+                                    <th style="width:150px" class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.ValueMasterList != null)
+                                {
+                                    foreach (var item in ViewBag.ValueMasterList)
+                                    {
+                                        <tr>
+                                            <td class="text-center">@item.MasterListID</td>
+                                            <td class="text-left">@item.Value</td>
+                                            <td class="text-center">@(item.IsActive ? "Yes" : "No")</td>
+                                            <td class="text-center">@(item.IsDefaultSelected ? "Yes" : "No")</td>
+                                            <td class="text-center">@item.EntryTypeName</td>
+                                            <td class="text-center">@item.SortOrder</td>
+                                            <td class="text-center">
+                                                <a href="javascript:void(0);" onclick="EditMasterList(@item.MasterListID);" class="btn btn-success btn-sm">Edit</a>
+
+                                                <a href="javascript:void(0);" onclick="DeleteMasterList(@item.MasterListID);" class="btn btn-danger btn-sm">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right">
+                <button type="button" class="btn btn-default" onclick="window.location.reload();">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    try {
+        $(document).ready(function () {
+            defaultType = '@ViewBag.DefaultType';
+            defaultName = '@ViewBag.Name';
+        });
+    } catch (e) {
+
+    }
+</script>

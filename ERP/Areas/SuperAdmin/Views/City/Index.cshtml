@@ -1,0 +1,69 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Business.SQL
+@using GridCore
+@addTagHelper *, GridMvc
+
+@model ISGrid
+@{
+    ViewData["Title"] = "City";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+
+}
+<div class="page-breadcrumb d-none d-sm-flex align-items-center pb-2 border-bottom">
+    <div class="ps-3 col-md-6">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">City</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="col-md-6 text-align-right">
+        <a class="btn btn-primary px-5" onclick="fnCity(this)"
+           href="javascript:void(0)"
+           data-id="0"
+           data-bs-toggle="offcanvas"
+           data-bs-target="#canvas_city"
+           aria-controls="canvas_city">
+            Add City
+        </a>
+    </div>
+</div>
+<div class="row pt-2">
+    <div class="col-md-12">
+        <grid model="@Model" />
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="canvas_city">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">City</h5>
+        <button type="button" class="btn-close te  xt-reset" data-bs-dismiss="offcanvas" aria-l abel="Close"></button>
+    </div>
+    <div class="offcanvas-body pt-3 pb-5">
+        <div id="dvInfo">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var urladd = '@Url.Action("Get", "City")';
+    function fnCity(obj) {
+        var _id = $(obj).data('id');
+        var _parameters = { id: _id };
+       
+        $.ajax({
+            url: urladd,
+            type: "POST",
+            data: _parameters,
+            success: function (data, textStatus, jqXHR) {
+                $('#dvInfo').html(data);
+                $("#canvas_city").show();//('hide');
+            }
+        });
+    }
+
+    
+        
+</script>
+    

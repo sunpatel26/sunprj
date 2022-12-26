@@ -1,0 +1,101 @@
+﻿@using Business.Entities.Customer
+@model PagedDataTable<CustomerContactTxn>
+<link href="~/admin/assets/vendors/simple-datatables/style.css" rel="stylesheet" />
+<div id="CustomerContactPersonTable">
+    <div class="row">
+        <div class="col-lg-6">
+            <h6 class="cards-title">
+                Customer Contact Person List
+            </h6>
+        </div>
+        <div class="col-lg-12 text-align-right">
+            <a onclick="fnCustomerContactDetail(0)"
+               class="btn btn-primary px-5"
+               href="javascript:void(0)"
+               data-id="0"
+               data-bs-toggle="offcanvas"
+               data-bs-target="#canvasCustomerContactDetail"
+               aria-controls="canvasCustomerContactDetail">
+                Add New
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-striped" id="tblCustomerContactPersonTable">
+            <thead>
+                <tr>
+                    <td>Sr No.</td>
+                    <td>Contact Person</td>
+                    <td>EmailID</td>
+                    <td>Mobile</td>
+                    <td>Department</td>
+                    <td>Designation</td>
+                    <td>IsActive</td>
+                    <td>Detail</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>@item.SrNo</td>
+                            <td>@item.ContactPersonName</td>
+                            <td>@item.OfficeEmailID</td>
+                            <td>@item.OfficeMobile</td>
+                            <td>@item.Department</td>
+                            <td>@item.Designation</td>
+                            <td>@item.IsActive</td>
+                            <td>
+                                <a class='btn editCustomerContact' onclick="fnCustomerContactDetail(@item.CustomerContactID)"
+                           href="javascript:void(0)"
+                           data-bs-toggle="offcanvas"
+                           data-bs-target="#canvasCustomerContactDetail"
+                           aria-controls="canvasCustomerContactDetail"
+                           data-id="@item.CustomerContactID"
+                           customerid="@item.CustomerID"><i class='bx bx-edit'></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="canvasCustomerContactDetail" style="visibility: visible; width : 80% !important">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="canvasHeaderNameBank"></h5>
+        <button type="button" class="btn-close te  xt-reset" data-bs-dismiss="offcanvas" aria-l abel="Close"></button>
+    </div>
+    <div class="offcanvas-body pt-3 pb-5">
+        <div id="dvInfoCustomerContact">
+        </div>
+    </div>
+</div>
+
+<script src="~/admin/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script type="text/javascript">
+    var urlAddUpdateCustomerContactPerson = '@Url.Action("AddUpdateCustomerContactPerson", "Customer")';
+    function fnCustomerContactDetail(customerContactID) {
+        var _id = customerContactID;//$(this).data('id');
+        var _customerId = $("#CustomerID").val();
+        if (_id > 0) {
+            document.getElementById("canvasHeaderNameBank").innerHTML = "Update Customer Contact Person";
+        }
+        else {
+            document.getElementById("canvasHeaderNameBank").innerHTML = "Add Customer Contact Person";
+        }
+        var _parameters = { customerContactID: _id, customerId: _customerId };
+        $.ajax({
+            url: urlAddUpdateCustomerContactPerson,
+            type: "GET",
+            data: _parameters,
+            success: function (data, textStatus, jqXHR) {
+                $("#canvasCustomerContactDetail").show();//('hide');
+                $('#dvInfoCustomerContact').html(data);
+            }
+        });
+    }
+</script>

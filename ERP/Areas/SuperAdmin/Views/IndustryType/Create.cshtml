@@ -1,0 +1,47 @@
+﻿@model IndustryTypeMasterMetadata
+@{
+    ViewData["Title"] = "Industry Type";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="page-breadcrumb d-none d-sm-flex align-items-center pb-3 border-bottom">
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"><a asp-controller="IndustryType" asp-action="Index" asp-area="SuperAdmin">Business</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Create</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <form method="post" asp-action="Save" asp-controller="IndustryType" asp-area="SuperAdmin" class="row g-3 needs-validation" novalidate>
+        <div class="row">
+            <div class="">
+                <div class="card-title d-flex align-items-center">
+                    <h5 class="mb-0 text-info ">Add Industry Type</h5>
+                </div>
+                <hr />
+                <div class="row mb-3">
+                    <input type="hidden" asp-for="IndustryTypeID" />
+                    <label for="roleName" class="col-sm-3 col-form-label text-end">Industry Type Name<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" required="" class="form-control" asp-for="IndustryTypeText">
+                        <span asp-validation-for="IndustryTypeText" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary btn-info px-5">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

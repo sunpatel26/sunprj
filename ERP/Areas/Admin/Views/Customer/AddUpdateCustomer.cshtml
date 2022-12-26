@@ -1,0 +1,414 @@
+﻿@using Business.Entities.Customer
+@model CustomerMaster
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+    ViewBag.Title = "Customer Details..";
+    List<CustomerContactTxn> customerContactTxns = CustomerExtension.ListOfCustomerContactPerson(Model.CustomerID);
+    //EmployeeFamilyDetail employeeFamilyDetail = EmployeeExtension.GetEmployeeFamilyDetail(Model.EmployeeID);
+    //List<EmployeeBankDetails> employeeBankDetails = EmployeeExtension.GetEmployeesAllBankAccount(Model.EmployeeID);
+    //List<EmployeeDocument> employeeDocuments = EmployeeExtension.GetEmployeesAllDocuments(Model.EmployeeID);
+}
+<div class="row">
+    <div class="card-content">
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="details-tab" data-bs-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Customer Details</a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link " id="contact-person-tab" data-bs-toggle="tab" href="#contactPerson" role="tab" aria-controls="contactPerson" aria-selected="true" disabled>Contact Person</a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link " id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true" disabled>Address</a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link " id="banking-tab" data-bs-toggle="tab" href="#bankingDetail" role="tab" aria-controls="bankingDetail" aria-selected="true" disabled>Banking detail</a>
+                </li>
+
+@*                <li class="nav-item" role="presentation">
+                    <a class="nav-link " id="document-tab" data-bs-toggle="tab" href="#employeeDocuments" role="tab" aria-controls="employeeDocuments" aria-selected="true" disabled>Employee documents</a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link " id="administration-tab" data-bs-toggle="tab" href="#hrAdministration" role="tab" aria-controls="hrAdministration" aria-selected="true" disabled>HR Administration</a>
+                </li>*@
+            </ul>
+        </div>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="details" role="tabpanel" aria-labelledby="details-tab">
+                <form id="formEmployee" asp-action="AddUpdateCustomer" asp-controller="Customer" asp-area="Admin" class="row g-3" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="CustomerID" />
+                    <div class="row pt-3">
+
+                        <div class=" col-sm-12 col-md-6 col-lg-6">
+
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Customer Name:<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" required="" class="form-control" id="CustomerName" name="CustomerName" asp-for="CustomerName" placeholder="">
+                                    <span asp-validation-for="CustomerName" class="text-danger" />
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Customer Code:<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" required="" class="form-control" id="CustomerCode" name="CustomerCode" asp-for="CustomerCode" placeholder="">
+                                    <span asp-validation-for="CustomerCode" class="text-danger" />
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Customer Group Name:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="GroupName" name="GroupName" asp-for="GroupName" placeholder="">
+                                    @*<span asp-validation-for="GroupName" class="text-danger" />*@
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Owner Name:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="OwnerName" name="OwnerName" asp-for="OwnerName" placeholder="">
+                                    @*<span asp-validation-for="OwnerName" class="text-danger" />*@
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Unit No/Name:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" required="" class="form-control" id="UnitNoName" name="UnitNoName" asp-for="UnitNoName" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Industry Type:<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <select asp-for="IndustryTypeID" asp-items="@CustomerExtension.GetAllIndustryTypeMaster()" class="form-control">
+                                        <option value="">Select Industry type</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Business Type:<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <select asp-for="BusinessTypeID" asp-items="@CustomerExtension.GetAllBusinessTypeMaster()" class="form-control">
+                                        <option value="">Select Business type</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Contact No.:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="ContactPhone1" name="ContactPhone1" asp-for="ContactPhone1" placeholder="">
+                                    @*<span asp-validation-for="OwnerName" class="text-danger" />*@
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Mobile No.:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="Mobile1" name="Mobile1" asp-for="Mobile1" placeholder="">
+                                    @*<span asp-validation-for="OwnerName" class="text-danger" />*@
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Fax No.:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="FaxNo" name="FaxNo" asp-for="FaxNo" placeholder="">
+                                    @*<span asp-validation-for="OwnerName" class="text-danger" />*@
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Is Active:</label>
+                                <div class="col-sm-9">
+                                    @Html.CheckBoxFor(s => s.IsActive)
+                                    @*<span asp-validation-for="OwnerName" class="text-danger" />*@
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label asp-for="LogoImage" class="col-form-label ">Logo Image:</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input asp-for="LogoImage" type="file" class="form-control" accept="image/*" name="logoImage" id="logoImage" onchange="loadFile(event)" style="display: none;" />
+                                    <label for="logoImage" style="cursor: pointer; color:darkblue">
+                                        Upload the image for logo<br />
+                                        @if (Model != null && !string.IsNullOrEmpty(Model.LogoImagePath))
+                                        {
+                                            <img id="output" width="200" height="200" src="@ViewBag.LogoImage" />
+                                        }
+                                        else
+                                        {
+                                            <img id="output" width="200" height="200" src="~/assets/images/CUSTOMERS/defaultlogopicture.jpg" />
+                                        }
+                                    </label>
+                                    <script>
+                                        var loadFile = function (event) {
+                                            var image = document.getElementById('output');
+                                            image.src = URL.createObjectURL(event.target.files[0]);
+                                        };
+                                    </script>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+
+                    <!--
+                    @*<div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Employee code:<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" required="" class="form-control" id="EmployeeCode" name="EmployeeCode" asp-for="EmployeeCode" placeholder="">
+                                    <span asp-validation-for="EmployeeCode" class="text-danger" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Job title:<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" required="" class="form-control" id="JobTitle" name="JobTitle" asp-for="JobTitle" placeholder="">
+                                    <span asp-validation-for="JobTitle" class="text-danger" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Department:<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <select asp-for="DepartmentID" asp-items="ViewBag.DepartmentIdName" class="form-control">
+                                        <option value="">Select Department</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Designation:<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <!--add below asp-items="ViewBag" for designation-->
+                                    <select asp-for="DesignationID" asp-items="ViewBag.DesignationIdText" class="form-control">
+                                        <option value="">Select Designation</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Reporting to name:<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <!--add below asp-items="ViewBag" for reporting list-->
+                                    <select asp-for="ReportingTo" asp-items="ViewBag.EmployeeIdName" class="form-control">
+                                        <option value="">Reporting to name</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Office mobile no:<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="tel" required="" class="form-control" id="OfficeMobileNo" name="OfficeMobileNo" asp-for="OfficeMobileNo" placeholder="">
+                                    <span asp-validation-for="OfficeMobileNo" class="text-danger" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Email group:<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <select asp-for="EmailGroupID" asp-items="ViewBag.EmailGroupName" class="form-control">
+                                        <option value="">Select Email Group</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Office email:<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="email" required="" class="form-control" id="OfficeEmail" name="OfficeEmail" asp-for="OfficeEmail" placeholder="">
+                                    <span asp-validation-for="OfficeEmail" class="text-danger" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="" class="col-sm-3 col-form-label ">Is Resigned:</label>
+                                <div class="col-sm-9">
+                                    @Html.CheckBoxFor(s => s.IsResigned)
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@-->
+
+                    <div class="text-center">
+                        <button id="btnSave" type="submit" class="btn btn-primary btn-info px-5 ladda-button">Save</button>
+
+                        <a id="btnCancel" type="button" class="btn btn-primary btn-info px-5 ladda-button" href="/Admin/Customer/Index">Cancel</a>
+                        @*@Html.ActionLink("Cancel","Index","Customer");*@
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="contactPerson" role="tabpanel" aria-labelledby="customerContact-tab" disabled>
+                <div id="customerContactPersonTable">
+                    @await Html.PartialAsync("_customerContactPersonList", customerContactTxns)
+                </div>
+            </div>
+
+            <!-- <div class="tab-pane fade" id="familyBackground" role="tabpanel" aria-labelledby="family-tab" disabled>
+                <div id="familyBackgroundTable">
+            @*@await Html.PartialAsync("_employeeFamilyBackground", employeeFamilyDetail)*@
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="bankingDetail" role="tabpanel" aria-labelledby="banking-tab" disabled>
+                <div id="bankingDetailTable">
+            @*@await Html.PartialAsync("_employeeBankAccountList", employeeBankDetails)*@
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="employeeDocuments" role="tabpanel" aria-labelledby="document-tab" disabled>
+                <div id="documentTable">
+            @*@await Html.PartialAsync("_employeeDocumentList", employeeDocuments)*@
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="hrAdministration" role="tabpanel" aria-labelledby="administration-tab" disabled>
+                <div id="administrationTable">
+            @*@await Html.PartialAsync("_employeeHrAdministration", employeeAddress)*@
+            @*@await Html.PartialAsync("_listOfContact") original*@
+
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+</div>
+
+@if (Model != null && Model.CustomerID > 0)
+{
+    <script type="text/javascript">
+        document.getElementById("contact-person-tab").removeAttribute("disabled");
+        document.getElementById("family-tab").removeAttribute("disabled");
+        document.getElementById("banking-tab").removeAttribute("disabled");
+        document.getElementById("document-tab").removeAttribute("disabled");
+        document.getElementById("administration-tab").removeAttribute("disabled");
+    </script>
+}
+<!--
+    //$('#formEmployee').submit(function fnSubmitEmployeeDetail(event) {
+    //    alert("Submiteed");
+    //        var ls = laddaStart('btnSave');
+    //        debugger;
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Admin/Employee/AddUpdateEmployee/',
+    //            dataType: 'json',
+    //            beforeSend: function () { },
+    //            success: function (data) {
+    //                debugger;
+    //                console.log(data.status);
+    //                if (data.status) {
+    //                    //notification
+    //                    Lobibox.notify('success', {
+    //                        pauseDelayOnHover: true,
+    //                        size: 'mini',
+    //                        icon: 'bx bx-check-circle',
+    //                        continueDelayOnInactiveTab: false,
+    //                        position: 'bottom right',
+    //                        msg: data.message,
+    //                    });
+    //                    top.location.href = "/Admin/Employee/Index";
+    //                    //window.location("_employeeAddresList");;
+    //                }
+    //                else {
+    //                    Lobibox.notify('error', {
+    //                        pauseDelayOnHover: true,
+    //                        size: 'mini',
+    //                        icon: 'bx bx-check-circle',
+    //                        continueDelayOnInactiveTab: false,
+    //                        position: 'bottom right',
+    //                        msg: 'MessageHelper.Error'
+    //                    });
+    //                }
+    //            },
+    //            error: function (error) {
+    //                laddaStop(ls);
+    //                Lobibox.notify('error', {
+    //                    pauseDelayOnHover: true,
+    //                    size: 'mini',
+    //                    icon: 'bx bx-check-circle',
+    //                    continueDelayOnInactiveTab: false,
+    //                    position: 'bottom right',
+    //                    msg: 'MessageHelper.Error'
+    //                });
+    //            }
+    //        }).always(function () {
+    //            hideloader();
+    //        });
+    //    )};-->
+<!--
+@*@await Html.PartialAsync("_ValidationScriptsPartial")
+    <script type="text/javascript">
+    var urlsave = '@Url.Action("AddUpdateEmployee", "Employee")';
+    function fnSubmit() {
+    if ($("#formEmployee").valid()) {
+    var l = laddaStart('btnSave');
+    modeldata = $("#formEmployee").serializeArray();
+    debugger
+    $.ajax({
+    type: 'POST',
+    url: urlsave,
+    data: modeldata,
+    dataType: 'json',
+    beforeSend: function () { },
+    success: function (data) {
+    window.location.reload().delay(3000);
+    if (data.status) {
+    //notification
+    $("#canvas_Employee").hide();//('hide');
+    Lobibox.notify('success', {
+    pauseDelayOnHover: true,
+    size: 'mini',
+    icon: 'bx bx-check-circle',
+    continueDelayOnInactiveTab: false,
+    position: 'bottom right',
+    msg: data.message
+    });
+    }
+    else {
+    Lobibox.notify('error', {
+    pauseDelayOnHover: true,
+    size: 'mini',
+    icon: 'bx bx-check-circle',
+    continueDelayOnInactiveTab: false,
+    position: 'bottom right',
+    msg: data.message
+    });
+    }
+    },
+    error: function (error) {
+    laddaStop(l);
+    Lobibox.notify('error', {
+    pauseDelayOnHover: true,
+    size: 'mini',
+    icon: 'bx bx-check-circle',
+    continueDelayOnInactiveTab: false,
+    position: 'bottom right',
+    msg: "@MessageHelper.Error"
+    });
+    }
+    }).always(function () {
+    hideLoader();
+    });
+    }
+    };
+    </script>*@
+-->

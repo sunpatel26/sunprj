@@ -1,0 +1,438 @@
+﻿@using Business.Entities.Employee
+@model AddUpdateEmployee
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+    ViewBag.Title = "Employee Details..";
+    List<EmployeeAddressTxn> employeeAddress = EmployeeExtension.ListOfEmployeeAddress(Model.EmployeeID);
+    EmployeeFamilyDetail employeeFamilyDetail = EmployeeExtension.GetEmployeeFamilyDetail(Model.EmployeeID);
+    List<EmployeeBankDetails> employeeBankDetails = EmployeeExtension.GetEmployeesAllBankAccount(Model.EmployeeID);
+    List<EmployeeDocument> employeeDocuments = EmployeeExtension.GetEmployeesAllDocuments(Model.EmployeeID);
+}
+<div class="row">
+    <div class="card-content">
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="details-tab" data-bs-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Employee Details</a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link " id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true" disabled>Address</a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link " id="family-tab" data-bs-toggle="tab" href="#familyBackground" role="tab" aria-controls="familyBackground" aria-selected="true" disabled>Family background</a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link " id="banking-tab" data-bs-toggle="tab" href="#bankingDetail" role="tab" aria-controls="bankingDetail" aria-selected="true" disabled>Banking detail</a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link " id="document-tab" data-bs-toggle="tab" href="#employeeDocuments" role="tab" aria-controls="employeeDocuments" aria-selected="true" disabled>Employee documents</a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link " id="administration-tab" data-bs-toggle="tab" href="#hrAdministration" role="tab" aria-controls="hrAdministration" aria-selected="true" disabled>HR Administration</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="details" role="tabpanel" aria-labelledby="details-tab">
+                <form id="formEmployee" asp-action="AddUpdateEmployee" asp-controller="Employee" asp-area="Admin" class="row g-3" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="EmployeeID" />
+                    <div class="accordion" id="accordionEmployeeDetails">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingEmployeePersonalDetails">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEmployeePersonalDetails" aria-expanded="true" aria-controls="collapseEmployeePersonalDetails" style="padding: 0.5rem 1rem; color:#696969; background-color:#C5C5C5">
+                                    Personal Details
+                                </button>
+                            </h2>
+                            <div id="collapseEmployeePersonalDetails" class="accordion-collapse collapse show" aria-labelledby="headingEmployeePersonalDetails" data-bs-parent="#accordionEmployeeDetails">
+                                <div class="accordion-body">
+                                    <div class="row">
+
+                                        <div class=" col-sm-12 col-md-6 col-lg-6">
+
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Prefix:</label>
+                                                <div class="col-sm-9">
+                                                    <select name="prefixName" id="PrefixName" class="form-control">
+                                                        <option value="Mr.">Mr.</option>
+                                                        <option value="Mrs.">Mrs.</option>
+                                                        <option value="Ms.">Ms.</option>
+                                                        <option value="Miss.">Miss.</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">First Name:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" required="" class="form-control" id="FirstName" name="FirstName" asp-for="FirstName" placeholder="">
+                                                    <span asp-validation-for="FirstName" class="text-danger" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Middle Name:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="MiddleName" name="MiddleName" asp-for="MiddleName" placeholder="">
+                                                    @*<span asp-validation-for="MiddleName" class="text-danger" />*@
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Last Name:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" required="" class="form-control" id="LastName" name="LastName" asp-for="LastName" placeholder="">
+                                                    <span asp-validation-for="LastName" class="text-danger" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Personel mobile no:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="tel" required="" class="form-control" id="PersonalMobileNo" name="PersonalMobileNo" asp-for="PersonalMobileNo" placeholder="">
+                                                    <span asp-validation-for="PersonalMobileNo" class="text-danger" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Alternate mobile no:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="AlternativeMobileNo" name="AlternativeMobileNo" asp-for="AlternativeMobileNo" placeholder="">
+                                                    @*<span asp-validation-for="AlternativeMobileNo" class="text-danger" />*@
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Gender:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <select asp-for="GenderID" asp-items="ViewBag.GenderIdText" class="form-control">
+                                                        <option value="">Select gender</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Personal email:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="email" class="form-control" id="PersonalEmail" name="PersonalEmail" asp-for="PersonalEmail" placeholder="">
+                                                    <span asp-validation-for="PersonalEmail" class="text-danger" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="col-sm-12 col-md-6 col-lg-6">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <label asp-for="ProfilePhoto" class="col-form-label ">Profile Image:</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input asp-for="ProfilePhoto" type="file" class="form-control" accept="image/*" name="profilePhoto" id="profilePhoto" onchange="loadFile(event)" style="display: none;" />
+                                                    <label for="profilePhoto" style="cursor: pointer; color:darkblue">
+                                                        Upload the image for logo<br />
+                                                        @if (Model != null && !string.IsNullOrEmpty(Model.ImagePath))
+                                                        {
+                                                            <img id="output" width="200" height="200" src="@ViewBag.Image" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img id="output" width="200" height="200" src="~/assets/images/employeeimages/defaultprofilepicture.png" />
+                                                        }
+                                                    </label>
+                                                    <script>
+                                                        var loadFile = function (event) {
+                                                            var image = document.getElementById('output');
+                                                            image.src = URL.createObjectURL(event.target.files[0]);
+                                                        };
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <br />
+
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Birthdate:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="date" required="" class="form-control" id="BirthDate" name="BirthDate" asp-for="BirthDate" placeholder="">
+                                                    <span asp-validation-for="BirthDate" class="text-danger" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Religion:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="Religion" name="Religion" asp-for="Religion" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Employee Blood Group:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <select asp-for="EmployeeBloodGroupID" asp-items="@EmployeeExtension.GetAllBloodGroupMaster()" class="form-control" id="EmployeeBloodGroupID">
+                                                        <option value="">Select Blood group</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingEmployeeOfficialDetails">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEmployeeOfficialDetails" aria-expanded="false" aria-controls="collapseEmployeeOfficialDetails" style="padding: 0.5rem 1rem; color:#696969; background-color:#C5C5C5">
+                                    Official Details
+                                </button>
+                            </h2>
+                            <div id="collapseEmployeeOfficialDetails" class="accordion-collapse collapse" aria-labelledby="headingEmployeeOfficialDetails" data-bs-parent="#accordionEmployeeDetails">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6 col-lg-6">
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Employee code:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" required="" class="form-control" id="EmployeeCode" name="EmployeeCode" asp-for="EmployeeCode" placeholder="">
+                                                    <span asp-validation-for="EmployeeCode" class="text-danger" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Job title:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" required="" class="form-control" id="JobTitle" name="JobTitle" asp-for="JobTitle" placeholder="">
+                                                    <span asp-validation-for="JobTitle" class="text-danger" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Department:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <select asp-for="DepartmentID" asp-items="ViewBag.DepartmentIdName" class="form-control">
+                                                        <option value="">Select Department</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Designation:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <!--add below asp-items="ViewBag" for designation-->
+                                                    <select asp-for="DesignationID" asp-items="ViewBag.DesignationIdText" class="form-control">
+                                                        <option value="">Select Designation</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Reporting to name:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <!--add below asp-items="ViewBag" for reporting list-->
+                                                    <select asp-for="ReportingTo" asp-items="ViewBag.EmployeeIdName" class="form-control">
+                                                        <option value="">Reporting to name</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-6 col-lg-6">
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Office mobile no:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="tel" required="" class="form-control" id="OfficeMobileNo" name="OfficeMobileNo" asp-for="OfficeMobileNo" placeholder="">
+                                                    <span asp-validation-for="OfficeMobileNo" class="text-danger" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Email group:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <select asp-for="EmailGroupID" asp-items="ViewBag.EmailGroupName" class="form-control">
+                                                        <option value="">Select Email Group</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Office email:<span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="email" required="" class="form-control" id="OfficeEmail" name="OfficeEmail" asp-for="OfficeEmail" placeholder="">
+                                                    <span asp-validation-for="OfficeEmail" class="text-danger" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="" class="col-sm-3 col-form-label ">Is Resigned:</label>
+                                                <div class="col-sm-9">
+                                                    @Html.CheckBoxFor(s => s.IsResigned)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-3">
+                                        <label for="" class="col-sm-1 col-form-label">Note:</label>
+                                        <div class="col-sm-11 col-md-11 col-lg-11">
+                                            <textarea required="" class="form-control" rows="4" cols="50" id="note" name="Note" asp-for="Note" placeholder=""></textarea>
+                                            @*<span asp-validation-for="Note" class="text-danger"/>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button id="btnSave" type="submit" class="btn btn-primary btn-info px-5 ladda-button">Submit</button>
+                        @Html.ActionLink("Back","Index","Employee");
+                    </div>
+                </form>
+            </div>
+            <!--<div class="tab-pane fade mt-3 " id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div id="ContactTable">
+            @*@await Html.PartialAsync("_listOfContact", pdsContact)*@
+            @*@await Html.PartialAsync("_listOfContact") original*@
+                </div>
+            </div>-->
+            <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab" disabled>
+                <div id="AddressTable">
+                    @await Html.PartialAsync("_employeeAddressList", employeeAddress)
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="familyBackground" role="tabpanel" aria-labelledby="family-tab" disabled>
+                <div id="familyBackgroundTable">
+                    @await Html.PartialAsync("_employeeFamilyBackground", employeeFamilyDetail)
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="bankingDetail" role="tabpanel" aria-labelledby="banking-tab" disabled>
+                <div id="bankingDetailTable">
+                    @await Html.PartialAsync("_employeeBankAccountList", employeeBankDetails)
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="employeeDocuments" role="tabpanel" aria-labelledby="document-tab" disabled>
+                <div id="documentTable">
+                    @await Html.PartialAsync("_employeeDocumentList", employeeDocuments)
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="hrAdministration" role="tabpanel" aria-labelledby="administration-tab" disabled>
+                <div id="administrationTable">
+                    @await Html.PartialAsync("_employeeHrAdministration", employeeAddress)
+                    @*@await Html.PartialAsync("_listOfContact") original*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model != null && Model.EmployeeID > 0)
+{
+    <script type="text/javascript">
+        document.getElementById("address-tab").removeAttribute("disabled");
+        document.getElementById("family-tab").removeAttribute("disabled");
+        document.getElementById("banking-tab").removeAttribute("disabled");
+        document.getElementById("document-tab").removeAttribute("disabled");
+        document.getElementById("administration-tab").removeAttribute("disabled");
+    </script>
+}
+<!--
+    //$('#formEmployee').submit(function fnSubmitEmployeeDetail(event) {
+    //    alert("Submiteed");
+    //        var ls = laddaStart('btnSave');
+    //        
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Admin/Employee/AddUpdateEmployee/',
+    //            dataType: 'json',
+    //            beforeSend: function () { },
+    //            success: function (data) {
+    //                
+    //                console.log(data.status);
+    //                if (data.status) {
+    //                    //notification
+    //                    Lobibox.notify('success', {
+    //                        pauseDelayOnHover: true,
+    //                        size: 'mini',
+    //                        icon: 'bx bx-check-circle',
+    //                        continueDelayOnInactiveTab: false,
+    //                        position: 'bottom right',
+    //                        msg: data.message,
+    //                    });
+    //                    top.location.href = "/Admin/Employee/Index";
+    //                    //window.location("_employeeAddresList");;
+    //                }
+    //                else {
+    //                    Lobibox.notify('error', {
+    //                        pauseDelayOnHover: true,
+    //                        size: 'mini',
+    //                        icon: 'bx bx-check-circle',
+    //                        continueDelayOnInactiveTab: false,
+    //                        position: 'bottom right',
+    //                        msg: 'MessageHelper.Error'
+    //                    });
+    //                }
+    //            },
+    //            error: function (error) {
+    //                laddaStop(ls);
+    //                Lobibox.notify('error', {
+    //                    pauseDelayOnHover: true,
+    //                    size: 'mini',
+    //                    icon: 'bx bx-check-circle',
+    //                    continueDelayOnInactiveTab: false,
+    //                    position: 'bottom right',
+    //                    msg: 'MessageHelper.Error'
+    //                });
+    //            }
+    //        }).always(function () {
+    //            hideloader();
+    //        });
+    //    )};-->
+<!--
+@*@await Html.PartialAsync("_ValidationScriptsPartial")
+    <script type="text/javascript">
+    var urlsave = '@Url.Action("AddUpdateEmployee", "Employee")';
+    function fnSubmit() {
+    if ($("#formEmployee").valid()) {
+    var l = laddaStart('btnSave');
+    modeldata = $("#formEmployee").serializeArray();
+    $.ajax({
+    type: 'POST',
+    url: urlsave,
+    data: modeldata,
+    dataType: 'json',
+    beforeSend: function () { },
+    success: function (data) {
+    window.location.reload().delay(3000);
+    if (data.status) {
+    //notification
+    $("#canvas_Employee").hide();//('hide');
+    Lobibox.notify('success', {
+    pauseDelayOnHover: true,
+    size: 'mini',
+    icon: 'bx bx-check-circle',
+    continueDelayOnInactiveTab: false,
+    position: 'bottom right',
+    msg: data.message
+    });
+    }
+    else {
+    Lobibox.notify('error', {
+    pauseDelayOnHover: true,
+    size: 'mini',
+    icon: 'bx bx-check-circle',
+    continueDelayOnInactiveTab: false,
+    position: 'bottom right',
+    msg: data.message
+    });
+    }
+    },
+    error: function (error) {
+    laddaStop(l);
+    Lobibox.notify('error', {
+    pauseDelayOnHover: true,
+    size: 'mini',
+    icon: 'bx bx-check-circle',
+    continueDelayOnInactiveTab: false,
+    position: 'bottom right',
+    msg: "@MessageHelper.Error"
+    });
+    }
+    }).always(function () {
+    hideLoader();
+    });
+    }
+    };
+    </script>*@
+-->

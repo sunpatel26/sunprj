@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.22" />
+  
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+	  
+	  <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.22" />
+	  <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  
+	
+	<PackageReference Include="MailKit" Version="3.1.1" />
+    
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
+
+    <PackageReference Include="MimeKit" Version="3.1.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+	
+	  
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Business.Entities\Business.Entities\Business.Entities.csproj" />
+    <ProjectReference Include="..\..\..\Business.SQL\Business.SQL\Business.SQL.csproj" />
+    <ProjectReference Include="..\..\Business.Interface\Business.Interface.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Customer\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,314 @@
+﻿@using Business.Entities.Employee
+@model EmployeeFamilyDetail
+<div class="row">
+    <div class="card-content">
+        <div class="tab-pane fade active show" id="details" role="tabpanel" aria-labelledby="details-tab">
+            <form id="formEmployeeFamilyBackground" asp-action="AddUpdateEmployeeFamilyBackground" asp-controller="Employee" asp-area="Admin" class="row g-3" enctype="multipart/form-data">
+                <input type="hidden" asp-for="EmployeeID" />
+                <input type="hidden" asp-for="EmployeeFamilyDetailID" />
+                <div class="row mt-1">
+                    <div class=" col-sm-12 col-md-1 col-lg-1">
+                        <div class="row mb-3">
+                            <label for="" class="col-sm col-form-label"> <br /></label>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-12 col-form-label ">Father:</label>
+                            @*<div class="col-sm-9">
+                            <input type="text" required="" class="form-control" asp-for="FatherName" id="FatherName" name="FatherName" placeholder="">
+
+                            </div>*@
+                        </div>
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-12 col-form-label ">Mother:</label>
+                            @*<div class="col-sm-9">
+                            <input type="text" required="" class="form-control" id="MotherName" asp-for="MotherName" name="MotherName" placeholder="">
+
+                            </div>*@
+                        </div>
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-12 col-form-label ">Brother:</label>
+                            @*<div class="col-sm-9">
+                            <input type="text" required="" class="form-control" asp-for="BrotherName" id="BrotherName" name="BrotherName" placeholder="">
+
+                            </div>*@
+                        </div>
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-12 col-form-label ">Sister:</label>
+                            @*<div class="col-sm-9">
+                            <input type="text" required="" class="form-control" asp-for="SisterName" id="SisterName" name="SisterName" placeholder="">
+
+                            </div>*@
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                    <div class=" col-sm-12 col-md-5 col-lg-5">
+                        <div class="row mb-3">
+                            <label for="" class="col-sm col-form-label ml-5">Family member name</label>
+                        </div>
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Father:</label>*@
+                            <div class="col-sm-12">
+                                <input type="text" required="" class="form-control" asp-for="FatherName" id="FatherName" name="FatherName" placeholder="">
+                                @*<span asp-validation-for="FatherName" class="text-danger"/>*@
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Mother:</label>*@
+                            <div class="col-sm-12">
+                                <input type="text" required="" class="form-control" id="MotherName" asp-for="MotherName" name="MotherName" placeholder="">
+                                @*<span asp-validation-for="MotherName" class="text-danger"/>*@
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Brother:</label>*@
+                            <div class="col-sm-12">
+                                <input type="text" required="" class="form-control" asp-for="BrotherName" id="BrotherName" name="BrotherName" placeholder="">
+                                @*<span asp-validation-for="BrotherName" class="text-danger"/>*@
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Sister:</label>*@
+                            <div class="col-sm-12">
+                                <input type="text" required="" class="form-control" asp-for="SisterName" id="SisterName" name="SisterName" placeholder="">
+                                @*<span asp-validation-for="SisterName" class="text-danger"/>*@
+                            </div>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                    <div class=" col-sm-12 col-md-4 col-lg-4">
+                        <div class="row mb-3">
+                            <label for="" class="col-sm col-form-label ">Family Contacts</label>
+                        </div>
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Contact no:</label>*@
+                            <div class="col-sm-12">
+                                <input type="text" required="" class="form-control" asp-for="FatherContact" id="FatherContact" name="FatherContact" placeholder="">
+                                @*<span asp-validation-for="FatherContact" class="text-danger"/>*@
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Contact no:</label>*@
+                            <div class="col-sm-12">
+                                <input type="text" required="" class="form-control" id="MotherContact" asp-for="MotherContact" name="MotherContact" placeholder="">
+                                @*<span asp-validation-for="MotherContact" class="text-danger"/>*@
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Contact no:</label>*@
+                            <div class="col-sm-12">
+                                <input type="text" required="" class="form-control" asp-for="BrotherContact" id="BrotherContact" name="BrotherContact" placeholder="">
+                                @*<span asp-validation-for="BrotherContact" class="text-danger"/>*@
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Contact no:</label>*@
+                            <div class="col-sm-12">
+                                <input type="text" required="" class="form-control" asp-for="SisterContact" id="SisterContact" name="SisterContact" placeholder="">
+                                @*<span asp-validation-for="SisterContact" class="text-danger"/>*@
+                            </div>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                    <div class=" col-sm-12 col-md-2 col-lg-2">
+                        <div class="row mb-3">
+                            <label for="" class="col-sm col-form-label ">Blood groups</label>
+                        </div>
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Contact no:</label>*@
+                            <div class="col-sm-12">
+                                <select asp-for="FatherBloodGroupID" asp-items="@EmployeeExtension.GetAllBloodGroupMaster()" class="form-control" id="FatherBloodGroupID">
+                                    <option value="">Select Blood group</option>
+                                </select>
+                                @*<span asp-validation-for="FatherContact" class="text-danger"/>*@
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Contact no:</label>*@
+                            <div class="col-sm-12">
+                                <select asp-for="MotherBloodGroupID" asp-items="@EmployeeExtension.GetAllBloodGroupMaster()" class="form-control" id="MotherBloodGroupID">
+                                    <option value="">Select Blood group</option>
+                                </select>
+                                @*<span asp-validation-for="MotherContact" class="text-danger"/>*@
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Contact no:</label>*@
+                            <div class="col-sm-12">
+                                <select asp-for="BrotherBloodGroupID" asp-items="@EmployeeExtension.GetAllBloodGroupMaster()" class="form-control" id="BrotherBloodGroupID">
+                                    <option value="">Select Blood group</option>
+                                </select>
+                                @*<span asp-validation-for="BrotherContact" class="text-danger"/>*@
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Contact no:</label>*@
+                            <div class="col-sm-12">
+                                <select asp-for="SisterBloodGroupID" asp-items="@EmployeeExtension.GetAllBloodGroupMaster()" class="form-control" id="SisterBloodGroupID">
+                                    <option value="">Select Blood group</option>
+                                </select>
+                                @*<span asp-validation-for="SisterContact" class="text-danger"/>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class=" col-sm-12 col-md-2 col-lg-2">
+                        <label for="" class="col-form-label ">Marital status:</label>
+
+                    </div>
+                    <div class=" col-sm-12 col-md-4 col-lg-4">
+                        <select asp-for="MaritalStatusID" asp-items="@EmployeeExtension.GetMaritalStatusMaster()" class="form-control" id="MaritalStatus">
+                            <option value="">Select Employee Marital status</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class=" col-sm-12 col-md-1 col-lg-1">
+                        <div class="row mb-3">
+                            <label for="" class="col-sm-12 col-form-label ">Wife:</label>
+                            @*<div class="col-sm-9">
+                            <input type="text" required="" class="form-control" asp-for="FatherName" id="FatherName" name="FatherName" placeholder="">
+                            </div>*@
+                        </div>
+                    </div>
+                    <div class=" col-sm-12 col-md-5 col-lg-5">
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Father:</label>*@
+                            <div class="col-sm-12">
+                                <input type="text" required="" class="form-control" asp-for="WifeName" id="WifeName" name="WifeName" placeholder="">
+                                @*<span asp-validation-for="WifeName" class="text-danger"/>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-sm-12 col-md-4 col-lg-4">
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Contact no:</label>*@
+                            <div class="col-sm-12">
+                                <input type="text" required="" class="form-control" asp-for="WifeContact" id="WifeContact" name="WifeContact" placeholder="">
+                                @*<span asp-validation-for="FatherContact" class="text-danger"/>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-sm-12 col-md-2 col-lg-2">
+                        <div class="row mb-3">
+                            @*<label for="" class="col-sm-3 col-form-label ">Contact no:</label>*@
+                            <div class="col-sm-12">
+                                <select asp-for="WifeBloodGroupID" asp-items="@EmployeeExtension.GetAllBloodGroupMaster()" class="form-control" id="WifeBloodGroupID">
+                                    <option value="">Select Blood group</option>
+                                </select>
+                                @*<span asp-validation-for="SisterContact" class="text-danger"/>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-lg-6">
+
+                    <div class="row mb-3">
+                        <label for="" class="col-sm-3 col-form-label ">No of Child:</label>
+                        <div class="col-sm-9">
+                            <input type="text" required="" class="form-control" id="NoofChild" name="NoofChild" asp-for="NoofChild" placeholder="">
+                            @*<span asp-validation-for="MiddleName" class="text-danger"></span>*@
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="" class="col-sm-4 col-form-label ">Emergency Mobile Number:</label>
+                        <div class="col-sm-8">
+                            <input type="text" required="" class="form-control" id="EmergencyMobileNumber" name="EmergencyMobileNumber" asp-for="EmergencyMobileNumber" placeholder="">
+                            @*<span asp-validation-for="FirstName" class="text-danger"></span>*@
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="" class="col-sm-4 col-form-label ">WhatsApp No:</label>
+                        <div class="col-sm-8">
+                            <input type="text" required="" class="form-control" id="WhatsAppNo" name="WhatsAppNo" asp-for="WhatsAppNo" placeholder="">
+                            @*<span asp-validation-for="WhatsAppNo" class="text-danger"></span>*@
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6">
+
+                    <div class="row mb-3">
+                        <label for="" class="col-sm-3 col-form-label ">No of Bike/Scooty:</label>
+                        <div class="col-sm-9">
+                            <input type="text" required="" class="form-control" id="NoofBikeScooty" name="NoofBikeScooty" asp-for="NoofBikeScooty" placeholder="">
+                            @*<span asp-validation-for="LastName" class="text-danger"></span>*@
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="" class="col-sm-3 col-form-label ">No of Car:</label>
+                        <div class="col-sm-9">
+                            <input type="text" required="" class="form-control" id="NoofCar" name="NoofCar" asp-for="NoofCar" placeholder="">
+                            @*<span asp-validation-for="NoofCar" class="text-danger"></span>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="button" onclick="fnSubmitEmployeeamilyDetail()" class="btn btn-primary btn-info px-5 ladda-button" id="btnSave">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function fnSubmitEmployeeamilyDetail() {
+        alert($("#formEmployeeFamilyBackground").valid());
+        if ($("#formEmployeeFamilyBackground").valid()) {
+            var ls = laddaStart('btnSave');
+            modeldata = $("#formEmployeeFamilyBackground").serialize();
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/Employee/AddUpdateEmployeeFamilyBackground/',
+                data: modeldata,
+                dataType: 'json',
+                beforeSend: function () { },
+                success: function (data) {
+                    console.log(data.status);
+                    if (data.status) {
+                        //notification
+                        Lobibox.notify('success', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message,
+                        });
+                        top.location.href = "/Admin/Employee/Index";
+                        //window.location("_employeeAddresList");;
+                    }
+                    else {
+                        Lobibox.notify('error', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: '@MessageHelper.Error'
+                        });
+                    }
+                },
+                error: function (error) {
+                    laddaStop(ls);
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: '@MessageHelper.Error'
+                    });
+                }
+            }).always(function () {
+                hideloader();
+            });
+        }
+    };
+</script>

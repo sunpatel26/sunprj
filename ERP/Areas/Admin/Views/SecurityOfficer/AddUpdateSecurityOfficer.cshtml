@@ -1,0 +1,110 @@
+﻿@using Business.Entities.SecurityOfficer
+@model SecurityOfficerMaster
+<form class="form-horizontal" role="form" id="formSecurityOfficer">
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="row mb-3">
+                <input type="hidden" asp-for="SecurityOfficerID">
+                <label for="" class="col-sm-3 col-form-label text-end">Security Officer Name:</label>
+                <div class="col-sm-9">
+                    <input type="text" required="" class="form-control" id="SecurityOfficerName" name="SecurityOfficerName" asp-for="SecurityOfficerName" placeholder="">
+                    <span asp-validation-for="SecurityOfficerName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label text-end">Security Agency Name:</label>
+                <div class="col-sm-9">
+                    <input type="text" required="" class="form-control" id="SecurityAgencyName" name="SecurityAgencyName" asp-for="SecurityAgencyName" placeholder="">
+                    <span asp-validation-for="SecurityAgencyName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label text-end">Security Officer Mobile:</label>
+                <div class="col-sm-9">
+                    <input type="text" required="" class="form-control" id="SecurityOfficerMobile" name="SecurityOfficerMobile" asp-for="SecurityOfficerMobile" placeholder="">
+                    <span asp-validation-for="SecurityOfficerMobile" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label text-end">Identity Proof Type:</label>
+                <div class="col-sm-9">
+                    <!--add below asp-items="ViewBag" for designation-->
+                    <select asp-for="IdentityProofTypeID" asp-items="ViewBag.IdentityProofType" class="form-control">
+                        <option value="">Select Identity Proof Type</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label text-end">Identity Proof Number:</label>
+                <div class="col-sm-9">
+                    <input type="text" required="" class="form-control" asp-for="IdentityProofNumber" placeholder="">
+                    <span asp-validation-for="IdentityProofNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="modal-footer-sticky text-center">
+                <button id="btnSave" type="button" onclick="fnSubmit()" class="btn btn-primary btn-info px-5 ladda-button">Save</button>
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-primary btn-info px-5 my-2">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
+@await Html.PartialAsync("_ValidationScriptsPartial")
+<script type="text/javascript">
+    var urlsave = '@Url.Action("AddUpdateSecurityOfficer", "SecurityOfficer")';
+    function fnSubmit() {
+        if ($("#formSecurityOfficer").valid()) {
+            var l = laddaStart('btnSave');
+            modeldata = $("#formSecurityOfficer").serialize();
+            $.ajax({
+                type: 'POST',
+                url: urlsave,
+                data: modeldata,
+                dataType: 'json',
+                beforeSend: function () { },
+                success: function (data) {
+                    window.location.reload().delay(3000);
+                    if (data.status) {
+                        //notification
+                        $("#canvas_securityOfficer").hide();//('hide');
+                        Lobibox.notify('success', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                    else {
+                        Lobibox.notify('error', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                },
+                error: function (error) {
+                    laddaStop(l);
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            }).always(function () {
+                hideLoader();
+            });
+        }
+    };
+</script>

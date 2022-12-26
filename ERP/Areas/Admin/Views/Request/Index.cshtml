@@ -1,0 +1,235 @@
+﻿@using Business.Entities.Dynamic
+@using ERP.Controllers;
+@model ModelCaseSubmit
+@{
+    ViewData["Title"] = "Request Section ";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+<div class="page-breadcrumb d-none d-sm-flex align-items-center pb-3 border-bottom">
+    <div class="ps-3 col-md-6">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Index" asp-area="Admin"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Create Request</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="col-md-6 text-align-right">
+    </div>
+</div>
+<div class="row pt-3">
+    <form method="post" id="frmsubmit" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <input type="hidden" asp-for="RequestID" />
+                        <input type="hidden" id="hdRequestTypeID" value="@Model.RequestTypeID" />
+                        <label for="roleName" class="col-sm-3 col-form-label text-end">Entity<span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <select onchange="getRequestTypes();" class="form-select" asp-for="EntityID" asp-items="@CompanyDropdownBinder.EntityType(SettingsController.COMPANYID)">
+                                <option value="">--Select--</option>
+                            </select>
+                            <span asp-validation-for="EntityID" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <label for="roleName" class="col-sm-3 col-form-label text-end">Case Type<span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-select" asp-for="RequestTypeID" onchange="getControls();">
+                                <option value="">--Select--</option>
+                            </select>
+                            <span asp-validation-for="RequestTypeID" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="dvControls"></div>
+            </div>
+            <div class="row pt-3">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9 text-align-right">
+                    <button id="btnSave" type="submit" onclick="fnSubmit()" class="btn btn-primary btn-info px-5 ladda-button ">Save</button>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    var urlsave = '@Url.Action("SubmitCase", "Request")';
+
+    $(document).ready(function(){
+        getRequestTypes();
+    });
+
+    function getRequestTypes() {
+        var requestID = $("#RequestID").val();
+        var rtid = $("#hdRequestTypeID").val();
+        
+        $("#RequestTypeID").empty();
+        //$("#RequestID").append($("<option />").val("0").text("--Select--"));
+        var entityId = $("#EntityID").val();
+        if (entityId != null && entityId != '') {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetRequestTypes","Request")',
+                datatype: 'html',
+                data: { entityId: entityId },
+                success: function (result) {
+                    $("#RequestTypeID").append('<option value>--Select--</option>');
+                    $.each(result, function (index, item) {
+
+                        $("#RequestTypeID").append('<option value="'
+                            + item.value + '">'
+                            + item.text + '</option>');
+                    });
+
+                    if (requestID > 0) {
+                        $("#RequestTypeID").val(rtid);
+                        $("#RequestTypeID").hide();
+                        getControls();
+                    }
+                }
+            });
+        }
+        else {
+            //$('#P_Controls').empty();
+        }
+    }
+    function getControls() {
+        $('#dvControls').empty();        
+        var requestTypeId = $("#RequestTypeID").val();
+        var requestId = $("#RequestID").val();
+        if (requestTypeId != null && requestTypeId != '0') {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetControls","Request")',
+                datatype: 'html',
+                data: { caseId: requestId, requestTypeId: requestTypeId },
+                success: function (result) {
+                    //$("#row-request-type").show();
+                    $('#dvControls').append(result);
+                    //$('.form-actions').show();
+                    //$('.assignedto').show();
+                    //if (entity != TeamMemberEntityID) {
+                    //    $('#spanAssignedTo').html('');
+                    //}
+                    //if (entity != TeamMemberEntityID) {
+                    //    $('#spanAssignedTo').html(assignedToName); //This value declared and rendered when controls loaded.
+                    //}
+                    ////$('#spanAssignedTo').parent().css('height','130px');
+                    ////$('#spanAssignedTo').parent().css('overflow-y','scroll');
+                    //$('#divAssignedTo').show();
+                }
+            });
+        }
+        else {
+            $('#dvControls').empty();
+        }
+    }
+    function fnSubmit() {
+
+
+        var l = laddaStart('btnSave');
+
+        var fileData = new FormData();
+
+        fileData.append('@ConstVariable.ID', $('#RequestID').val());
+        fileData.append('@ConstVariable.EntityID', $('#EntityID').val());
+        fileData.append('@ConstVariable.RequestTypeID', $('#RequestTypeID').val());
+       
+        $(".contorl-to-save").each(function () {
+            var o = new Object;
+            o.Key = '_' + $(this).data('control-key');
+            var type = $(this).data('control-type');
+            switch (type) {
+                case '@ConstVariable.TYPE_TEXT':
+                    fileData.append(o.Key, $(this).val());
+                    break;
+                case '@ConstVariable.TYPE_TEXT_MULTILINE':
+                    fileData.append(o.Key, $(this).val());
+                    break;
+                case '@ConstVariable.TYPE_DATETIME':
+                    fileData.append(o.Key, $(this).val());
+                    break;
+                case '@ConstVariable.TYPE_TIME':
+                    fileData.append(o.Key, $(this).val());
+                    break;
+                case '@ConstVariable.TYPE_BOOLEAN':
+                    fileData.append(o.Key, $(this).prop('checked'));
+                    break;
+                case '@ConstVariable.TYPE_RADIOLIST':
+                    var checkedElement = $("input[name='" + $(this).attr('name') + "']:checked");
+                    fileData.append(o.Key, checkedElement.val());
+                    break;
+                case '@ConstVariable.TYPE_DROPDOWN':
+                    fileData.append(o.Key, $(this).val());
+                    break;
+                case '@ConstVariable.TYPE_DROPDOWN_MULTISELECT':
+                    fileData.append(o.Key, $(this).val());
+                    break;
+                case '@ConstVariable.TYPE_FILEUPLOAD':
+                    var fileUpload = $(this).get(0);
+                    var files = fileUpload.files;
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(o.Key + "<FILE>" + files[i].name, files[i]);
+                    }
+                    break;
+            }
+        });
+        console.log(fileData);
+        modeldata = $("#frmsubmit").serialize();
+        $.ajax({
+            type: 'POST',
+            url: urlsave,
+            contentType: false, // Not to set any content header
+            processData: false, // Not to process data
+            data: fileData,
+            beforeSend: function () { },
+            success: function (data) {
+                console.log(data.status);
+                if (data.status) {
+                    Lobibox.notify('success', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: data.message
+                    });
+                }
+                else {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: data.message
+                    });
+                }
+            },
+            error: function (error) {
+                laddaStop(l);
+                Lobibox.notify('error', {
+                    pauseDelayOnHover: true,
+                    size: 'mini',
+                    icon: 'bx bx-check-circle',
+                    continueDelayOnInactiveTab: false,
+                    position: 'bottom right',
+                    msg: "@MessageHelper.Error"
+                });
+            }
+        }).always(function () {
+            hideLoader();
+        });
+
+    };
+</script>

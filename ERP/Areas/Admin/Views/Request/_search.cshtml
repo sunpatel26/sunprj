@@ -1,0 +1,67 @@
+﻿@using ERP.Controllers
+@model RequestSearchMetadata
+<div class="row pt-3">
+    <form method="post" id="frmsubmit" asp-action="Search" asp-controller="Request" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <label for="roleName" class="col-sm-3 col-form-label text-end">Entity</label>
+                        <div class="col-sm-9">
+                            <select onchange="getRequestTypes();" class="form-select" asp-for="EntityID" asp-items="@CompanyDropdownBinder.EntityType(SettingsController.COMPANYID)">
+                                <option value="">--Select--</option>
+                            </select>
+                            <span asp-validation-for="EntityID" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <label for="roleName" class="col-sm-3 col-form-label text-end">Case Type<span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-select" asp-for="RequestTypeID" onchange="getControls();">
+                                <option value="">--Select--</option>
+                            </select>
+                            <span asp-validation-for="RequestTypeID" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9 text-align-right">
+                    <button id="btnSave" type="submit" class="btn btn-primary btn-info px-5 ladda-button ">Search</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        getRequestTypes();
+    });
+    function getRequestTypes() {
+        $("#RequestTypeID").empty();
+        var entityId = $("#EntityID").val();
+        if (entityId != null && entityId != '') {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetRequestTypes","Request")',
+                datatype: 'html',
+                data: { entityId: entityId },
+                success: function (result) {
+                    $("#RequestTypeID").append('<option value>--Select--</option>');
+                    $.each(result, function (index, item) {
+
+                        $("#RequestTypeID").append('<option value="'
+                            + item.value + '">'
+                            + item.text + '</option>');
+                    });
+                }
+            });
+        }
+        else {
+
+        }
+    }
+</script>

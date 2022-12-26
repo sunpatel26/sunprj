@@ -1,0 +1,58 @@
+﻿@model Business.Entities.Employee.EmployeeDocument
+<div class="row">
+    <div class="card-content">
+        <div class="tab-pane fade active show" id="details" role="tabpanel" aria-labelledby="details-tab">
+            <form id="formEmployeeDocument" asp-action="AddUpdateEmployeeDocument" asp-controller="Employee" asp-area="Admin" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="EmployeeID" id="EmployeeID" />
+                <input type="hidden" asp-for="EmployeeDocumentID" id="EmployeeDocumentID" />
+                <div class=" col-sm-12 col-md-6 col-lg-6">
+                    <div class="row mb-3">
+                        <label asp-for="DocumentType" class="col-sm-3 col-form-label ">Document Type:</label>
+                        <div class="col-sm-9">
+                            <select asp-for="DocumentTypeID" asp-items="@EmployeeExtension.GetAllDocumentType()" class="form-control">
+                                <option value="">--Select--</option>
+                            </select>
+                            @*<span asp-validation-for="DocumentTypeID" class="text-danger"></span>*@
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="" class="col-sm-3 col-form-label ">Document Name:</label>
+                        <div class="col-sm-9">
+                            <input type="text" asp-for="DocumentName" />
+                            @*<span asp-validation-for="Description" class="text-danger"></span>*@
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="" class="col-sm-3 col-form-label ">Document description:</label>
+                        <div class="col-sm-9">
+                            <textarea required="" class="form-control" rows="4" cols="50" asp-for="Description" placeholder=""></textarea>
+                            @*<span asp-validation-for="Description" class="text-danger"></span>*@
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label asp-for="DocumentFile" class="col-sm-3 col-form-label ">Upload document:</label>
+                        <div class="col-sm-9">
+                            @*<span asp-validation-for="DocumentFile" class="text-danger"></span>*@
+                            <input asp-for="DocumentFile" type="file" class="form-control" name="documentfile" id="documentFile" onchange="loadFile(event)" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="" class="col-sm-3 col-form-label ">IsActive:</label>
+                        <div class="col-sm-9">
+                            <input type="checkbox" class="form-check-input" asp-for="IsActive">
+                            @*<span asp-validation-for="DocumentFile" class="text-danger"></span>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-info px-5 ladda-button" id="btnSaveDocument" href="/Admin/Employee/AddUpdateEmployee/id=@Model.EmployeeID">Save</button>
+                    @*<button type="submit" onclick="fnSubmitDocument()" id="btnSave">Save</button>*@
+                    @*<button type="button" class="btn-close te  xt-reset" data-bs-dismiss="offcanvas" aria-l abel="Close">Cancel</button>*@
+                    <button type="button" class="btn btn-primary btn-info px-5 ladda-button" data-bs-dismiss="offcanvas" aria-l abel="Close">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

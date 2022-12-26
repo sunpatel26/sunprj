@@ -1,0 +1,435 @@
+﻿@using Business.Entities.Dynamic
+@model MasterEntityListMetadata
+@{
+    ViewData["Title"] = "Master Entity List";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<input type="hidden" class="form-control" id="txtID" value="0" />
+<input type="hidden" class="form-control" id="hdnKey" value="" />
+
+<div class="page-content-inner">
+    <div class="row" id="row-update">
+        <div class="col-sm-12">
+            <div class="portlet box blue">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-plus-circle"></i><span>Add Master Key</span>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" id="collapse" data-original-title="" title=""> </a>
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
+                    <form class="form-horizontal" role="form">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Name</label>
+                                        <div class="col-md-9">
+                                            <input type="text" maxlength="100" class="form-control" id="txtName" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Value</label>
+                                        <div class="col-md-9">
+                                            <input type="text" maxlength="100" class="form-control" id="txtValue" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Display Order</label>
+                                        <div class="col-md-9">
+                                            <input type="text" maxlength="4" class="form-control mask_number" id="txtSortOrder" value="1" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Entry Type</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" id="drpListEntryType">
+                                                @foreach (var item in Model.EntryTypeLists)
+                                                {
+                                                    <option value="@item.MasterListEntryTypeID">@item.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Active</label>
+                                        <div class="col-md-9">
+                                            <input type="checkbox" id="chkIsActive" class="make-switch" data-on-text="Yes" data-off-text="No" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Default Selected</label>
+                                        <div class="col-md-9">
+                                            <input type="checkbox" id="IsDefaultSelected" class="make-switch" data-on-text="Yes" data-off-text="No" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions right">
+                            <button type="button" class="btn default" onclick="showList()">Cancel</button>
+                            <button type="button" class="btn blue" id="btn-filter" onclick="SaveMasterList()"><i class="fa fa-check"></i> Save</button>
+                        </div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="row-list">
+        <div class="col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-list-alt"></i>
+                        <span class="caption-subject bold uppercase"> Master Key List</span>
+                    </div>
+                    <div class="actions">
+                        <a href="javascript:showForm();defaultValueSet();" class="btn btn-default btn-sm">
+                            <i class="fa fa-plus-circle"></i> Add Master Entry
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped table-bordered table-hover" id="ListTable">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left">Name</th>
+                                                <th style="width:150px" class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.MasterLists)
+                                            {
+                                                <tr>
+                                                    <td class="text-left">@item.Name</td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0);" onclick="EditKeyMaster('@item.Name');" class="btn btn-success btn-sm">Edit</a>
+
+                                                        <a href="javascript:void(0);" onclick="DeleteKeyMaster('@item.Name');" class="btn btn-danger btn-sm">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="row-detail-list">
+        <div class="col-sm-12" id="dvValueList">
+        @*    @Html.PartialAsync("P_List")*@
+        </div>
+    </div>
+</div>
+
+@*
+@section scripts{
+    <script>
+        var defaultType = '';
+        var defaultName = '';
+
+        $(document).ready(function () {
+            datatablelist();
+            $("#row-detail-list").hide();
+            $("#row-update").hide();
+        });
+
+        function datatablelist() {
+            $('#ListTable').DataTable({
+                "filter": true,
+                "pagingType": "bootstrap_full_number",
+                "paging": true,
+                "orderClasses": false,
+                "order": [[1, "asc"]],
+                "info": true,
+                "scrollCollapse": true,
+                "bProcessing": false,
+                "bServerSide": false,
+                "stateSave": false,  //restore table state on page reload,
+                "bLengthChange": true,
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                "language": { search: "", searchPlaceholder: "Search..." },
+                "drawCallback": function (settings) {
+                }
+            });
+        }
+
+        function datatablevaluelist() {
+            $('#ListValueTable').DataTable({
+                "filter": true,
+                "pagingType": "bootstrap_full_number",
+                "paging": true,
+                "orderClasses": false,
+                "order": [[1, "asc"]],
+                "info": true,
+                "scrollCollapse": true,
+                "bProcessing": false,
+                "bServerSide": false,
+                "stateSave": false,
+                "bLengthChange": true,
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                "language": { search: "", searchPlaceholder: "Search..." },
+                "drawCallback": function (settings) {
+                }
+            });
+        }
+
+        function showForm() {
+            ClearControls();
+            $("#row-list").hide();
+            $("#row-update").fadeIn();
+            $("#row-detail-list").hide();
+            $("#dvValueList").empty();
+            $("#mstHeader").text("");
+            $("#txtName").focus();
+        }
+
+        function showList() {
+            if ($("#hdnKey").val() != '' && $("#hdnKey").val() != undefined) {
+                EditKeyMaster($("#hdnKey").val());
+            } else {
+                $("#row-list").fadeIn();
+                $("#row-update").hide();
+                $("#row-detail-list").hide();
+                $("#dvValueList").empty();
+                $("#mstHeader").text("");
+                ClearControls();
+            }
+
+        }
+
+        function ClearControls() {
+            $("#txtID").val('0');
+            $("#txtName").val('');
+            $("#txtValue").val('');
+            $("#hdnKey").val('');
+            $("#txtSortOrder").val('1');
+            $('#chkIsActive').bootstrapSwitch('state', true);
+            $('#IsDefaultSelected').bootstrapSwitch('state', false);
+            $("#drpListEntryType").val('0');
+        }
+
+        function showValueList() {
+            $("#row-detail-list").fadeIn();
+            $("#row-list").hide();
+            $("#dvForm").hide();
+            $("#row-update").hide();
+        }
+
+        function HideValueList() {
+            $("#row-detail-list").hide();
+            $("#dvValueList").empty();
+        }
+
+        function showValueForm() {
+            $("#txtID").val('0');
+            $("#txtName").val('');
+            $("#txtValue").val('');
+            $("#txtSortOrder").val('1');
+            $('#chkIsActive').bootstrapSwitch('state', true);
+            $('#IsDefaultSelected').bootstrapSwitch('state', false);
+
+            $("#row-list").hide();
+            $("#row-update").fadeIn();
+            $("#row-detail-list").hide();
+            $("#dvValueList").empty();
+            $("#drpListEntryType").val('0');
+        }
+
+        function defaultValueSet() {
+            $('#chkIsActive').bootstrapSwitch('state', true);
+            $('#IsDefaultSelected').bootstrapSwitch('state', false);
+
+            $('#drpListEntryType').val(defaultType);
+            $('#txtName').val(defaultName);
+        }
+
+        function SaveMasterList() {
+            let ID = parseInt($("#txtID").val());
+            let name = $("#txtName").val();
+            let Value = $("#txtValue").val();
+            let EntryTypeID = $("#drpListEntryType").val();
+            let SortOrder = parseInt($("#txtSortOrder").val());
+            let IsActive = $('#chkIsActive').bootstrapSwitch('state');
+            let IsDefaultSelected = $('#IsDefaultSelected').bootstrapSwitch('state');
+
+            if (name == undefined || name == "") {
+                name = $("#hdnKey").val();
+            }
+            if (name == '') {
+                swal('Error', 'Please enter name', 'error');
+                return;
+            }
+            if (Value == '') {
+                swal('Error', 'Please enter value', 'error');
+                return;
+            }
+            if (EntryTypeID == '0') {
+                swal('Error', 'Please select entry type', 'error');
+                return;
+            }
+
+            if (SortOrder == '' || isNaN(SortOrder)) {
+                SortOrder = 1;
+            }
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SaveMasterList")',
+                datatype: 'json',
+                data: { ID: ID, name: name, Value: Value, SortOrder: SortOrder, IsActive: IsActive, EntryTypeID: EntryTypeID, IsDefaultSelected: IsDefaultSelected },
+                success: function (i) {
+                    if (i.flag == true) {
+                        defaultType = EntryTypeID;
+                        defaultName = name;
+                        swal('Success', "MasterList saved successfully.", 'success');
+                        $('.btn-primary').on('click', function () {
+                            if ($("#hdnKey").val() != '' && $("#hdnKey").val() != undefined) {
+                                EditKeyMaster(name);
+                            } else {
+                                window.location.reload();
+                            }
+                        });
+                    } else {
+                        swal('Error', i.message, 'error');
+                    }
+                }
+            });
+        }
+
+        function EditMasterList(id) {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetMasterListDetail")',
+                datatype: 'json',
+                data: { id: id },
+                success: function (i) {
+                    if (i.flag == true) {
+                        showForm();
+                        $("#txtID").val(i.model.MasterListID);
+                        $("#txtValue").val(i.model.Value);
+                        $("#txtName").val(i.model.Name);
+                        $("#txtSortOrder").val(i.model.SortOrder);
+                        $('#chkIsActive').bootstrapSwitch('state', i.model.IsActive);
+                        $('#IsDefaultSelected').bootstrapSwitch('state', i.model.IsDefaultSelected);
+
+                        $("#hdnKey").val(i.model.Name);
+                        $("#mstHeader").text(" (" + i.model.Name + ")");
+                        $("#drpListEntryType").val(i.model.EntryTypeID);
+                    }
+                },
+                complete: function () {
+                }
+            });
+        }
+
+        function DeleteMasterList(id) {
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this data",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+                function () {
+                    $.ajax({
+                        type: 'GET',
+                        datatype: 'json',
+                        url: '@Url.Action("DeleteMasterList")',
+                        data: { id: id },
+                        success: function (i) {
+                            if (i.flag == true) {
+                                swal('Success', "MasterList deleted successfully.", 'success');
+                                if ($("#hdnKey").val() != '' && $("#hdnKey").val() != undefined) {
+                                    EditKeyMaster($("#hdnKey").val());
+                                } else {
+                                    window.location.reload();
+                                }
+                            } else {
+                                swal('Error', 'Cannot delete this master key, it is used somewhere else.', 'error');
+                            }
+                        }
+                    });
+                });
+        }
+
+        function DeleteKeyMaster(name) {
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this data",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+                function () {
+                    $.ajax({
+                        type: 'GET',
+                        datatype: 'json',
+                        url: '@Url.Action("DeleteMasterListByName")',
+                        data: { name: name },
+                        success: function (i) {
+                            if (i.flag == true) {
+                                swal('Success', "MasterList deleted successfully.", 'success');
+                                window.location.reload();
+                            } else {
+                                swal('Error', 'Cannot delete this master value, it is used somewhere else.', 'error');
+                            }
+                        }
+                    });
+                });
+        }
+
+        function EditKeyMaster(name) {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetMasterListKeyDetail")',
+                datatype: 'html',
+                data: { name: name },
+                success: function (i) {
+                    showValueList();
+                    $("#row-detail-list").fadeIn();
+                    $("#dvValueList").empty();
+                    $("#dvValueList").html(i);
+                    datatablevaluelist();
+                    $("#mstHeader").text(" (" + name + ")");
+                    $("#txtName").val(name);
+                    $("#hdnKey").val(name);
+                    $("#txtName").focus();
+                },
+                complete: function () {
+                }
+            });
+        }
+    </script>
+}
+*@

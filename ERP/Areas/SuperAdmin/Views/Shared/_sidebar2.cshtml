@@ -1,0 +1,213 @@
+﻿@*SuperAdmin SideBar Start*@
+@using ERP.Controllers
+@{
+    string path = SettingsController.LOGOPATH;
+    bool isLogo = false;
+    if (path.IsNotStringNullOrEmpty())
+    {
+        isLogo = true;
+    }
+}
+<div class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+        @if (isLogo)
+        {
+            <div>
+                <img src="@SettingsController.LOGOPATH" class="logo-icon" alt="logo icon">
+            </div>
+        }
+        else
+        {
+            <div>
+                <h4 class="logo-text">@SettingsController.COMPANYNAME</h4>
+            </div>
+        }
+        <div class="toggle-icon ms-auto">
+            <i class='bx bx-first-page'></i>
+        </div>
+    </div>
+    <!--navigation-->
+    <ul class="metismenu" id="menu">
+        @*<li class="menu-label">Manage</li>*@
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bxs-book-add'></i>
+                </div>
+                <div class="menu-title">Master</div>
+            </a>
+            <ul>                
+                 <li>
+                    <a asp-area="SuperAdmin" asp-controller="Package" asp-action="Index" ><i class="bx bx-right-arrow-alt"></i>Package Master</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="FormMaster" asp-action="Index" ><i class="bx bx-right-arrow-alt"></i>Form Master</a>
+                </li>
+            </ul>
+        </li>
+
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bxs-business'></i>
+                </div>
+                <div class="menu-title">Company</div>
+            </a>
+            <ul>
+                <li>
+
+                    <a asp-controller="Company" asp-action="Register" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Register Company</a>
+                </li>
+                <li>
+                    <a asp-controller="Company" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Company</a>
+                </li>
+                <li>
+                    <a asp-controller="PartyType" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Party Type</a>
+                </li>
+                <li>
+                    <a asp-controller="Department" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Department</a>
+                </li>
+                <li>
+                    <a asp-controller="Designation" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Designation</a>
+                </li>
+                 @*<li>
+                    <a asp-controller="Package" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Package</a>
+                </li>*@
+            </ul>
+        </li>
+
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bx-cog'></i>
+                </div>
+                <div class="menu-title">Forms</div>
+            </a>
+            <ul>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="MasterEntity" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Master List</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="RequestType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Request Type</a>
+                </li>
+                @*<li>
+                    <a asp-area="SuperAdmin" asp-controller="RequestTypeModule" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Request Type Section</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="RequestTypeControlScreen" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Request Type Section Control - Screen Mapping</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="RequestTypeControl" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>All Controls</a>
+                </li>*@
+            </ul>
+        </li>
+
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bx-user'></i>
+                </div>
+                <div class="menu-title">Roles</div>
+            </a>
+            <ul>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="Role" asp-action="Create"><i class="bx bx-right-arrow-alt"></i>Add Role</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="Role" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Roles</a>
+                </li>
+                <li>
+                    <a class="nav-link " asp-controller="UserRoles" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-right-arrow-alt"></i>Manage Users</a>
+                </li>
+            </ul>
+        </li>
+
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bx-cog'></i>
+                </div>
+                <div class="menu-title">Settings</div>
+            </a>
+            <ul>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="AddressType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Address Type</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="BusinessType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Business Type</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="DocumentType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Document Type</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="IndustryType" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Industry Type</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="Country" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Countries</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="State" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>State</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="City" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>City</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="District" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>District</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="Taluka" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Taluka</a>
+                </li>
+                <li>
+                    <a asp-area="SuperAdmin" asp-controller="Zipcode" asp-action="Index"><i class="bx bx-right-arrow-alt"></i>Zipcode</a>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+    <!--end navigation-->
+</div>
+
+<script>
+
+    showLoader();
+
+    function laddaStart(id) {
+        var l = Ladda.create(document.getElementById(id));
+        l.start();
+        return l;
+    }
+
+    function laddaStop(l) {
+        l.stop();
+    }
+
+    function showLoader() {
+        $("body").LoadingOverlay("show", {
+            background: "rgba(136,251,155 0.3)",
+            imageColor: '#8833ff'
+        });
+    }
+
+    function hideLoader() {
+        $("body").LoadingOverlay("hide", true);
+    }
+
+    $(function () {
+        hideLoader();
+    });
+    $(function () {
+        //hideLoader();
+        ////Handle tooltip behaviour (It will init in all controls)
+        //var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        //var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        //    return new bootstrap.Tooltip(tooltipTriggerEl)
+        //});
+    });
+
+</script>
+@*SuperAdmin SideBar End*@

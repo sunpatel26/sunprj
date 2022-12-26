@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Business.SQL
+@using GridCore
+@addTagHelper *, GridMvc
+
+@model ISGrid
+@{
+    ViewData["Title"] = "Request";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+<div class="page-breadcrumb d-none d-sm-flex align-items-center pb-2 border-bottom">
+    <div class="ps-3 col-md-6">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Request</li>
+            </ol>
+        </nav>
+    </div>     <div class="col-md-6 text-align-right">
+        <a asp-controller="Request" asp-action="Index" asp-area="Admin" class="btn btn-primary px-5">Create Request</a>
+        
+    </div>
+</div>
+<div class="row pt-2">
+    <div class="col-md-12">
+        @{
+            RequestSearchMetadata filters = CacheFunctions.GetComplexData<RequestSearchMetadata>("Request");
+            if (filters == null)
+            {
+                filters=new RequestSearchMetadata();
+            }
+            @await Html.PartialAsync("_search", filters)
+        }
+    </div>
+</div>
+<div class="row pt-2">
+    <div class="col-md-12">
+        <grid model="@Model" />
+    </div>
+</div>

@@ -1,0 +1,117 @@
+﻿@using Business.SQL
+@model PagedDataTable<CompanyAddressTxnMetadata>
+<link href="~/admin/assets/vendors/simple-datatables/style.css" rel="stylesheet" />
+<div id="CompanyTable">
+    <div class="row">
+        <div class="col-lg-6">
+            <h6 class="cards-title">
+                Address
+            </h6>
+        </div>
+        <div class="col-lg-6 text-align-right">
+            <a onclick="fnAddAddress(0)"
+               class="btn btn-primary px-5"
+               href="javascript:void(0)"
+               data-id="0"
+               data-bs-toggle="offcanvas"
+               data-bs-target="#canvas_address"
+               aria-controls="canvas_address">
+                Add Address
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-striped" id="tblAddress">
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Address Type</th>
+                    <th>Address</th>
+                    <th>Zipcode</th>
+                    <th>City</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.SrNo</td>
+                            <td>@item.AddressTypeText</td>
+                            <td>@string.Format("{0} {1} {2}", item.Address1,item.Address2,item.Address3)</td>                        
+                            <td>@item.ZIPCode</td>
+                            <td>@item.DistrictName</td>
+                            <td>@item.StateName</td>
+                            <td>
+                                <a class='btn editaddress' onclick="fnAddAddress(@item.CompanyAddressTxnID)" 
+                                href="javascript:void(0)"
+                                data-bs-toggle="offcanvas"
+                                data-bs-target="#canvas_address"
+                                aria-controls="canvas_address"
+                                data-id="@item.CompanyAddressTxnID" 
+                                compnayid="@item.CompanyID"><i class='bx bx-edit'></i></a>
+
+                                <a class='btn deleteaddress' href="#!" data-id="@item.CompanyAddressTxnID" compnayid="@item.CompanyID"><i class='icon dripicons-trash'></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="canvas_address" >
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Address</h5>
+        <button type="button" class="btn-close te  xt-reset" data-bs-dismiss="offcanvas" aria-l abel="Close"></button>
+    </div>
+    <div class="offcanvas-body pt-3 pb-5">
+        <div id="dvInfo">
+        </div>
+    </div>
+</div>
+
+<script src="~/admin/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    var urlDeleteCompanyFromUser = '@Url.Action("DeleteAddress", "CompanySetting")';
+    var urlAddAddress = '@Url.Action("AddAddress", "CompanySetting")';
+    $(document).ready(function () {
+        let table1 = document.querySelector('#tblAddress');
+        let dataTable = new simpleDatatables.DataTable(table1);
+
+        ////Unbind the original image 'href' set by the controller...
+        // $('.deletecontact').attr('href', 'javascript://');
+        // $('#tblstore').on('click', 'a.deleteStore', function () {
+        //    var _id = $(this).attr('id');
+        //     var _compnayid = $(this).attr('compnayid');
+
+        //     var _parameters = { id: _id, companyid: _compnayid };
+        //    $.ajax({
+        //        url: urlDeleteCompanyFromUser,
+        //        type: "GET",
+        //        data: _parameters,
+        //        success: function (data, textStatus, jqXHR) {
+        //            $('#CompanyTable').html(data);
+        //        }
+        //    });
+        //});
+
+
+    });
+    function fnAddAddress(id) {
+        var _id = id;//$(this).data('id');
+        var _cid=$("#CompanyID").val();
+        var _parameters = { id: _id, compnayid: _cid };
+        $.ajax({
+            url: urlAddAddress,
+            type: "POST",
+            data: _parameters,
+            success: function (data, textStatus, jqXHR) {
+                $("#canvas_address").show();//('hide');
+                $('#dvInfo').html(data);
+            }
+        });
+    }
+</script>

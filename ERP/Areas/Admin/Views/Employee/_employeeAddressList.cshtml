@@ -1,0 +1,107 @@
+﻿@using Business.Entities.Employee
+@model PagedDataTable<EmployeeAddressTxn>
+<link href="~/admin/assets/vendors/simple-datatables/style.css" rel="stylesheet" />
+<div id="EmployeeAddessTable">
+    <div class="row">
+        <div class="col-lg-6">
+            <h6 class="cards-title">
+                Employee Address List
+            </h6>
+        </div>
+        <div class="col-lg-12 text-align-right">
+            <a onclick="fnAddAddress()"
+               class="btn btn-primary px-5"
+               href="javascript:void(0)"
+               data-id="0"
+               data-bs-toggle="offcanvas"
+               data-bs-target="#canvas_address"
+               aria-controls="canvas_address">
+                Add Address
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-striped" id="tblAddress">
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Address Type</th>
+                    <th>Plot No Name</th>
+                    <th>Street No Name</th>
+                    <th>Main Address</th>
+                    <th>State</th>
+                    <th>Country</th>
+                    <th>IsActive</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.SrNo</td>
+                            <td>@item.AddressType</td>
+                            <td>@item.PlotNoName</td>
+                            <td>@item.StreetNoName</td>
+                            <td>@item.MainAddress</td>
+                            <td>@item.StateName</td>
+                            <td>@item.CountryName</td>
+                            <td>@item.IsActive</td>
+                            <td>
+                                <a class='btn editaddress' onclick="fnAddAddress(@item.EmployeeAddressTxnID)"
+                           href="javascript:void(0)"
+                           data-bs-toggle="offcanvas"
+                           data-bs-target="#canvas_address"
+                           aria-controls="canvas_address"
+                           data-id="@item.EmployeeAddressTxnID"
+                           employeeid="@item.EmployeeID"><i class='bx bx-edit'></i></a>
+
+                                <a class='btn deleteaddress' href="#!" data-id="@item.EmployeeAddressTxnID" employeeid="@item.EmployeeID"><i class='icon dripicons-trash'></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="canvas_address">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="canvasHeaderName"></h5>
+        <button type="button" class="btn-close te  xt-reset" data-bs-dismiss="offcanvas" aria-l abel="Close"></button>
+    </div>
+    <div class="offcanvas-body pt-3 pb-5">
+        <div id="dvInfo">
+        </div>
+    </div>
+</div>
+
+<script src="~/admin/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    var urlAddAddress = '@Url.Action("AddUpdateEmployeeAddress", "Employee")';
+    function fnAddAddress(employeeAddTxnId) {
+        var _id = employeeAddTxnId;//$(this).data('id');
+        var _employeeId = $("#EmployeeID").val();
+
+        if(_id>0)
+        {
+            document.getElementById("canvasHeaderName").innerHTML = "Update employee address";
+        }
+        else
+        {
+            document.getElementById("canvasHeaderName").innerHTML = "Add employee address";
+        }
+
+        var _parameters = { employeeAddressTxnId: _id, employeeId: _employeeId };
+        $.ajax({
+            url: urlAddAddress,
+            type: "GET",
+            data: _parameters,
+            success: function (data, textStatus, jqXHR) {
+                $("#canvas_address").show();//('hide');
+                $('#dvInfo').html(data);
+            }
+        });
+    }
+</script>

@@ -1,0 +1,47 @@
+﻿.ui-dialog {z-index:123654789;}
+.ui-datepicker {width: 17em;padding: .2em .2em 0;display: none;background: #000;}
+    .ui-datepicker .ui-datepicker-header {position: relative;padding: .2em 0;}
+    .ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {position: absolute;top: 2px;width: 1.8em;height: 1.8em;}
+    .ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover {top: 1px;}
+    .ui-datepicker .ui-datepicker-prev {left: 2px;}
+    .ui-datepicker .ui-datepicker-next {right: 2px;}
+    .ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {background-image: url(../../Content/themes/base/images/ui-icons_ffffff_256x240.png); 
+        background-position: -32px 0;display: block;position: absolute;left: 50%;margin-left: -8px;top: 50%;margin-top: -8px;}
+    .ui-datepicker .ui-datepicker-title {margin: 0 2.3em;line-height: 1.8em;text-align: center;}
+        .ui-datepicker .ui-datepicker-title select {font-size: 1em;margin: 1px 0;}
+    .ui-datepicker select.ui-datepicker-month-year {width: 100%;}
+    .ui-datepicker select.ui-datepicker-month,.ui-datepicker select.ui-datepicker-year {width: 49%;}
+    .ui-datepicker table {width: 100%;font-size: .9em;border-collapse: collapse;margin: 0 0 .4em;}
+    /*.ui-datepicker th {padding: .7em .3em;text-align: center;font-weight: bold;border: 0;}
+    .ui-datepicker td {border: 0;padding: 1px;}*/
+        .ui-datepicker td span, .ui-datepicker td a {display: block;padding: .2em;text-align: right;text-decoration: none;color: #fff;}
+    .ui-datepicker .ui-datepicker-buttonpane {background-image: none;margin: .7em 0 0 0;padding: 0 .2em;border-left: 0;border-right: 0;border-bottom: 0;}
+        .ui-datepicker .ui-datepicker-buttonpane button {float: right;margin: .5em .2em .4em;cursor: pointer;padding: .2em .6em .3em .6em;width: auto;overflow: visible;}
+            .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {float: left;}
+.ui-datepicker-row-break {clear: both;width: 100%;}
+
+.ui-icon {width: 16px;height: 16px;background-image: url(../../Content/themes/base/images/ui-icons_ffffff_256x240.png);display: block;text-indent: -99999px;overflow: hidden;background-repeat: no-repeat;}
+ 
+.ui-widget {background: #2e3641;border: none;border-radius: 0;-webkit-border-radius: 0;-moz-border-radius: 0;}
+.ui-datepicker {padding: 0;}
+.ui-datepicker-header {border: none;background: transparent;font-weight: normal;font-size: 15px;}
+.ui-datepicker-header .ui-state-hover {background: transparent;border-color: transparent;cursor: pointer;border-radius: 0;-webkit-border-radius: 0;-moz-border-radius: 0;}
+.ui-datepicker .ui-datepicker-title {margin-top: .4em;margin-bottom: .3em;color: #e9f0f4;}
+.ui-datepicker .ui-datepicker-prev-hover,
+.ui-datepicker .ui-datepicker-next-hover,
+.ui-datepicker .ui-datepicker-next,
+.ui-datepicker .ui-datepicker-prev {top: .9em;border: none;}
+.ui-datepicker .ui-datepicker-prev-hover {left: 2px;background:#00a0d5;}
+.ui-datepicker .ui-datepicker-next-hover {right: 2px;background:#00a0d5;}
+.ui-datepicker .ui-datepicker-prev span {background-position: -96px 0;}
+.ui-datepicker table {margin: 0;}
+.ui-datepicker th {padding: 1em 0;color: #ccc;font-size: 13px;font-weight: normal;border: none;border-top: 1px solid #3a414d;}
+.ui-datepicker td {border: none;padding: 0;}
+    .ui-datepicker td .ui-state-default {background: transparent;border: none;text-align: center;margin: 0;font-weight: normal;color: #efefef;font-size: 16px;}
+    .ui-datepicker td .ui-state-active,.ui-datepicker td .ui-state-hover {background: #00a0d5;color: #fff;}
+.ieandchrome .ui-datepicker select.ui-datepicker-month, .ieandchrome .ui-datepicker select.ui-datepicker-year {width: 44%;font-family: monospace;font-size: 15px;margin:8px 0px;padding-left:2px;margin-right:5px;margin-left:5px;border-radius: 7px;border:1px solid #2e3641;}
+.firefox .ui-datepicker select.ui-datepicker-month, .firefox .ui-datepicker select.ui-datepicker-year{width: 44%;font-family: monospace;font-size: 15px;margin:8px 0px;margin-right:5px;margin-left:5px;padding-left:2px;padding-right: 0;text-indent: .01px;text-overflow: initial;}
+
+.ui-state-disabled {opacity: 1;}
+    .ui-state-disabled .ui-state-default {color: #fba49e;}
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {opacity: .35;filter: Alpha(Opacity=35);background-image: none;}

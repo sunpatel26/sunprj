@@ -1,0 +1,166 @@
+﻿@using Business.Entities.Employee
+@using DocumentFormat.OpenXml.Office2010.Excel;
+@model PagedDataTable<EmployeeDocument>
+<link href="~/admin/assets/vendors/simple-datatables/style.css" rel="stylesheet" />
+<div id="EmployeeDocumentTable">
+    <div class="row">
+        <div class="col-lg-6">
+            <h6 class="cards-title">
+                Document List
+            </h6>
+        </div>
+        <div class="col-lg-12 text-align-right">
+            <a onclick="fnEmployeeDocument(0)"
+               class="btn btn-primary px-5"
+               href="javascript:void(0)"
+               data-id="0"
+               data-bs-toggle="offcanvas"
+               data-bs-target="#canvasEmployeeDocument"
+               aria-controls="canvasEmployeeDocument">
+                Add Document
+            </a>
+        </div>
+    </div>
+    @if (TempData["message"] != null)
+    {
+        var test = TempData["message"];
+        <div class="alert alert-success">
+            <strong>@TempData["message"]</strong>
+        </div>
+    }
+    <div class="row">
+        <table class="table table-striped" id="tblBankAccounts">
+            <thead>
+                <tr>
+                    <td>Sr No</td>
+                    <td>Document Type</td>
+                    <td>Document Name</td>
+                    <td>Description</td>
+                    <td>IsActive</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.SrNo</td>
+                            <td>@item.DocumentTypeName</td>
+                            <td>@item.DocumentName</td>
+                            <td>@item.Description</td>
+                            <td>
+                                <input type="checkbox" class="form-check-input" asp-for="@item.IsActive" onchange="fnEmployeeDocumentActiveInactive(@item.EmployeeDocumentID)" id="docActiveInactive">
+                                @*<a class='btn editaddress' onchange="fnEmployeeDocumentActiveInactive(@item.EmployeeDocumentID)"
+                                href="javascript:void(0)"
+                                data-bs-toggle="offcanvas"
+                                data-bs-target="#canvasEmployeeDocument"
+                                aria-controls="canvasEmployeeDocument"
+                                data-id="@item.EmployeeDocumentID"
+                                employeeid="@item.EmployeeID"><i class='bx bx-checkbox' id="docActiveInactive"></i></a>*@
+                            </td>
+
+                            @*<td>
+                            <a class='btn editaddress' onclick="fnEmployeeDocument(@item.EmployeeDocumentID)"
+                            href="javascript:void(0)"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#canvasEmployeeDocument"
+                            aria-controls="canvasEmployeeDocument"
+                            data-id="@item.EmployeeDocumentID"
+                            employeeid="@item.EmployeeID"><i class='bx bx-edit'></i></a>
+                            </td>*@
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@*<div class="offcanvas offcanvas-end" tabindex="-1" id="canvasEmployeeDocument" style="visibility: visible; width : 75% !important">*@
+<div class="offcanvas offcanvas-end" tabindex="-1" id="canvasEmployeeDocument">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="canvasHeaderNameDocument"></h5>
+        <button type="button" class="btn-close te  xt-reset" data-bs-dismiss="offcanvas" aria-l abel="Close"></button>
+    </div>
+    <div class="offcanvas-body pt-3 pb-5">
+        <div id="dvInfoDocument">
+        </div>
+    </div>
+</div>
+
+<script src="~/admin/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script type="text/javascript">
+    //var urlDeleteCompanyFromUser = 'Url.Action("DeleteBankAccount", "Employee")';
+    var urlAddUpdateDocument = '@Url.Action("AddUpdateEmployeeDocument", "Employee")';
+    var urlisActiveInActive = '@Url.Action("ActiveInActiveEmployeeDocument","Employee")';
+
+    function fnEmployeeDocument(employeeDocumentId) {
+        var _id = employeeDocumentId;//$(this).data('id');
+        var _employeeId = $("#EmployeeID").val();
+        if (_id > 0) {
+            document.getElementById("canvasHeaderNameDocument").innerHTML = "Update employee document details";
+        }
+        else {
+            document.getElementById("canvasHeaderNameDocument").innerHTML = "Add employee document details";
+        }
+        var _parameters = { employeeDocumentId: _id, employeeId: _employeeId };
+        $.ajax({
+            url: urlAddUpdateDocument,
+            type: "GET",
+            data: _parameters,
+            success: function(data, textStatus, jqXHR) {
+                $("#canvasEmployeeDocument").show();//('hide');
+                $('#dvInfoDocument').html(data);
+            }
+        });
+    }
+
+    function fnEmployeeDocumentActiveInactive(employeeDocumentId) {
+        var _empDocId = employeeDocumentId;//$(this).data('id');
+        var employeeId = $("#EmployeeID").val();
+        var _checkBox = $("#docActiveInactive").is(':checked');
+        var _docParameters = { employeeDocumentId: _empDocId, employeeId: employeeId, isActive: _checkBox };
+        $.ajax({
+            url: urlisActiveInActive,
+            type: 'POST',
+            data: _docParameters,
+            success: function(data) {
+                if (data.status) {
+                    var test = Lobibox.notify('success', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: data.message,
+                    });
+                }
+                else {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: '@MessageHelper.Error'
+                    });
+                }
+                $("#EmployeeDocumentTable").load(window.location.href + " #EmployeeDocumentTable");
+            },
+            error: function(error) {
+                laddaStop(ls);
+                Lobibox.notify('error', {
+                    pauseDelayOnHover: true,
+                    size: 'mini',
+                    icon: 'bx bx-check-circle',
+                    continueDelayOnInactiveTab: false,
+                    position: 'bottom right',
+                    msg: '@MessageHelper.Error'
+                });
+            }
+        }).always(function() {
+            hideloader();
+        });
+    }
+</script>

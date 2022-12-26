@@ -1,0 +1,97 @@
+﻿@model List<Business.Entities.ProductPhotoPath.ProductPhotoPath>
+@*@using Business.SQL
+@using GridCore
+@addTagHelper *, GridMvc*@
+
+@*@model ISGrid*@
+@{
+    ViewData["Title"] = "Upload Product Images";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
+            <div class="card border-0 shadow rounded-3">
+                <div class="card-body">
+                    <div class="row ProductImageUpload">
+                        <div class="ps-3 col-md-6">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0 p-0">
+                                    <li class="breadcrumb-item">
+                                        <a asp-area="Admin" asp-controller="UploadProductImages" asp-action="Index"><i class="bx bx-home-alt"></i></a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">Product Images and Description</li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="col-md-6 text-align-right">
+                            <!--<a class="btn btn-primary px-5" onclick="fnUploadProductImage(this)"
+                               href="javascript:void(0)"
+                               data-key="0"
+                               data-bs-toggle="offcanvas"
+                               data-bs-target="#canvas_UploadProductImage"
+                               aria-controls="canvas_UploadProductImage">
+                                Add
+                            </a>-->
+                            <a asp-area="Admin" asp-controller="UploadProductImages" asp-action="AddOrEditProductImages" class="btn btn-primary">Add</a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row pt-1">
+                        <div class="col-md-12">
+                            @*<grid model="@Model" />*@
+
+                            <div class="row mb-5" id="imagesLoop">
+                                @foreach (var items in Model)
+                                {
+                                    <div class="col-sl-12 col-md-4 col-lg-4 col-xl-4 my-3">
+                                        <div class="card">
+                                            <img id="img01" src="@Html.DisplayFor(modelItem => items.ImagePath)" class="card-img-top rounded mx-auto d-block" alt="Solar Cable" style="width:150px; height:150px;">
+                                            <div class="card-body text-center">
+                                                @*<button type="button" class="btn btn-primary px-5 my-3">RFQ</button>*@
+                                                <h4 class="card-title">@Html.DisplayFor(modelItem => items.ProductImageText)</h4>
+                                                <p class="card-text">@Html.DisplayFor(modelItem => items.Description)</p>
+                                                <a class="btn" method="GET" asp-area="Admin" asp-controller="UploadProductImages" asp-action="AddOrEditProductImages" asp-route-id="@items.ProductImageID"><i class='bx bx-edit'></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="offcanvas offcanvas-end" tabindex="-1" id="canvas_UploadProductImage">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Add Product Images and Description</h5>
+        <button type="button" class="btn-close te  xt-reset" data-bs-dismiss="offcanvas" aria-l abel="Close"></button>
+    </div>
+    <div class="offcanvas-body pt-3 pb-5">
+        <div id="dvInfo">
+        </div>
+    </div>
+</div>-->
+<!--<script type="text/javascript">
+    var urladd = '@Url.Action("Get", "UploadProductImages")';
+    function fnUploadProductImage(obj) {
+        var _key = $(obj).data('key');
+        var _id = $(obj).data('id');
+        var _parameters = { id: _id, key: _key };
+        $.ajax({
+            url: urladd,
+            type: "POST",
+            data: _parameters,
+            success: function(data, textStatus, jqXHR) {
+                $('#dvInfo').html(data);
+                $("#canvas_UploadProductImage").show();//('hide');
+            }
+        });
+    }
+</script>-->

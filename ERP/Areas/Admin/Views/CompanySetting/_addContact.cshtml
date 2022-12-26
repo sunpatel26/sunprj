@@ -1,0 +1,181 @@
+﻿@model CompanyContactTxnMetadata
+@*asp-action="SaveContact" asp-controller="Company" asp-area="SuperAdmin"
+*@<form method="post" id="frmaddcompnaycontact" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+    <div class="row mt-3">
+        <input type="hidden" asp-for="CompanyID" />
+        <input type="hidden" asp-for="CompanyContactPersonsID" />
+        <div class="col-md-12">
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Department<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="DepartmentID" asp-items="@SuperCompanyDropdownBinder.Departments()">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="DepartmentID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Designation<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="DesignationID" asp-items="@SuperCompanyDropdownBinder.Designations()">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="DesignationID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Prefix</label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="Prefix" asp-items="@SuperCompanyDropdownBinder.Prefix()">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Name<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" required="" class="form-control" asp-for="PersonName" placeholder="" maxlength="150">
+                    <span asp-validation-for="PersonName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Personal Email<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" required="" class="form-control" asp-for="PersonEmail" placeholder="" maxlength="150">
+                    <span asp-validation-for="PersonEmail" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Office Email<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" required="" class="form-control" asp-for="OfficeEmail" placeholder="" maxlength="150">
+                    <span asp-validation-for="OfficeEmail" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Personal Mobile No.<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" required="" class="form-control" asp-for="PersonalMobileNo" placeholder="" maxlength="15">
+                    <span asp-validation-for="PersonalMobileNo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Office Mobile No.</label>
+                <div class="col-sm-8">
+                    <input type="text"  class="form-control" asp-for="OfficeMobileNo" placeholder="" maxlength="15">
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Alternate Mobile No.</label>
+                <div class="col-sm-8">
+                    <input type="text"  class="form-control" asp-for="AlternetMobileNo" placeholder="" maxlength="15">
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Email Group Name</label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="EmailGroupID" asp-items="@SuperCompanyDropdownBinder.EmailGroups()">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Birthdate</label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control" asp-for="Birthdate" placeholder="" maxlength="12">
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Religion</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" asp-for="Religion" placeholder="" maxlength="100">
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Is Active</label>
+                <div class="col-sm-8">
+                    <input type="checkbox" class="form-check-input" asp-for="IsActive">
+
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Is Resigned</label>
+                <div class="col-sm-8">
+                    <input type="checkbox" class="form-check-input" asp-for="IsResigned">
+
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Note</label>
+                <div class="col-sm-8">
+                    <textarea tabindex="3" class="form-control" asp-for="Note" maxlength="2000" autocomplete="off"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer-sticky">
+                <button type="button" id="btnSave" onclick="fnSubmitContact()" class="btn btn-primary btn-info px-5 ladda-button">Save</button>
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-primary btn-info px-5">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+@await Html.PartialAsync("_ValidationScriptsPartial")
+<script type="text/javascript">
+    var urlSaveContact = '@Url.Action("SaveContact", "CompanySetting")';
+    function fnSubmitContact()
+    {
+        if ($("#frmaddcompnaycontact").valid())
+        {
+            var l = laddaStart('btnSave');
+            modeldata = $("#frmaddcompnaycontact").serialize();
+            $.ajax({
+                type:'POST',
+                url: urlSaveContact,
+                data: modeldata,
+                dataType:'json',
+                beforeSend:function(){},
+                success:function(data){
+                    console.log(data.status);
+                    if (data.status) {
+                            //notification
+                        $("#canvas_contact").hide();//('hide');
+                            Lobibox.notify('success', {
+                                pauseDelayOnHover: true,
+                                size: 'mini',
+                                icon: 'bx bx-check-circle',
+                                continueDelayOnInactiveTab: false,
+                                position: 'bottom right',
+                                msg: data.message
+                            });
+                        }
+                        else{
+                            Lobibox.notify('error', {
+                                pauseDelayOnHover: true,
+                                size: 'mini',
+                                icon: 'bx bx-check-circle',
+                                continueDelayOnInactiveTab: false,
+                                position: 'bottom right',
+                                msg: 'Something went wrong,please try after sometimes...'
+                            });
+                        }
+                },
+                error:function(error)
+                {
+                    laddaStop(l);
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: '@MessageHelper.Error'
+                    });
+                }
+            }).always(function()
+            {
+                hideloader();
+            });
+        }        
+    };
+</script>
+

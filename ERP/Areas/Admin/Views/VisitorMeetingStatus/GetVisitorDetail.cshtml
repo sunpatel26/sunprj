@@ -1,0 +1,80 @@
+﻿@model VisitorMeetingStatus
+
+@{
+    ViewData["Title"] = "Visitor Status";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+<div class="container margin-top-2">
+    <div class="card-body">
+        <div class="col-sm-9 col-md-7 col-lg-12 mx-auto">
+            <div class="card border-0 shadow rounded-7 my-5">
+                <div class="card-body p-4 p-sm-5">
+                    <div class="parent-icon card-title text-left mb-5 fw-light fs-5 border-1 shadow" style="padding: 1px 1px 1px 10px;">
+                            <i class='bx bx-add-to-queue'></i>
+                          <h5 style="padding-left: 10px;">Visitor Meeting - In and Out Time Entry.</h5></div>
+                    <div class="row center">
+                        <div class="col-md-12">
+                            <form method="post" enctype="multipart/form-data" asp-controller="VisitorMeetingStatus" asp-action="SaveVisitorStatus">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="CreatedBy" class="form-control" />
+                                <input type="hidden" asp-for="VisitorMeetingStatusID" class="form-control" />
+                                <input type="hidden" asp-for="VisitorMeetingRequestID" class="form-control" />
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="VisitorName" class="control-label">Visitor Name</label>
+                                            <input asp-for="VisitorName" class="form-control" maxlength="50" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="Email" class="control-label">Email</label>
+                                            <input asp-for="Email" class="form-control" maxlength="150" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="MobileNo" class="control-label">Mobile No</label>
+                                            <input asp-for="MobileNo" class="form-control" maxlength="50" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label asp-for="MeetingRequestTitle" class="control-label">Meeting Request Title</label>
+                                            <input asp-for="MeetingRequestTitle" class="form-control" maxlength="150" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label  class="control-label font-weight-bold">Visitor In Time</label>
+                                            <input asp-for="InTime" class="form-control txtdate" maxlength="50" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label  class="control-label font-weight-bold">Visitor Out Time</label>
+                                            <input asp-for="OutTime" class="form-control txtdate" maxlength="50" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-flating">
+                                    <button class="btn btn-primary btn-login text-uppercase fw-bold align-content-center" type="submit" action="SaveVisitorStatus">
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 

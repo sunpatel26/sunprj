@@ -1,0 +1,69 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@inject SignInManager<UserMasterMetadata> SignInManager
+@inject UserManager<UserMasterMetadata> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    ClaimsPrincipal user = User;
+    var claimEmail = user.Claims.FirstOrDefault(x => x.Type == "Email");
+    var claimDisplayName = user.Claims.FirstOrDefault(x => x.Type == "DisplayName");
+    var claimRoleName = user.Claims.FirstOrDefault(x => x.Type == "RoleName");
+
+
+
+    string userEmail = claimEmail != null ? claimEmail.Value : string.Empty; ;
+    string userDisplayName = claimDisplayName != null ? claimDisplayName.Value : string.Empty; ;
+    string userRoleName = claimRoleName != null ? claimRoleName.Value : string.Empty; ;
+    <div class="user-box dropdown">
+        <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+            @*@if (UserManager.GetUserAsync(User).Result.NormalizedEmail != null)
+        {
+        <img class="user-img" alt="user" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
+        }*@
+            <div class="user-info ps-3">
+                <p class="user-name mb-0">Hello @userDisplayName!</p>
+                @*<p class="user-name mb-0">Role @userRoleName!</p>*@
+
+            </div>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            @if (SignInManager.IsSignedIn(User) && userRoleName == "SuperAdmin")
+            {
+                <li>
+                    <secure-content asp-area="SuperAdmin" asp-controller="Home" asp-action="Index">
+                        <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-area="SuperAdmin"><i class="bx bx-user"></i><span>Super Admin Panel</span></a>
+                    </secure-content>
+                </li>
+
+                <li>
+                    <secure-content asp-area="Admin" asp-controller="Home" asp-action="Index">
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="bx bx-user"></i><span>Admin Panel</span></a>
+                    </secure-content>
+                </li>
+            }
+            @if (SignInManager.IsSignedIn(User) && userRoleName == "Admin")
+            {
+                <li>
+                    <secure-content asp-area="Admin" asp-controller="Home" asp-action="Index">
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="bx bx-user"></i><span>Admin Panel</span></a>
+                    </secure-content>
+                </li>
+            }
+            <li>
+                <a class="dropdown-item" href="javascript:;"><i class="bx bx-cog"></i><span>Change Password</span></a>
+            </li>
+
+            <li>
+                <div class="dropdown-divider mb-0"></div>
+            </li>
+            <li>
+                <form class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="dropdown-item"><i class='bx bx-log-out-circle'></i><span>Logout</span></button>
+                </form>
+
+            </li>
+        </ul>
+    </div>
+}

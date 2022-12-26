@@ -1,0 +1,120 @@
+﻿@model VisitorMetaData
+@{
+    ViewData["Title"] = "Visitor Requests Details";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center pb-3 border-bottom">
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index" asp-area="Admin"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page"><a asp-controller="VisitorRequests" asp-action="Index" asp-area="Admin">Visitor Requests</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Visitor Request Details</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-10 mx-auto">
+            <div class="card border-0 shadow rounded-3 my-5">
+                <div class="card-body p-4 p-sm-5">
+                    <h5 class="card-title text-center mb-5 fw-light fs-5"><b>Visitor Request Details</b></h5>
+                    <div class="row center">
+                        <div class="col-md-12">
+                            <table style="width: 50%; margin: 0 auto;">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Visitor Name</strong></td>
+                                        <td class="text-left">
+                                            <input asp-for="VisitorName" class="form-control" maxlength="50" readonly="readonly" value=@Html.Raw(@Model.VisitorName) />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Email</strong></td>
+                                        <td class="text-left">
+                                            <input asp-for="Email" class="form-control" maxlength="150" readonly="readonly" value=@Html.Raw(@Model.Email) />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Mobile</strong></td>
+                                        <td class="text-left">
+                                            <input asp-for="MobileNo" class="form-control" maxlength="150" readonly="readonly" value=@Html.Raw(@Model.MobileNo.toStringWithDash()) />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Identity Proof details</strong></td>
+                                        <td class="text-left">
+                                            <input asp-for="IdentityProofNumber" class="form-control" maxlength="150" readonly="readonly" value="@Html.Raw(@Model.IdentityProofTypeText)" />
+                                            @if (Model.IdentityProofFileName.IsNotStringNullOrEmpty())
+                                            {
+                                                @Html.ActionLink("Download", "DownloadFile", "VisitorRequests", new { id = Model.VisitorMeetingRequestID })
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Vehicle Details</strong></td>
+                                        <td class="text-left">
+                                            <input asp-for="VehicleNo" class="form-control" maxlength="150" readonly="readonly" value="@Html.Raw(@Model.VehicleTypeText.toStringWithDash()) - @Html.Raw(@Model.VehicleNo.toStringWithDash())" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Meeting Request Title and date and time</strong></td>
+                                        <td class="text-left">
+                                            <input asp-for="@Model.MeetingRequestDateTime" class="form-control txtdate" readonly="readonly" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Person name whom to meet</strong></td>
+                                        <td class="text-left">
+                                            <input asp-for="MeetToWhomPersonName" class="form-control" readonly="readonly" value="@Html.Raw(@Model.MeetToWhomPersonName)" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Person mobile whom to meet</strong></td>
+                                        <td class="text-left">
+                                            <input asp-for="MeetToWhomPersonMobile" class="form-control" readonly="readonly" maxlength="15" value="@Html.Raw(@Model.MeetToWhomPersonMobile.toStringWithDash())" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Meeting purpose</strong></td>
+                                        <td class="text-left">
+                                            <input asp-for="MeetToWhomPersonMobile" class="form-control" readonly="readonly" maxlength="350" value="@Html.Raw(@Model.PurposeofMeeting.toStringWithDash())" />
+
+                                        </td>
+                                    </tr>
+                                    <tr class="text-center" style="margin: 0 auto;">
+                                        <td colspan="2">
+                                            @{
+                                                var linkA = "../../Admin/VisitorRequests/Approve/" + @Model.VisitorMeetingRequestID;
+                                                var linkD = "../../Admin/VisitorRequests/Declain/" + @Model.VisitorMeetingRequestID;
+                                                
+                                            }
+                                            @if (@Model.IsApproved != 0 || @Model.IsApproved != 1)
+                                            {
+                                                @*<a class='btn' href='@linkA'><img height="40" width="40" alt="Approve" src="~/images/right.png" /></a>
+                                                <a class='btn' href='@linkD'><img height="40" width="40" alt="Reject" src="~/images/wrong.png" /></a>
+                                                <button class="btn btn-primary btn-login text-uppercase fw-bold" action="@linkA">
+                                                    Approve
+                                                </button>
+                                                <button class="btn btn-primary btn-login text-uppercase fw-bold" action="@linkD">
+                                                    Cancel
+                                                </button>*@
+                                                <input class="btn btn-success btn-login text-uppercase fw-bold" type="button" value="Approve" onclick="location.href='@Url.Action("Approve", "VisitorRequests",new { id = @Model.VisitorMeetingRequestID})'" />
+                                                <input class="btn btn-danger btn-login text-uppercase fw-bold" type="button" value="Reject" onclick="location.href='@Url.Action("Declain", "VisitorRequests",new { id = @Model.VisitorMeetingRequestID})'" />
+                                                <input class="btn btn-primary btn-login text-uppercase fw-bold" type="button" value="Cancel" onclick="location.href='@Url.Action("Index", "VisitorRequests")'" />
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

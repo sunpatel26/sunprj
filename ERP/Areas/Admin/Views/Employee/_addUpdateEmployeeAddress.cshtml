@@ -1,0 +1,390 @@
+﻿@model Business.Entities.Employee.EmployeeAddressTxn
+<form method="post" id="formAddUpdateEmployeeAddress" class="row g-3 needs-validation" asp-area="Admin" asp-controller="Employee" asp-action="AddUpdateEmployeeAddress">
+    <div class="row mt-3">
+        <input type="hidden" asp-for="EmployeeID" />
+        <input type="hidden" asp-for="EmployeeAddressTxnID" />
+        <div class="col-md-12">
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Address Type<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="AddressTypeID" id="AddressTypeID" name="AddressTypeID" required="" asp-items="@SuperCompanyDropdownBinder.AddressType()">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="AddressTypeID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Plot  No./Name <span class="required">*</span></label>
+                <div class="col-sm-8">
+                    @*                    <input type="text" required="" class="form-control" asp-for="PlotNoName" placeholder="" maxlength="200">
+                    <span asp-validation-for="PlotNoName" class="text-danger"></span>*@
+
+                    <input type="text" required="" class="form-control" id="PlotNoName" name="PlotNoName" asp-for="PlotNoName">
+                    <span asp-validation-for="PlotNoName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Street No./Name</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" asp-for="StreetNoName" placeholder="" maxlength="200">
+                    @*<input type="text" required="" class="form-control" asp-for="StreetNoName" placeholder="" maxlength="200">*@
+                    @*<span asp-validation-for="StreetNoName" class="text-danger"></span>*@
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Landmark</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" asp-for="Landmark" placeholder="" maxlength="200">
+                    @*<span asp-validation-for="Landmark" class="text-danger"></span>*@
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Area</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" asp-for="Area" placeholder="" maxlength="150">
+                    @*<span asp-validation-for="Area" class="text-danger"></span>*@
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Pincode</label>
+                <div class="col-sm-8 autoerp">
+                    <input type="text" class="form-control" asp-for="ZIPCode" placeholder="" maxlength="150">
+                    @*<input type="text" required="" class="form-control" asp-for="ZIPCode" placeholder="" maxlength="150">
+                    <span asp-validation-for="ZIPCode" class="text-danger"></span>*@
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">City</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control bs-autocomplete" asp-for="City" placeholder="" maxlength="15" autocomplete="off">
+                    @*<input type="text" required="" class="form-control bs-autocomplete" asp-for="City" placeholder="" maxlength="15" autocomplete="off">*@
+                    @*                    <select class="form-select" asp-for="CityID" asp-items="@SuperCompanyDropdownBinder.City(Model.StateID)">
+                    <option value="">--Select--</option>
+                    </select>*@
+                </div>
+            </div>
+            <div class="row mb-3">
+                @*<label for="" class="col-sm-4 col-form-label text-end">Taluka<span class="required">*</span></label>*@
+                <label for="" class="col-sm-4 col-form-label text-end">Taluka <span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" required="" class="form-control bs-autocomplete" asp-for="Taluka" placeholder="" maxlength="15" autocomplete="off">
+                    @*                    <select class="form-select" asp-for="TalukaID" asp-items="@SuperCompanyDropdownBinder.Taluka(Model.DistrictID)">
+                    <option value="">--Select--</option>
+                    </select>*@
+                    <span asp-validation-for="Taluka" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                @*<label for="" class="col-sm-4 col-form-label text-end">District<span class="required">*</span></label>*@
+                <label for="" class="col-sm-4 col-form-label text-end">District <span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" required="" class="form-control bs-autocomplete" asp-for="DistrictName" placeholder="" maxlength="15" autocomplete="off">
+                    @*                    <select class="form-select" asp-for="DistrictID" asp-items="@SuperCompanyDropdownBinder.District(Model.StateID)">
+                    <option value="">--Select--</option>
+                    </select>*@
+                    <span asp-validation-for="DistrictName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">State<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="StateID" asp-items="@SuperCompanyDropdownBinder.State(Model.CountryID)" id="countryDropDownList">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="StateID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Country<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" required="" asp-for="CountryID" asp-items="@SuperCompanyDropdownBinder.Countries()" id="countryDropdown" onloadeddata="loadCountries()">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="CountryID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Is Active</label>
+                <div class="col-sm-8">
+                    <input type="checkbox" class="form-check-input" asp-for="IsActive">
+                </div>
+            </div>
+
+            <div class="modal-footer-sticky">
+                <button id="btnAddressSave" type="submit" onclick="fnbtnAddressSubmitAddress()" class="btn btn-primary btn-info px-5 ladda-button">Save</button>
+                <button type="button" class="btn btn-primary btn-info px-5 ladda-button" data-bs-dismiss="offcanvas" aria-l abel="Close">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+<link href="~/admin/assets/vendors/typehead/jquery.typeahead.min.css" rel="stylesheet" />
+<script src="~/admin/assets/vendors/typehead/jquery.typeahead.min.js"></script>
+@await Html.PartialAsync("_ValidationScriptsPartial")
+<script type="text/javascript">
+
+    function fnbtnAddressSubmitAddress() {
+        var ls = laddaStart('btnAddressSave');
+        addressModeldata = $("#formAddUpdateEmployeeAddress").serialize();
+        $.ajax({
+            type: 'POST',
+            url: '/Admin/Employee/AddUpdateEmployeeAddress/',
+            data: addressModeldata,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data.status);
+                if (data.status) {
+                    //notification
+                    $("#canvas_address").hide();//('hide');
+                    Lobibox.notify('success', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: data.message,
+
+                        $("#EmployeeAddessTable").load(window.location.href + " #EmployeeAddessTable");
+                    });
+                }
+                else {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: '@MessageHelper.Error'
+                    });
+                }
+            },
+            error: function (error) {
+                laddaStop(ls);
+                Lobibox.notify('error', {
+                    pauseDelayOnHover: true,
+                    size: 'mini',
+                    icon: 'bx bx-check-circle',
+                    continueDelayOnInactiveTab: false,
+                    position: 'bottom right',
+                    msg: '@MessageHelper.Error'
+                });
+            }
+        }).always(function () {
+            hideloader();
+        });
+    };
+
+    var urlstate = '@Url.Action("GetState", "Base")';
+    var urldistrict = '@Url.Action("GetDistrict", "Base")';
+    var urltaluka = '@Url.Action("GetTaluka", "Base")';
+    var urlcity = '@Url.Action("GetCity", "Base")';
+
+    $(document).ready(function () {
+        $("#CountryID").change(function () {
+            $("#StateID").empty();
+            $("#DistrictID").empty();
+            $("#CityID").empty();
+            $("#TalukaID").empty();
+            $.ajax({
+                type: 'POST',
+                url: urlstate,
+                dataType: 'json',
+                data: { countryId: $("#CountryID").val() },
+                success: function (response) {
+                    $("#StateID").append('<option value>--Select--</option>');
+                    $("#DistrictID").append('<option value>--Select--</option>');
+                    $("#CityID").append('<option value>--Select--</option>');
+                    $("#TalukaID").append('<option value>--Select--</option>');
+                    if (response.status) {
+                        console.log(response.data);
+                        $.each(response.data, function (i, state) {
+                            $("#StateID").append('<option value="'
+                                + state.value + '">'
+                                + state.text + '</option>');
+                        });
+                    }
+                },
+                error: function (ex) {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            });
+            return false;
+        })
+
+        $("#StateID").change(function () {
+            $("#DistrictID").empty();
+            $.ajax({
+                type: 'POST',
+                url: urldistrict,
+                dataType: 'json',
+                data: { stateId: $("#StateID").val() },
+                success: function (response) {
+                    $("#DistrictID").append('<option value>--Select--</option>');
+                    if (response.status) {
+                        console.log(response.data);
+                        $.each(response.data, function (i, district) {
+                            $("#DistrictID").append('<option value="'
+                                + district.value + '">'
+                                + district.text + '</option>');
+                        });
+                    }
+                },
+                error: function (ex) {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            });
+
+            $("#CityID").empty();
+            $.ajax({
+                type: 'POST',
+                url: urlcity,
+                dataType: 'json',
+                data: { stateId: $("#StateID").val() },
+                success: function (response) {
+                    $("#CityID").append('<option value>--Select--</option>');
+                    if (response.status) {
+                        console.log(response.data);
+                        $.each(response.data, function (i, city) {
+                            $("#CityID").append('<option value="'
+                                + city.value + '">'
+                                + city.text + '</option>');
+                        });
+                    }
+                },
+                error: function (ex) {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            });
+            return false;
+        })
+
+        $("#DistrictID").change(function () {
+            $("#TalukaID").empty();
+            $.ajax({
+                type: 'POST',
+                url: urltaluka,
+                dataType: 'json',
+                data: { districtID: $("#DistrictID").val() },
+                success: function (response) {
+                    $("#TalukaID").append('<option value>--Select--</option>');
+                    if (response.status) {
+                        console.log(response.data);
+                        $.each(response.data, function (i, taluka) {
+                            $("#TalukaID").append('<option value="'
+                                + taluka.value + '">'
+                                + taluka.text + '</option>');
+                        });
+                    }
+                },
+                error: function (ex) {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            });
+            return false;
+        })
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        'use strict';
+        var map = {};
+        $(".bs-autocomplete").typeahead({
+            minLength: 5,
+            maxItem: 15,
+            order: "asc",
+            hint: true,
+            searchOnFocus: true,
+            source: function (request, response) {
+                console.log('request', request);
+                $.ajax({
+                    url: '@Url.Action("GetZipcode","Base")',
+                    data: { 'q': request },
+                    dataType: "json",
+                    //type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        var items = [];
+                        map = {};
+                        $.each(data, function (i, item) {
+                            console.log(i, item);
+                            var name = item.zipCode;
+                            var cityID = item.cityID;
+                            var stateID = item.stateID;
+                            var talukaID = item.talukaID;
+                            var districtID = item.districtID;
+                            var countryID = item.countryID;
+                            map[name] = {
+                                id: id
+                                , name: name
+                                , zcode: name
+                                , cityid: cityID
+                                , stateid: stateID
+                                , talukaid: talukaID
+                                , districtid: districtID
+                                , countryid: countryID
+                            };
+                            items.push(name);
+                        });
+                        response(items);
+                        $(".dropdown-menu").css("height", "auto");
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    },
+                    failure: function (response) {
+                        console.log(response.responseText);
+                    }
+                });
+            },
+            displayText: function (item) {
+                //console.log('display', map[item].address);
+                //return map[item].address
+                return map[item].name;
+            },
+            afterSelect: function (item) {
+                console.log('display', item);
+                $("#ZIPCode").val(item)
+            },
+            updater: function (item) {
+                $('#CityID').val(map[item].cityid);
+                $('#TalukaID').val(map[item].talukaid);
+                $('#DistrictID').val(map[item].districtid);
+                $('#StateID').val(map[item].stateid);
+                $('#CountryID').val(map[item].countryid);
+                $("#ZIPCode").val(map[item].zcode);
+                //console.log('updater', map[item].zcode);
+                return item;
+            }
+        });
+    });
+</script>

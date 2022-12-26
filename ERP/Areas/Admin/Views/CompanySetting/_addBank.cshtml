@@ -1,0 +1,228 @@
+﻿@model CompanyBankingMetadata
+<form method="post" id="frmaddcompnaybank" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+    <div class="row mt-3">
+        <input type="hidden" asp-for="CompanyID" />
+        <input type="hidden" asp-for="CompanyBankingID" />
+        <div class="col-md-12">
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Bank Name<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" required="" class="form-control" asp-for="BankName" placeholder="" maxlength="100">
+                    <span asp-validation-for="BankName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Branch Name<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" required="" class="form-control" asp-for="Branch" placeholder="" maxlength="100">
+                    <span asp-validation-for="Branch" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Bank Code<span class="required"></span></label>
+                <div class="col-sm-8">
+                    <input type="text"  class="form-control" asp-for="BankCode" placeholder="" maxlength="50">                    
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">BIC/Swift Code<span class="required"></span></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" asp-for="BIC_SWIFTCode" placeholder="" maxlength="100">
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Account No.<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" required="" class="form-control" asp-for="AccountNo" placeholder="" maxlength="100">
+                    <span asp-validation-for="AccountNo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Account Name<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text"  class="form-control" asp-for="AccountName" placeholder="" maxlength="100">
+                    <span asp-validation-for="AccountName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">IFCI Code<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" asp-for="IFCICode" placeholder="" maxlength="100">
+                    <span asp-validation-for="IFCICode" class="text-danger"></span>
+                </div>
+            </div>
+           
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">City</label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="CityID" asp-items="@SuperCompanyDropdownBinder.City(Model.StateID)">
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+            </div>            
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">State<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="StateID" asp-items="@SuperCompanyDropdownBinder.State(Model.CountryID)">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="StateID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Country<span class="required">*</span></label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="CountryID" asp-items="@SuperCompanyDropdownBinder.Countries()">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span asp-validation-for="CountryID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row  mb-3">
+                <label for="" class="col-sm-4 col-form-label text-end">Is Active</label>
+                <div class="col-sm-8">
+                    <input type="checkbox" class="form-check-input" asp-for="IsActive">
+
+                </div>
+            </div>
+
+            <div class="modal-footer-sticky">
+                <button id="btnSave" type="button" onclick="fnSubmitBank()" class="btn btn-primary btn-info px-5 ladda-button">Save</button>
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-primary btn-info px-5">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+<link href="~/admin/assets/vendors/typehead/jquery.typeahead.min.css" rel="stylesheet" />
+<script src="~/admin/assets/vendors/typehead/jquery.typeahead.min.js"></script>
+@await Html.PartialAsync("_ValidationScriptsPartial")
+<script type="text/javascript">
+    var urlSaveBank = '@Url.Action("SaveBank", "CompanySetting")';
+    function fnSubmitBank() {
+       // alert($("#frmaddcompnayaddress").valid());
+        if ($("#frmaddcompnaybank").valid()) {
+            var ls = laddaStart('btnSave');
+            modeldata = $("#frmaddcompnaybank").serialize();
+            $.ajax({
+                type: 'POST',
+                url: urlSaveBank,
+                data: modeldata,
+                dataType: 'json',
+                beforeSend: function () { },
+                success: function (data) {
+                    if (data.status) {
+                        //notification
+                        $("#canvas_bank").hide();//('hide');
+                        Lobibox.notify('success', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: data.message
+                        });
+                    }
+                    else {
+                        laddaStop(ls);
+                        Lobibox.notify('error', {
+                            pauseDelayOnHover: true,
+                            size: 'mini',
+                            icon: 'bx bx-check-circle',
+                            continueDelayOnInactiveTab: false,
+                            position: 'bottom right',
+                            msg: '@MessageHelper.Error'
+                        });
+                    }
+                },
+                error: function (error) {
+                    laddaStop(ls);
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: '@MessageHelper.Error'
+                    });
+                }
+            }).always(function () {
+                hideloader();
+            });
+        }
+    };
+
+    var urlstate = '@Url.Action("GetState", "Base")';
+    var urldistrict = '@Url.Action("GetDistrict", "Base")';
+    var urltaluka = '@Url.Action("GetTaluka", "Base")';
+    var urlcity = '@Url.Action("GetCity", "Base")';
+    $(document).ready(function () {
+        $("#CountryID").change(function () {
+            $("#StateID").empty();          
+            $("#CityID").empty();           
+            $.ajax({
+                type: 'POST',
+                url: urlstate,
+                dataType: 'json',
+                data: { countryId: $("#CountryID").val() },
+                success: function (response) {
+                    $("#StateID").append('<option value>--Select--</option>');
+                    $("#CityID").append('<option value>--Select--</option>');
+                    if (response.status) {
+                        //console.log(response.data);
+                        $.each(response.data, function (i, state) {
+                            $("#StateID").append('<option value="'
+                                + state.value + '">'
+                                + state.text + '</option>');
+                        });
+                    }
+                },
+                error: function (ex) {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            });
+            return false;
+        })
+
+        $("#StateID").change(function () {          
+
+            $("#CityID").empty();
+            $.ajax({
+                type: 'POST',
+                url: urlcity,
+                dataType: 'json',
+                data: { stateId: $("#StateID").val() },
+                success: function (response) {
+                    $("#CityID").append('<option value>--Select--</option>');
+                    if (response.status) {
+                        //console.log(response.data);
+                        $.each(response.data, function (i, city) {
+                            $("#CityID").append('<option value="'
+                                + city.value + '">'
+                                + city.text + '</option>');
+                        });
+                    }
+                },
+                error: function (ex) {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        size: 'mini',
+                        icon: 'bx bx-check-circle',
+                        continueDelayOnInactiveTab: false,
+                        position: 'bottom right',
+                        msg: "@MessageHelper.Error"
+                    });
+                }
+            });
+            return false;
+        })      
+    });
+</script>

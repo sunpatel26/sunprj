@@ -1,0 +1,6 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/Identity" Path="C:\Users\Lenovo\.nuget\packages\microsoft.aspnetcore.identity.ui\3.1.4\staticwebassets\V4\" />
+  <ContentRoot BasePath="_content/Agno.BlazorInputFile" Path="C:\Users\Lenovo\.nuget\packages\agno.blazorinputfile\0.3.0\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/AspNetCoreHero.ToastNotification" Path="C:\Users\Lenovo\.nuget\packages\aspnetcorehero.toastnotification\1.1.0\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/GridBlazor" Path="C:\Users\Lenovo\Documents\GitHub\sunprj\Infrastructure\GridBlazor\wwwroot\" />
+</StaticWebAssets>

@@ -1,0 +1,117 @@
+﻿@model RoleMasterMetadata
+@{
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+<div class="page-breadcrumb d-none d-sm-flex align-items-center pb-3 border-bottom">
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Index" asp-area="Admin"><i class="bx bx-home-alt"></i></a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="RoleManage" asp-action="Index" asp-area="Admin">Roles</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Manage Permissions</li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div id="viewAll" class="card-body table-responsive">
+        <form asp-controller="permission" method="post" asp-action="Update" class="d-inline">
+            <input asp-for="@Model.RoleID" type="hidden" />
+            @*@ <table class="table table-striped" id="permissionTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                Type
+                            </th>
+                            <th>
+                                Permission
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @for (int i = 0; i < Model.RoleClaims.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    <input asp-for="@Model.RoleClaims[i].Type" type="hidden" />
+                                    @Model.RoleClaims[i].Type
+                                </td>
+                                <td>
+                                    <input asp-for="@Model.RoleClaims[i].Value" type="hidden" />
+                                    @Model.RoleClaims[i].Value
+                                </td>
+                                <td>
+                                    <div class="form-check m-1">
+                                        <input asp-for="@Model.RoleClaims[i].Selected" class="form-check-input" />
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>*@
+
+            <div class="form-group row">
+                <div class="col-md-9">
+                    <ul id="tree">
+
+                        @{
+                            string compareareaName = "";
+                            for (int i = 0; i < Model.SelectedControllers.Count(); i++)
+                            {
+                                string areaName = Model.SelectedControllers[i].AreaName;
+
+                                if (i == 0 && string.IsNullOrEmpty(areaName))
+                                {
+                                    compareareaName = Model.SelectedControllers[i].AreaName;
+                                    <li><b>Home</b></li>
+                                }
+                                if (areaName != compareareaName)
+                                {
+                                    compareareaName=areaName;
+                                    <li><b>@areaName</b></li>
+                                }
+                                var name = Model.SelectedControllers[i].DisplayName ?? Model.SelectedControllers[i].Name;
+
+                                <li class="controller" data-value="@Model.SelectedControllers[i].Name">
+                                    <input type="hidden" class="area" asp-for="@Model.SelectedControllers[i].AreaName" />
+                                    <input type="hidden" class="area" asp-for="@Model.SelectedControllers[i].IDS" />
+                                    <input asp-for="@Model.SelectedControllers[i].Name" type="hidden" />
+                                    @name
+                                    @if (Model.SelectedControllers[i].Actions.Any())
+                                    {
+                                        <ul>
+                                            @for (int j = 0; j < Model.SelectedControllers[i].Actions.Count(); j++)
+                                            {
+                                                name = Model.SelectedControllers[i].Actions[j].DisplayName ?? Model.SelectedControllers[i].Actions[j].Name;
+                                                <li data-value="@Model.SelectedControllers[i].Actions[j].Name">
+                                                    <input asp-for="@Model.SelectedControllers[i].Actions[j].Selected" class="form-check-input" />&nbsp;@name
+                                                    <input asp-for="@Model.SelectedControllers[i].Actions[j].Name" type="hidden" />
+                                                    <input asp-for="@Model.SelectedControllers[i].Actions[j].Id" type="hidden" />
+                                                    <input asp-for="@Model.SelectedControllers[i].Actions[j].ControllerId" type="hidden" />
+                                                    <input asp-for="@Model.SelectedControllers[i].Actions[j].DisplayName" type="hidden" />
+
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-12" style="padding: 20px 20px 0px 0px">
+                <button type="submit" class="btn btn-primary btn-info px-5">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

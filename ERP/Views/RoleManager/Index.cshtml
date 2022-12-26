@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+
+@{ ViewData["Title"] = "Role Manager";
+    Layout = "~/Admin/Views/Shared/_LayoutMaster.cshtml";
+
+    var userlogin = UserManager.GetUserAsync(User).Result;
+    var roles = UserManager.GetRolesAsync(userlogin).Result;
+    bool isSuperAdmin = roles.Where(s => s.Contains("SuperAdmin")).Count() > 0; }
+
+<h1>Role Manager</h1>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model)
+        {
+<tr>
+    <td>
+        @role.Name
+    </td>
+    <td class="text-end">
+
+        <a class="btn " asp-action="Edit" asp-route-id="@role.Id">
+            <i class="bx bx-edit"></i>
+        </a>
+        <a class="btn " asp-action="Delete" asp-route-id="@role.Id">
+            <i class="bx bx-trash"></i>
+        </a>
+
+        @if (isSuperAdmin)
+        {
+<a class="btn " asp-controller="Permission" asp-action="Index" asp-route-roleId="@role.Id">
+    <i class="bx bx-group"></i>
+</a>}
+
+
+    </td>
+
+
+</tr>}
+
+    </tbody>
+</table>
